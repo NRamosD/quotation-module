@@ -1,90 +1,104 @@
+
 from django.db import models
 
 
-# Create your models here.
+class Category(models.Model):
+    id_category_product = models.CharField(db_column='ID_CATEGORY_PRODUCT', primary_key=True, max_length=10)  # Field name made lowercase.
+    id_category_vehicle = models.CharField(db_column='ID_CATEGORY_VEHICLE', max_length=10)  # Field name made lowercase.
+    catgory_name = models.CharField(db_column='CATGORY_NAME', max_length=100)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=200)  # Field name made lowercase.
 
-class ROLE(models.Model):
-    id_role = models.Charfield(max_length=10, primary_key = True)
-    role_name = models.Charfield(max_length=50, blank = False)
-    description = models.Charfield(max_length=200, blank = False)
-    def __str__(self):
-        return f"id:{self.id_role} role_name:{self.role_name}"
-
-
-class USERS(models.Model):
-    #own
-    id_user = models.CharField(max_length=10, primary_key = True)
-    idcard = models.CharField(max_length=10, blank = False)
-    name_lastname = models.CharField(max_length=150, blank = False)
-    gender = models.CharField(max_length=1)
-    born_date = models.DateTimeField(blank = False)
-    landline = models.CharField(max_length=10)
-    movile_phone = models.CharField(max_length=10)
-    email = models.CharField(max_length=100, blank = False)
-    user = models.CharField(max_length=50, blank = False)
-    password = models.CharField(max_length=50, blank = False)
-    last_access = models.DateTimeField(blank = False)
-    city = models.CharField(max_length=100, blank = False)
-    province = models.CharField(max_length=100, blank = False)
-    country = models.CharField(max_length=100, blank = False)
-    #foreign
-    id_role = models.ForeignKey(ROLE, on_delete = models.CASCADE, blank = False, related_name="id_role")
-    
-
-class CATEGORY(models.Model):
-    id_category_product = models.CharField(max_length=10, primary_key = True)
-    id_category_vehicle = models.CharField(max_length=10, blank = False)
-    category_name = models.CharField(max_length=100, blank = False)
-    description = models.CharField(max_length=200, blank = False)
-
-class SUPPLIERS(models.Model):
-    id_supplier = models.CharField(max_length=10, prymary_key = True)
-    supplier_name = models.CharField(max_length=100, blank = False)
-    description = models.CharField(max_length=200)
-    contact_name = models.CharField(max_length=100, blank = False)
-    landline = models.CharField(max_length=10)
-    mobile_phone = models.CharField(max_length=10)
-    email = models.CharField(max_length=100, blank = False)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=100, blank = False)
-    province = models.CharField(max_length=100, blank = False)
-    country = models.CharField(max_length=100, blank = False)
-
-class PRODUCT(models.Model):
     class Meta:
-        unique_together = ((id_product, id_supplier))
+        managed = False
+        db_table = 'category'
+        unique_together = (('id_category_product', 'id_category_vehicle'),)
 
-    #owns
-    id_product = models.CharField(max_length=10)
-    product_name = models.CharField(max_length=100, blank = False)
-    description = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits = 9, decimal_places = 4, blank = False)
-    brand = models.CharField(max_length=100)
-    availability = models.IntegerField()
-    registration_date = models.DateTimeField(blank = False)
-    #foreigns
-    id_supplier = models.ManyToManyField(SUPPLIERS, on_delete=models.CASCADE, blank=True, related_name="id_supplier")
-    id_category_product = models.ForeignKey(CATEGORY, on_delete=models.CASCADE, related_name="id_category_product")
-    id_category_vehicle = models.ForeignKey(CATEGORY, on_delete=models.CASCADE, related_name="id_category_vehicle")
 
-class QUOTES(models.Model):
-    id_quote = models.AutoField(primary_key=True)
-    description = models.CharField(max_length=200, blank = False)
-    date = models.models.DateTimeField(blank = False)
-    total = models.DecimalField(max_digits = 9, decimal_places = 4, blank = False)
+class Product(models.Model):
+    id_product = models.CharField(db_column='ID_PRODUCT', primary_key=True, max_length=10)  # Field name made lowercase.
+    id_supplier = models.ForeignKey('Suppliers', models.DO_NOTHING, db_column='ID_SUPPLIER')  # Field name made lowercase.
+    id_category_product = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_PRODUCT', related_name='FK_ID_CATEGORY_PRODUCT', blank=True, null=True)  # Field name made lowercase.
+    id_category_vehicle = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_VEHICLE', related_name='FK_ID_CATEGORY_VEHICLE', blank=True, null=True)  # Field name made lowercase.
+    product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    price = models.DecimalField(db_column='PRICE', max_digits=9, decimal_places=4, blank=True, null=True)  # Field name made lowercase.
+    brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Field name made lowercase.
+    registration_date = models.DateTimeField(db_column='REGISTRATION_DATE')  # Field name made lowercase.
 
-class QUOTES_DETAILS(models.Model):
     class Meta:
-        unique_together = ((id_quote, id_product, id_supplier))
-    
-    id_quote = models.ManyToManyField(SUPPLIERS, on_delete=models.CASCADE, blank = True, related_name="id_quote")
-    id_product = models.ManyToManyField(SUPPLIERS, on_delete=models.CASCADE, blank = True, related_name="id_product")
-    id_supplier = models.ManyToManyField(SUPPLIERS, on_delete=models.CASCADE, blank = True, related_name="id_supplier")
-    amount = models.IntegerField(blank = False)
-    subtotal = models.DecimalField(max_digits = 9, decimal_places = 4, blank = False)
+        managed = False
+        db_table = 'product'
+        unique_together = (('id_product', 'id_supplier'),)
 
 
+class Quotes(models.Model):
+    id_quote = models.AutoField(db_column='ID_QUOTE', primary_key=True)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=100)  # Field name made lowercase.
+    date = models.DateTimeField(db_column='DATE')  # Field name made lowercase.
+    total = models.DecimalField(db_column='TOTAL', max_digits=9, decimal_places=4)  # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'quotes'
 
 
-    
+class QuotesDetails(models.Model):
+    id_quote = models.OneToOneField(Quotes, models.DO_NOTHING, db_column='ID_QUOTE', primary_key=True)  # Field name made lowercase.
+    id_product = models.ForeignKey(Product, models.DO_NOTHING, db_column='ID_PRODUCT', related_name='FK_ID_PRODUCT')  # Field name made lowercase.
+    id_supplier = models.ForeignKey(Product, models.DO_NOTHING, db_column='ID_SUPPLIER', related_name='FK_ID_SUPPLIER')  # Field name made lowercase.
+    amount = models.IntegerField(db_column='AMOUNT')  # Field name made lowercase.
+    subtotal = models.DecimalField(db_column='SUBTOTAL', max_digits=9, decimal_places=4)  # Field name made lowercase.
 
+    class Meta:
+        managed = False
+        db_table = 'quotes_details'
+        unique_together = (('id_quote', 'id_product', 'id_supplier'),)
+
+
+class Role(models.Model):
+    id_role = models.AutoField(db_column='ID_ROLE', primary_key=True)  # Field name made lowercase.
+    role_name = models.CharField(db_column='ROLE_NAME', max_length=50)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=200)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'role'
+
+
+class Suppliers(models.Model):
+    id_supplier = models.CharField(db_column='ID_SUPPLIER', primary_key=True, max_length=10)  # Field name made lowercase.
+    supplier_name = models.CharField(db_column='SUPPLIER_NAME', max_length=100)  # Field name made lowercase.
+    description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    conctact_name = models.CharField(db_column='CONCTACT_NAME', max_length=100)  # Field name made lowercase.
+    landline = models.CharField(db_column='LANDLINE', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    mobile_phone = models.CharField(db_column='MOBILE_PHONE', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    enmail = models.CharField(db_column='ENMAIL', max_length=100)  # Field name made lowercase.
+    address = models.CharField(db_column='ADDRESS', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
+    province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
+    country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
+    class Meta:
+        managed = False
+        db_table = 'suppliers'
+
+
+class Users(models.Model):
+    id_user = models.CharField(db_column='ID_USER', primary_key=True, max_length=10)  # Field name made lowercase.
+    id_role = models.ForeignKey(Role, models.DO_NOTHING, db_column='ID_ROLE', blank=True, null=True)  # Field name made lowercase.
+    idcard = models.CharField(db_column='IDCARD', unique=True, max_length=10)  # Field name made lowercase.
+    name_lastname = models.CharField(db_column='NAME_LASTNAME', max_length=150)  # Field name made lowercase.
+    gender = models.CharField(db_column='GENDER', max_length=1, blank=True, null=True)  # Field name made lowercase.
+    born_date = models.DateTimeField(db_column='BORN_DATE')  # Field name made lowercase.
+    landline = models.CharField(db_column='LANDLINE', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    movile_phone = models.CharField(db_column='MOVILE_PHONE', max_length=10, blank=True, null=True)  # Field name made lowercase.
+    email = models.CharField(db_column='EMAIL', max_length=100)  # Field name made lowercase.
+    user = models.CharField(db_column='USER', max_length=50)  # Field name made lowercase.
+    password = models.CharField(db_column='PASSWORD', max_length=50)  # Field name made lowercase.
+    last_acces = models.DateTimeField(db_column='LAST_ACCES')  # Field name made lowercase.
+    city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
+    province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
+    country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'users'

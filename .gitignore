@@ -1,0 +1,7 @@
+#ignored files
+
+# local env files
+.env
+
+#data libreries
+webpack-stats-local.json
