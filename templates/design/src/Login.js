@@ -28,9 +28,8 @@ function Log(){
                              <input type="password" className="form-control" placeholder="Contraseña" required="required" />
                         </div>
                 </div>
-
                 <div className="forgot">
-                    <a href="#">Olvidaste la contraseña?</a>
+                    <a href="index.js">Olvidaste la contraseña?</a>
                     <p><input type="checkbox"/>Recordarme</p>
                 </div>
                 <button type="submit">Iniciar sesión</button>
