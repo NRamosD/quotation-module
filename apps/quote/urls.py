@@ -1,14 +1,21 @@
-from django.urls import path
+from django.urls import path, include
 from django.views import generic
 
 from . import views
+from rest_framework import routers
+from .views import UsersViewSet
+
+router = routers.DefaultRouter()
+router.register('users', UsersViewSet)
 
 urlpatterns = [
-    path('', views.index, name="index"),
+    path('', include(router.urls)),
 ]
 
 
-"""path('view2/',
+"""
+path('', views.index, name="index"), 
+path('view2/',
     generic.TemplateView.as_view(template_name='view2.html')),
 path('',
     generic.TemplateView.as_view(template_name='view1.html')),"""

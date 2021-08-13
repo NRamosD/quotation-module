@@ -3,5 +3,7 @@
 # local env files
 .env
 
+#folders
+/environment
 #data libreries
 webpack-stats-local.json

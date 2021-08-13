@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.quote',
-    'webpack_loader',
+    'rest_framework',
+    'corsheaders',
+    'dj_rest_auth',
 ]
 
 MIDDLEWARE = [
@@ -80,10 +82,11 @@ WSGI_APPLICATION = 'quotem.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'quote',
+        'NAME' : 'quotebd',
         'USER' : config('SECRET_USER', default=''),
         'PASSWORD' : config('SECRET_PASS',default=''),
         'HOST' : config('SECRECT_HOST', default='localhost'),
@@ -142,3 +145,26 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+#   
+#Para la api
+REST_FRAMEWORK = {
+   'DEFAULT_AUTHENTICATION_CLASSES': (       
+       #'rest_framework_simplejwt.authentication.JWTAuthentication',
+       'rest_framework.authentication.TokenAuthentication',
+   ),
+   #'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAdminUser',
+     #   'rest_framework.permissions.IsAuthenticated',
+   #),
+}
+"""REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}"""
+
+#para activar la cookie
+REST_USE_JWT = True
+JWT_AUTH_COOKIE = 'auth'
