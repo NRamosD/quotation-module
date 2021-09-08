@@ -5,11 +5,11 @@ from django.urls import reverse
 from django.shortcuts import render
 
 from rest_framework import viewsets
-from .models import Users
+from .models import Users, otrousuario
 from .serializers import UserSerializer
 
 class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
+    queryset = otrousuario.objects.all()
     serializer_class = UserSerializer
 
 
