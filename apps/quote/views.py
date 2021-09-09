@@ -14,10 +14,9 @@ class UsersViewSet(viewsets.ModelViewSet):
 
 
 
-
 # Create your views here.
 def index(request):
-    return render(request, "quote/index.html")
+    return render(request, "./quote/index.html")
 
 
 

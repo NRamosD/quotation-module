@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import os
+#import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'apps.quote',
     'rest_framework',
     'rest_framework.authtoken',
-    'corsheaders',
     'dj_rest_auth',
 ]
 
@@ -57,14 +56,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'quotem.urls'
-
+#os.path.join(BASE_DIR, 'templates/design/build'),
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         #'DIRS': [os.path.join(BASE_DIR, 'templates/static'),],
-        'DIRS': [
-            os.path.join(BASE_DIR, 'templates/design/build'),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,9 +134,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'templates/design/build/static')
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'templates/design/build/static')
+#]
 
 
 # Default primary key field type

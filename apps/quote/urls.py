@@ -9,7 +9,8 @@ router = routers.DefaultRouter()
 router.register('users', UsersViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('',views.index, name="index"),
+    path('api', include(router.urls)),
 ]
 
 
