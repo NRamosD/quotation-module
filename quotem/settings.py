@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'quotem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME' : 'quotebd',
+        'NAME' : 'quote',
         'USER' : config('SECRET_USER', default=''),
         'PASSWORD' : config('SECRET_PASS',default=''),
         'HOST' : config('SECRECT_HOST', default='localhost'),
