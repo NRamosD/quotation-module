@@ -18,7 +18,8 @@ class UsersViewSet(viewsets.ModelViewSet):
 def index(request):
     return render(request, "./quote/index.html")
 
-
+def login(request):
+    return render(request, "./quote/html/login.html")
 
 
 """def index(request):

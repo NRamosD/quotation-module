@@ -1,0 +1,199 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(../src/mecanico.jpg) no-repeat 0px 0px;
+    min-height: 100vh;
+    background-size: cover;
+    font-family: 'Raleway', sans-serif;
+}
+h1 {
+    margin: 0;
+    color: #ffffff;
+    text-align: center;
+    font-size: 5em;
+    font-weight: 500em;
+    letter-spacing: .1em;
+    padding: .5em 0;
+}
+
+h2 {
+    margin: 0;
+    color: #fc3955;
+    font-size: 3em;
+    font-weight: 400em;
+    text-align: center;
+    letter-spacing: .1em;
+    padding-bottom: .5em;
+}
+
+.login-form {
+    background: rgba(0, 0, 0, 0.4117647058823529);
+    max-width: 27em;
+    margin: 0 auto;
+    padding: 3em;
+    border-radius: 2em;
+    box-sizing: border-box;
+}
+
+.group {
+    display: flex;
+    padding: 1em 1em;
+    background-color: #ffffff;
+}
+
+.form-group {
+    margin: 1em 0;
+}
+
+.form-group label {
+    display: block;
+    text-transform: uppercase;
+    font-size: 1em;
+    color: #d2d2d2;
+    letter-spacing: .1em;
+    margin-bottom: .4em;
+    font-style: italic;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    border: none;
+    box-sizing: border-box;
+    background: transparent;
+    color: #000;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    outline: none;
+}
+
+button {
+    background: #fc3955;
+    color: #ffffff;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    border: none;
+    padding: .8em;
+    cursor: pointer;
+    width: 100%;
+    border-radius: .5em;
+}
+
+button:hover {
+    background-color: #00BCD4;
+    transition-duration: 2s;
+}
+
+.forgot {
+    display: flex;
+    justify-content: space-between;
+    margin: 1em .7em;
+}
+
+a {
+    color: #eee;
+    font-size: .9em;
+    text-decoration: none;
+}
+
+.forgot p {
+    color: #ffffff;
+    text-align: center;
+    margin: 0;
+	font-size: .9em;
+}
+
+.register {
+    color: #00BCD4;
+    text-decoration: none;
+}
+
+/*--footer--*/
+
+
+/*--//footer--*/
+
+/*-- /responsive design --*/
+
+@media(max-width:768px) {
+    
+    h1 {
+        padding-top: 30%;
+        font-size: 4em;
+    }
+    input[type="text"],
+    input[type="password"] {
+        width: 100%;
+        font-size: large;
+        border: none;
+        box-sizing: border-box;
+        background: transparent;
+        color: #000;
+    }
+}
+
+
+@media(max-width:667px) {
+    h1 {
+        font-size: 45px;
+    }
+}
+
+@media(max-width:640px) {
+    p.copyright-agileinfo {
+        letter-spacing: 1px;
+    }
+    h1 {
+        font-size: 43px;
+    }
+}
+
+@media(max-width:568px) {
+    h1 {
+        font-size: 40px;
+    }
+    p.copyright-agileinfo {
+        font-size: 14px;
+    }
+}
+
+@media(max-width:480px) {
+    .w3l-login-form {
+    margin: 0 3vw;
+}
+    h1 {
+        font-size: 38px;
+    }
+    p.copyright-agileinfo {
+        line-height: 1.8em;
+    }
+}
+
+@media(max-width:414px) {
+    h1 {
+        font-size: 34px;
+    }
+}
+
+@media(max-width:384px) {
+    h1 {
+        font-size: 30px;
+    }
+}
+
+@media(max-width:320px) {
+    h1 {
+        font-size: 25px;
+    }
+    .forgot p {
+        text-align: left;
+    }
+    .forgot {
+        display: block;
+    }
+}
+
+/*-- /responsive design --*/
