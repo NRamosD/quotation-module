@@ -106,7 +106,6 @@ class Users(AbstractUser):
     born_date = models.DateTimeField(db_column='BORN_DATE')  # Field name made lowercase.
     landline = models.CharField(db_column='LANDLINE', max_length=10, blank=True, null=True)  # Field name made lowercase.
     movile_phone = models.CharField(db_column='MOVILE_PHONE', max_length=10)  # Field name made lowercase.
-    user = models.CharField(db_column='USER', max_length=50)  # Field name made lowercase.
     city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
