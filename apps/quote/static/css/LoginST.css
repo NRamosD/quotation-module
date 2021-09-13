@@ -1,37 +1,45 @@
 body {
     margin: 0;
     padding: 0;
-    background: url(../src/mecanico.jpg) no-repeat 0px 0px;
+    background: url(../../static/src/mecanico.jpg) no-repeat 0px 0px;
     min-height: 100vh;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
+    padding-top: 7em;
 }
 h1 {
     margin: 0;
     color: #ffffff;
     text-align: center;
-    font-size: 5em;
-    font-weight: 500em;
-    letter-spacing: .1em;
-    padding: .5em 0;
+    font-size: 15em;
+    font-weight: 500;
+    letter-spacing: 1em;
+    padding: 1.2em 0;
 }
 
 h2 {
     margin: 0;
     color: #fc3955;
-    font-size: 3em;
-    font-weight: 400em;
+    font-size: 2.4em;
+    font-weight: 400;
     text-align: center;
-    letter-spacing: .1em;
-    padding-bottom: .5em;
+    letter-spacing: 0.1em;
+    padding-bottom: 1em;
 }
 
-.login-form {
+p.w3l-register-p {
+    color: #eee;
+    font-size: 0.5em;
+    text-align: center;
+    margin-top: 2em;
+}
+
+.w3l-login-form {
     background: rgba(0, 0, 0, 0.4117647058823529);
-    max-width: 27em;
+    max-width: 500px;
     margin: 0 auto;
     padding: 3em;
-    border-radius: 2em;
+    border-radius: 1em;
     box-sizing: border-box;
 }
 
@@ -41,17 +49,23 @@ h2 {
     background-color: #ffffff;
 }
 
-.form-group {
+.group i {
+    color: #fc3955;
+    font-size: 1.3em;
+    padding: 0 0.5em;
+}
+
+.w3l-form-group {
     margin: 1em 0;
 }
 
-.form-group label {
+.w3l-form-group label {
     display: block;
     text-transform: uppercase;
-    font-size: 1em;
+    font-size: 0.8em;
     color: #d2d2d2;
-    letter-spacing: .1em;
-    margin-bottom: .4em;
+    letter-spacing: 0.2em;
+    margin-bottom: 0.5em;
     font-style: italic;
 }
 
@@ -72,38 +86,38 @@ input[type="password"]:focus {
 button {
     background: #fc3955;
     color: #ffffff;
-    font-size: 1.2em;
+    font-size: 0.8em;
     text-transform: uppercase;
-    letter-spacing: .1em;
+    letter-spacing: 0.1em;
     border: none;
-    padding: .8em;
+    padding: 1em 1em;
     cursor: pointer;
     width: 100%;
-    border-radius: .5em;
+    border-radius: 1.2em;
 }
 
 button:hover {
     background-color: #00BCD4;
-    transition-duration: 2s;
+    transition-duration: 5s;
 }
 
 .forgot {
     display: flex;
     justify-content: space-between;
-    margin: 1em .7em;
+    margin: 1em 0;
 }
 
 a {
     color: #eee;
-    font-size: .9em;
+    font-size: 0.9em;
     text-decoration: none;
 }
 
 .forgot p {
     color: #ffffff;
     text-align: center;
-    margin: 0;
-	font-size: .9em;
+    margin: 0em;
+	font-size: 0.8em;
 }
 
 .register {
@@ -119,22 +133,10 @@ a {
 /*-- /responsive design --*/
 
 @media(max-width:768px) {
-    
     h1 {
-        padding-top: 30%;
-        font-size: 4em;
-    }
-    input[type="text"],
-    input[type="password"] {
-        width: 100%;
-        font-size: large;
-        border: none;
-        box-sizing: border-box;
-        background: transparent;
-        color: #000;
+        font-size: 47px;
     }
 }
-
 
 @media(max-width:667px) {
     h1 {
