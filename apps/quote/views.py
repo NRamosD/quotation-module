@@ -5,6 +5,11 @@ from django.urls import reverse
 from django.shortcuts import render
 
 from rest_framework import viewsets
+
+#decorators
+from django.contrib.auth.decorators import login_required
+
+#local files
 from .models import Users
 from .serializers import UserSerializer
 
