@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login Trcatotren</title>
+    <title>Iniciar Sesión</title>
     <meta charset="UTF-8" />
     <link href="{% static 'css/LoginST.css'%}" rel="stylesheet" type="text/css"/>
     <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script>
@@ -11,19 +11,19 @@
     <div class=" w3l-login-form">
         <h2>Tracto tren</h2>
         <form action="#" method="POST">
-
+            {% csrf_token %}
             <div class=" w3l-form-group">  
                 <label>Usuario:</label>
                 <div class="group">
                     <i class="fas fa-user"></i>
-                    <input type="text" class="form-control" placeholder="Usuario" required="required" />
+                    <input type="text" id="user" name="username" class="form-control" placeholder="Usuario" required="required" />
                 </div>
             </div>
             <div class=" w3l-form-group">
                 <label>Contraseña:</label>
                 <div class="group">
                     <i class="fas fa-unlock"></i>
-                    <input type="password" class="form-control" placeholder="Contraseña" required="required" />
+                    <input type="password" id="pass" name="password" class="form-control" placeholder="Contraseña" required="required" />
                 </div>
             </div>
             <div class="forgot">

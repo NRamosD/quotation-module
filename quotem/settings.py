@@ -174,5 +174,5 @@ REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'auth'
 
 #Redirección
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login'
+""" LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login' """
