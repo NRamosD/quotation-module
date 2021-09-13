@@ -2,43 +2,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión</title>
-    
-    <link rel="stylesheet" type="text/css" href="{% static 'css/loginStyle.css' %}">
-
+    <title>Login Trcatotren</title>
+    <meta charset="UTF-8" />
+    <link href="{% static 'css/LoginST.css'%}" rel="stylesheet" type="text/css"/>
+    <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Tracto tren</h1>
-                <div className="login-form">
-                    <h2>Acceder</h2>
-                    <form action="#" method="POST">
-                        <div className="form-group">
-                            <label>Nombre de usuario:</label>
-                            <div className="group">
-                                <!-- <FontAwesomeIcon icon={faUser} color="#FC3955" pull="left" size="lg" /> -->
-                                <input name="user" type="text" className="form-control" 
-                                placeholder="Nombre de usuario" required="required"
-                            </div>
-                        </div>
-                    </form>
+    <div class=" w3l-login-form">
+        <h2>Tracto tren</h2>
+        <form action="#" method="POST">
 
-                    <div class="form-group">
-                            <label>Contraseña:</label>
-                            <div className="group">
-
-                                <!-- <FontAwesomeIcon icon={faUnlock} color="#FC3955" pull="left" size="lg"  /> -->
-                                <input name="pass" type="password" className="form-control" 
-                                placeholder="Contraseña" required="required"/>
-                            </div>
-                    </div>
-                    <div className="forgot">
-                        <a href="login.html">Olvidaste la contraseña?</a>
-                        <p><input type="checkbox"/>Recordarme</p>
-                    </div>
-                    <button type="submit">Iniciar sesión</button>
+            <div class=" w3l-form-group">  
+                <label>Usuario:</label>
+                <div class="group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" class="form-control" placeholder="Usuario" required="required" />
                 </div>
+            </div>
+            <div class=" w3l-form-group">
+                <label>Contraseña:</label>
+                <div class="group">
+                    <i class="fas fa-unlock"></i>
+                    <input type="password" class="form-control" placeholder="Contraseña" required="required" />
+                </div>
+            </div>
+            <div class="forgot">
+                <a href="#">Recuperar Contraseña</a>
+                <p><input type="checkbox">Recordarme</p>
+            </div>
+            <button type="submit">Acceder</button>
+        </form>
+        <p class=" w3l-register-p">Crear cuenta<a href="#" class="register"> Registrarse</a></p>
+    </div>
 </body>
 </html>
