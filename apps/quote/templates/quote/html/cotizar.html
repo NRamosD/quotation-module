@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Cotizar</title>
+
+         <!-- STYLES CSS -->
+         <link rel="stylesheet" href="{% static 'css/stylesBarra.css'%}">
+         <link rel="stylesheet" href="{% static 'css/stylesCotizacion.css'%}">
+         <!-- BOX ICONS CSS-->
+         <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+        <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script> 
+
+            <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="{% static 'bootstrap/css/boostrap.min.css'%}">
+        <!-- CSS personalizado --> 
+        
+        
+        <!--datables CSS básico-->
+        <link rel="stylesheet" type="text/css" href="{% static 'datatables/datatables.min.css'%}"/>
+        <!--datables estilo bootstrap 4 CSS-->  
+        <link rel="stylesheet"  type="text/css" href="{% static 'datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css'%}">
+
+         
+    </head>
+
+    <asside id="asside">
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">
+                        <img src="{% static 'imagenes/logo.svg'%}" alt="" class="nav__logo-icon">
+                        <span class="nav__logo-text">Tractotren</span>
+                    </a>
+    
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class='bx bx-chevron-right'></i>
+                    </div>
+    
+                    <ul class="nav__list">
+                        <a href="#" class="nav__link active">
+                            <i class="fas fa-home nav__icon"></i>
+                            <span class="nav__text">Home</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-file-alt nav__icon"></i>
+                            <span class="nav__text">Cotizar</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-file-upload nav__icon"></i>
+                            <span class="nav__text">Cargar documento</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-paste nav__icon"></i>
+                            <span class="nav__text">Reportes</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-info-circle nav__icon"></i>
+                            <span class="nav__text">Información </span>
+                        </a>            
+                    </ul>
+                </div>
+                <a href="#" class="nav__link">           
+                    <i class='bx bx-log-out-circle nav__icon'></i>
+                    <span class="nav__text">Close</span>
+                </a>
+            </nav>
+        </div>
+    </asside>
+
+    <body id="body_cotizacion">
+
+
+
+
+        <!-- ENCABEZADO. -->
+        <header id="head_cotizacion"><i class="fas fa-file-alt nav__icon"></i> / Cotización</header>
+        <br><label class="Titulo"><a>Código o nombre del producto</a></label><br>
+        
+        <!-- BARRA BUSQUEDA. -->
+        <div class="buscar">
+            <input type="text" placeholder="Qué estás buscando?" required>
+            <div class="btn_busqueda">
+                <i class="fas fa-search icon_search"></i>
+            </div>
+        </div>
+
+        <!-- FILTROS. -->
+
+        <ul id="bot_filtro">
+            <li><button data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
+            <li><button data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
+            <li><button data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
+            <li><button data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
+        </ul>
+
+      
+
+         <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
+        <!--Ejemplo tabla PRODUCTOS con DataTables-->
+        <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Artículos</h2>
+        <div class="container_productos">
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">        
+                            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>Arquitecto</td>
+                                    <td>Edinburgh</td>
+                                
+                                </tr>
+                                <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Contador</td>
+                                    <td>Tokyo</td>
+                                
+                                </tr>                
+                                <tr>
+                                    <td>Cedric Kelly</td>
+                                    <td>Senior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Airi Satou</td>
+                                    <td>Contador</td>
+                                    <td>Tokyo</td>
+                                
+                                </tr>               
+                                <tr>
+                                    <td>Bradley Greer</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    
+                                </tr>
+
+                                <tr>
+                                    <td>Bruno Nash</td>
+                                    <td>Software Engineer</td>
+                                    <td>London</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Sakura Yamamoto</td>
+                                    <td>Support Engineer</td>
+                                    <td>Tokyo</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Thor Walton</td>
+                                    <td>Developer</td>
+                                    <td>New York</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Finn Camacho</td>
+                                    <td>Support Engineer</td>
+                                    <td>San Francisco</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Serge Baldwin</td>
+                                    <td>Data Coordinator</td>
+                                    <td>Singapore</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Zenaida Frank</td>
+                                    <td>Software Engineer</td>
+                                    <td>New York</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Zorita Serrano</td>
+                                    <td>Software Engineer</td>
+                                    <td>San Francisco</td>
+                                
+                                </tr>
+                                <tr>
+                                    <td>Jennifer Acosta</td>
+                                    <td>Junior Javascript Developer</td>
+                                    <td>Edinburgh</td>
+                                
+                                </tr>
+                                <tr>
+                                    <td>Cara Stevens</td>
+                                    <td>Sales Assistant</td>
+                                    <td>New York</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Hermione Butler</td>
+                                    <td>Regional Director</td>
+                                    <td>London</td>
+                                
+                                </tr>
+                                <tr>
+                                    <td>Lael Greer</td>
+                                    <td>Systems Administrator</td>
+                                    <td>London</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Jonas Alexander</td>
+                                    <td>Developer</td>
+                                    <td>San Francisco</td>
+                                
+                                </tr>
+                                <tr>
+                                    <td>Shad Decker</td>
+                                    <td>Regional Director</td>
+                                    <td>Edinburgh</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Michael Bruce</td>
+                                    <td>Javascript Developer</td>
+                                    <td>Singapore</td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>Donna Snider</td>
+                                    <td>Customer Support</td>
+                                    <td>New York</td>
+                                    
+                                </tr>
+                            </tbody>        
+                        </table>                  
+                        </div>
+                    </div>
+            </div>  
+        </div>    
+        <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
+        
+        <!--Ejemplo tabla COTIZACION con DataTables-->
+        <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Lista de Cotización</h2>
+        <div class="container_cotizaciones">
+            <table class="table table-striped" id="tabla_cotizacion">
+            <thead>
+                <tr>
+                  <th scope="col">N°</th>
+                  <th scope="col">Artículos</th>
+                  <th scope="col">Precio Unit.</th>
+                  <th scope="col">Precio Tot.</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Ruliman</td>
+                  <td>12.50</td>
+                  <td>12.50</td>
+                  <td><button id="bt_borrar"><i class="fas fa-trash-alt"></i></button></td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>llantas</td>
+                  <td>125</td>
+                  <td>125</td>
+                  <td><button id="bt_borrar"><i class="fas fa-trash-alt"></i></button></td>
+                  
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>llantas</td>
+                  <td>125</td>
+                  <td>125</td>
+                  <td><button id="bt_borrar"><i class="fas fa-trash-alt"></i></button></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>
+        <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
+
+        <!--BOTONES FINALES-->
+        <ul id="bot_finales">
+            <li><button id="btn_precio"><i class="fas fa-print icon_print"></i>Imprimir</button></li>
+            <li><button id="btn_producto"><i class="fas fa-save icon_save"></i>Guardar</button></li>
+            <li><button id="btn_fabricante"><i class="fas fa-share-square icon_share"></i>Enviar</button></li>
+        </ul>
+
+        <!-- BARRA JS -->
+        <script src="{% static 'scripts/scbarra.js'%}"></script>
+
+        <!-- jQuery, Popper.js, Bootstrap JS -->
+        <script src="{% static 'jquery/jquery-3.3.1.min.js'%}"></script>
+        <script src="{% static 'popper/popper.min.js'%}"></script>
+        <script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+        
+        <!-- datatables JS -->
+        <script type="text/javascript" src="{% static 'datatables/datatables.min.js'%}"></script>    
+        
+        <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script>  
+    </body>
+</html>

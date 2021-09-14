@@ -32,6 +32,9 @@ def login_plain(request):
 def home(request):
     return render(request, "./quote/html/home.html")
 
+def cotizar(request):
+    return render(request, "./quote/html/cotizar.html")
+
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/login.html'
     login_url = 'quo:login'
