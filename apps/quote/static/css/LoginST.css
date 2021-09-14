@@ -2,7 +2,7 @@ body {
     margin: 0;
     padding: 0;
     background: url(../../static/src/mecanico.jpg) no-repeat 0px 0px;
-    min-height: 100vh;
+    max-height: 100vh;
     background-size: cover;
     font-family: 'Raleway', sans-serif;
     padding-top: 7em;

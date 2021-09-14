@@ -172,3 +172,7 @@ AUTH_USER_MODEL = 'quote.Users'
 #para activar la cookie
 REST_USE_JWT = True
 JWT_AUTH_COOKIE = 'auth'
+
+#Redirección
+""" LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login' """

@@ -17,11 +17,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework import routers
+
+# Api router
+router = routers.DefaultRouter()
 
 urlpatterns = [
     #path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),
-    path('', include('apps.quote.urls')),
+    path('', include(('apps.quote.urls','quo'), namespace='quo')),
+    path('', include(router.urls)),
     path('auth/', obtain_auth_token)
 ]
 
