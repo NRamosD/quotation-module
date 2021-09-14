@@ -11,6 +11,7 @@ router.register('users', UsersViewSet)
 urlpatterns = [
     path('',views.index, name="index"),
     path('login',views.login, name="login"),
+    path('home',views.home, name="home"),
     path('api', include(router.urls)),
 ]
 

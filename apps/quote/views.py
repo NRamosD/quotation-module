@@ -21,7 +21,8 @@ def index(request):
 def login(request):
     return render(request, "./quote/html/login.html")
 
-
+def home(request):
+    return render(request, "./quote/html/home.html")
 
 """def index(request):
     return render(request, "flights/index.html", {

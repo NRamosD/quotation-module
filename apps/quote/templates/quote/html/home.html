@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- STYLES CSS -->
+        <link href="{% static 'css/stylesBarra.css'%}" rel="stylesheet" type="text/css" />
+
+        <!-- BOX ICONS CSS-->
+        <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet' />
+        <title>Index</title>
+        <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script>
+        
+    </head>
+    <asside id="asside">
+        <div class="l-navbar" id="navbar">
+            <nav class="nav">
+                <div>
+                    <a href="#" class="nav__logo">
+                        <img src="{% static 'imagenes/logo.svg'%}" alt="" class="nav__logo-icon">
+                        <span class="nav__logo-text">Tractotren</span>
+                    </a>
+    
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class='bx bx-chevron-right'></i>
+                    </div>
+    
+                    <ul class="nav__list">
+                        <a href="#" class="nav__link active">
+                            <i class="fas fa-home nav__icon"></i>
+                            <span class="nav__text">Home</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-file-alt nav__icon"></i>
+                            <span class="nav__text">Cotizar</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-file-upload nav__icon"></i>
+                            <span class="nav__text">Cargar documento</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-paste nav__icon"></i>
+                            <span class="nav__text">Reportes</span>
+                        </a>
+                        <a href="#" class="nav__link">
+                            <i class="fas fa-info-circle nav__icon"></i>
+                            <span class="nav__text">Información </span>
+                        </a>            
+                    </ul>
+                </div>
+                <a href="#" class="nav__link">           
+                    <i class='bx bx-log-out-circle nav__icon'></i>
+                    <span class="nav__text">Close</span>
+                </a>
+            </nav>
+        </div>
+        <h2>Bienvenido .....</h2>
+        <p>En construccion</p>
+        <div align="center"><img src="{% static 'imagenes/Construccion2.png'%}" alt="" ></div>
+    </asside>
+    <!-- MAIN JS -->
+    <script src="{% static 'scripts/scbarra.js'%}"></script>
+</html>
