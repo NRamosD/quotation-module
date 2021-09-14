@@ -14,7 +14,7 @@
         <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script> 
 
             <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{% static 'bootstrap/css/boostrap.min.css'%}">
+        <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
         <!-- CSS personalizado --> 
         
         
@@ -72,7 +72,15 @@
 
     <body id="body_cotizacion">
 
-
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
 
 
         <!-- ENCABEZADO. -->
@@ -96,7 +104,108 @@
             <li><button data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
         </ul>
 
-      
+    <!-- Modal Precio -->
+    <div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Precio</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">$</span>
+                        <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <span class="input-group-text">.00</span>
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Tipo de producto-->
+    <div class="modal fade" id="exampleModalTP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Tipo de producto</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select" aria-label="Default select example">
+                        <option selected>Click para desplegar</option>
+                        <option value="1">Freno</option>
+                        <option value="2">Pastilla</option>
+                        <option value="3">Bujías</option>
+                        <option value="4">Embrague</option>
+                        <option value="5">Discos</option>
+                        <option value="6">Filtros</option>
+                        <option value="7">Insumos</option>
+                        <option value="8">Aceites</option>
+                        <option value="9">Lavadora</option>
+                        <option value="10">Maquinaria pesada</option>
+                        <option value="11">Turbos</option>
+                        <option value="12">Bombas</option>
+                        <option value="13">Llantas</option>
+                        <option value="14">Accesorios</option>
+                        <option value="15">Otros...</option>
+
+                      </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Fabricante-->
+    <div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Ingrese el nombre del Fabricante</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ej : Chevrolet">
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal proveedor-->
+    <div class="modal fade" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Ingrese el nombre del Proveedor</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ej : DITECA">
+                      </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary">Guardar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
          <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
         <!--Ejemplo tabla PRODUCTOS con DataTables-->
@@ -301,7 +410,7 @@
         
         <!-- datatables JS -->
         <script type="text/javascript" src="{% static 'datatables/datatables.min.js'%}"></script>    
-        
-        <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script>  
+     
+        <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script> 
     </body>
 </html>
