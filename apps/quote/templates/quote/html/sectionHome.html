@@ -1,0 +1,12 @@
+{% extends 'quote/html/home.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+{% block content %}
+<body>
+    <h2>Bienvenido .....</h2>
+    <p>En construccion</p>
+    <h2>Bienvenido {{user.username}}</h2>
+    <div align="center"><img src="{% static 'imagenes/Construccion2.png'%}" alt="" ></div>
+</body>
+
+{% endblock %}

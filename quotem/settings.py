@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.quote',
     'rest_framework',
+    'corsheaders',
     'rest_framework.authtoken',
     'dj_rest_auth',
 ]
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -175,6 +177,9 @@ JWT_AUTH_COOKIE = 'auth'
 
 #Redirección
 LOGIN_URL = '/login/'
-LOGIN_REDIRECT_URL = '/home/'
-""" LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/login' """
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login/'
+
+#corsheaders
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True

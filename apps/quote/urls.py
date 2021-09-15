@@ -4,7 +4,7 @@ from django.contrib.auth import views as auth_views
 
 from . import views
 from rest_framework import routers
-from .views import Home, UsersViewSet, SignInView, LogoutView
+from .views import Home, UsersViewSet, SignInView, LogoutView, UserView
 
 router = routers.DefaultRouter()
 router.register('users', UsersViewSet)
@@ -18,7 +18,7 @@ router.register('users', UsersViewSet)
 urlpatterns = [
     #path('',views.index, name="index"),
     path('',views.home, name="home"),
-    path('cotizar',views.cotizar, name="cotizar"),
+    path('cotizar/',views.cotizar, name="quote"),
     
     #path('login',views.login, name="login"),
     path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
@@ -26,8 +26,9 @@ urlpatterns = [
     
     path('api/', include(router.urls)),
     
-    path('auth/login/', SignInView.as_view(), name='auth_login'),
-    path('auth/logout/', LogoutView.as_view(), name='auth_logout'),
+    path('api/login/', SignInView.as_view(), name='api_login'),
+    path('api/logout/', LogoutView.as_view(), name='api_logout'),
+    path('api/user/', UserView.as_view(), name='api_user_view')
 ]
 
 

@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
-from rest_framework import status
+from rest_framework import serializers, status
+from rest_framework import response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -31,12 +32,15 @@ def index(request):
 
 def login_plain(request):
     return render(request, "./quote/html/login.html")
+
 @login_required
 def home(request):
-    return render(request, "./quote/html/home.html")
+    return render(request, "./quote/html/sectionHome.html")
 
+@login_required
 def cotizar(request):
-    return render(request, "./quote/html/cotizar.html")
+    return render(request, "./quote/html/sectionQuote.html")
+
 
 
 class Home(LoginRequiredMixin, generic.TemplateView):
@@ -45,7 +49,7 @@ class Home(LoginRequiredMixin, generic.TemplateView):
 
 
 
-#{"username":"jaja", "password":"123123123"}
+# usuario de prueba {"username":"jaja", "password":"123123123"}
 class SignInView(APIView):
     template_name='quote/html/login.html'
     def post(self, request):
@@ -55,7 +59,7 @@ class SignInView(APIView):
         print(password)
         user = Users.objects.filter(username=username).first()
 
-        print(f"Lo que devuelve el user: {user}")
+        print(f"Lo que devuelve el user: {user.id_user}")
 
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado')
@@ -69,18 +73,45 @@ class SignInView(APIView):
             'iat' : datetime.datetime.utcnow() 
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, 'secret', algorithm='HS256')#.decode('utf-8')
 
-        return Response({
+        response = Response()
+
+        response.set_cookie(key='jwt',value=token, httponly=True)
+
+        response.data = {
             'message': 'Ingreso exitoso',
             'jwt': token
-        })
+        }
+        return response
+
+class UserView(APIView):
+    def get(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Autenticación fallida')
+        
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except:
+            raise AuthenticationFailed('Autenticación fallida')
+        
+        user = Users.objects.filter(id_user=payload['id']).first()
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
 
 
 class LogoutView(APIView):
     def post(self, request):
+        response = Response()
+        response.delete_cookie('jwt')
         logout(request)
-        return Response(status=status.HTTP_200_OK)
+        response.data = {
+            'message':'Cierre de sesión exitoso'
+        }
+        #logout(request)
+        return response
 
 
 """def index(request):
