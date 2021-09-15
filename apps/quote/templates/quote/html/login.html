@@ -10,27 +10,27 @@
 <body>
     <div class=" w3l-login-form">
         <h2>Tracto tren</h2>
-        <form action="#" method="POST">
+        <form class="user" method="POST">
             {% csrf_token %}
             <div class=" w3l-form-group">  
                 <label>Usuario:</label>
                 <div class="group">
                     <i class="fas fa-user"></i>
-                    <input type="text" id="user" name="username" class="form-control" placeholder="Usuario" required="required" />
+                    <input type="text" id="idusername" name="username" class="form-control" placeholder="Usuario" required="required" />
                 </div>
             </div>
             <div class=" w3l-form-group">
                 <label>Contraseña:</label>
                 <div class="group">
                     <i class="fas fa-unlock"></i>
-                    <input type="password" id="pass" name="password" class="form-control" placeholder="Contraseña" required="required" />
+                    <input type="password" id="id_password" name="password" class="form-control" placeholder="Contraseña" required="required" />
                 </div>
             </div>
             <div class="forgot">
                 <a href="#">Recuperar Contraseña</a>
                 <p><input type="checkbox">Recordarme</p>
             </div>
-            <button type="submit">Acceder</button>
+            <button type="submit" name="submit">Acceder</button>
         </form>
         <p class=" w3l-register-p">Crear cuenta<a href="#" class="register"> Registrarse</a></p>
     </div>

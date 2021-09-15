@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 
 from rest_framework import status
+from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
@@ -28,58 +30,45 @@ def index(request):
 
 def login_plain(request):
     return render(request, "./quote/html/login.html")
-
+@login_required
 def home(request):
     return render(request, "./quote/html/home.html")
 
 class Home(LoginRequiredMixin, generic.TemplateView):
-    template_name = 'quote/html/login.html'
+    template_name = 'quote/html/home.html'
     login_url = 'quo:login'
 
+
+
+#{"username":"nr", "password":"Gabibonito25."}
+class SignInView(APIView):
+    template_name='quote/html/login.html'
     def post(self, request):
-        # Recuperamos las credenciales y autenticamos al usuario
         username = request.data.get('username', None)
         password = request.data.get('password', None)
-        user = authenticate(username=username, password=password)
+        print(username)
+        print(password)
+        user = Users.objects.filter(username=username).first()
 
-        # Si es correcto añadimos a la request la información de sesión
-        if user:
+        if user is None:
+            raise AuthenticationFailed('Usuario no encontrado')
+        
+        if not user.check_password(password):
+            raise AuthenticationFailed('Contraseña incorrecta')
+        
+            """         if user:
             login(request, user)
             return Response(
                 UserSerializer(Users).data,
-                status=status.HTTP_200_OK)
-
-        # Si no es correcto devolvemos un error en la petición
-        return Response(
-            status=status.HTTP_404_NOT_FOUND)
-
-
-
-class LoginView(APIView):
-    def post(self, request):
-        # Recuperamos las credenciales y autenticamos al usuario
-        username = request.data.get('username', None)
-        password = request.data.get('password', None)
-        user = authenticate(username=username, password=password)
-
-        # Si es correcto añadimos a la request la información de sesión
-        if user:
-            login(request, user)
-            return Response(
-                UserSerializer(Users).data,
-                status=status.HTTP_200_OK)
-
-        # Si no es correcto devolvemos un error en la petición
-        return Response(
-            status=status.HTTP_404_NOT_FOUND)
+                status=status.HTTP_200_OK) """      
+        return Response({
+            'message': 'Ingreso exitoso'
+        })
 
 
 class LogoutView(APIView):
     def post(self, request):
-        # Borramos de la request la información de sesión
         logout(request)
-
-        # Devolvemos la respuesta al cliente
         return Response(status=status.HTTP_200_OK)
 
 

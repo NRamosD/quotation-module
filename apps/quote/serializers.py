@@ -11,9 +11,9 @@ class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(min_length=8)
     class Meta:
         model = get_user_model()
-        fields = [ 'email', 'username', 'password']
+        #fields = [ 'email', 'username', 'password']
         #fields = ('__all__')
-        #exclude = ('groups','user_permissions')
+        exclude = ('groups','user_permissions','is_superuser','is_staff')
         #extra_kwargs = {'password': {'write_only': True, 'required':True}} #extra_kwargs: para que no se vea en la solicitud
     
     def create(self, validated_data):
