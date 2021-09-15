@@ -12,6 +12,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 
+import jwt, datetime
 #decorators
 from django.contrib.auth.decorators import login_required
 
@@ -44,7 +45,7 @@ class Home(LoginRequiredMixin, generic.TemplateView):
 
 
 
-#{"username":"nr", "password":"Gabibonito25."}
+#{"username":"jaja", "password":"123123123"}
 class SignInView(APIView):
     template_name='quote/html/login.html'
     def post(self, request):
@@ -54,19 +55,25 @@ class SignInView(APIView):
         print(password)
         user = Users.objects.filter(username=username).first()
 
+        print(f"Lo que devuelve el user: {user}")
+
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado')
         
         if not user.check_password(password):
             raise AuthenticationFailed('Contraseña incorrecta')
-        
-            """         if user:
-            login(request, user)
-            return Response(
-                UserSerializer(Users).data,
-                status=status.HTTP_200_OK) """      
+
+        payload = {
+            'id': user.id_user,
+            'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat' : datetime.datetime.utcnow() 
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+
         return Response({
-            'message': 'Ingreso exitoso'
+            'message': 'Ingreso exitoso',
+            'jwt': token
         })
 
 
