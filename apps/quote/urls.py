@@ -18,6 +18,8 @@ router.register('users', UsersViewSet)
 urlpatterns = [
     #path('',views.index, name="index"),
     path('',views.home, name="home"),
+    path('cotizar',views.cotizar, name="cotizar"),
+    
     #path('login',views.login, name="login"),
     path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
     #path('accounts/', include('django.contrib.urls')),
