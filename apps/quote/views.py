@@ -1,3 +1,5 @@
+#DJANGO
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
@@ -5,27 +7,27 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
-
+from django.views import View
+from django.forms import model_to_dict
+#RESTFRAMEWORK
 from rest_framework import serializers, status
 from rest_framework import response
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
-
-import jwt, datetime
-#decorators
+#DECORATORS
 from django.contrib.auth.decorators import login_required
-
-#local files
-from .models import Users
+#LOCAL FILES
+from .models import Users, Product, Suppliers, Category, qDetails, Quotes
 from .serializers import UserSerializer
+import jwt, datetime
 
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
 
-# Create your views here.
+#VISTAS BÁSICAS
 @login_required
 def index(request):
     return render(request, "./quote/index.html")
@@ -41,14 +43,12 @@ def home(request):
 def cotizar(request):
     return render(request, "./quote/html/sectionQuote.html")
 
-
-
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
 
 
-
+#------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}
 class SignInView(APIView):
     template_name='quote/html/login.html'
@@ -113,10 +113,59 @@ class LogoutView(APIView):
         #logout(request)
         return response
 
+#------------------------------SUPLLIERS----------------------------------
+class SuppliersListView(View):
+    def get(self, request):
+        suppliersList = Suppliers.objects.all()
+        return JsonResponse(list(suppliersList.values()), safe=False)
 
-"""def index(request):
-    return render(request, "flights/index.html", {
-        "flights": Flight.objects.all()
-    })"""
+class SuppliersDetailView(View):
+    def get(self, request, pk):
+        oneSupplier = Suppliers.objects.get(pk=pk)
+        return JsonResponse(model_to_dict(oneSupplier))
+
+#------------------------------CATEGORY----------------------------------
+class CategoryListView(View):
+    def get(self, request):
+        categoryList = Category.objects.all()
+        return JsonResponse(list(categoryList.values()), safe=False)
+
+class CategoryDetailView(View):
+    def get(self, request, pk):
+        oneCategory = Category.objects.get(pk=pk)
+        return JsonResponse(model_to_dict(oneCategory))
+
+#------------------------------QUOTE DETAILS----------------------------------
+class qDetailsListView(View):
+    def get(self, request):
+        quoteDetailsList = qDetails.objects.all()
+        return JsonResponse(list(quoteDetailsList.values()), safe=False)
+
+class qDetailDetailView(View):
+    def get(self, request, pk):
+        oneQuoteDetail = qDetails.objects.get(pk=pk)
+        return JsonResponse(model_to_dict(oneQuoteDetail))
 
 
+#------------------------------QUOTE----------------------------------
+class QuoteListView(View):
+    def get(self, request):
+        quoteList = Quotes.objects.all()
+        return JsonResponse(list(quoteList.values()), safe=False)
+
+class QuoteDetailView(View):
+    def get(self, request, pk):
+        oneQuote = Quotes.objects.get(pk=pk)
+        return JsonResponse(model_to_dict(oneQuote))
+
+
+#------------------------------PRODUCTS----------------------------------
+class ProductListView(View):
+    def get(self, request):
+        productList = Product.objects.all()
+        return JsonResponse(list(productList.values()), safe=False)
+
+class ProductDetailView(View):
+    def get(self, request, pk):
+        oneProduct = Product.objects.get(pk=pk)
+        return JsonResponse(model_to_dict(oneProduct))
