@@ -126,7 +126,7 @@ class Product(models.Model):
     #id_category_vehicle = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_VEHICLE', related_name='FK_ID_CATEGORY_VEHICLE')  # Field name made lowercase.
     product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100)  # Field name made lowercase.
     description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    price = models.DecimalField(db_column='PRICE', max_digits=9, decimal_places=4)  # Field name made lowercase.
+    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=3)  # Field name made lowercase.
     brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # Field name made lowercase.
     availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Field name made lowercase.
     registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # Field name made lowercase.

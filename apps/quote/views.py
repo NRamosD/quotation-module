@@ -22,10 +22,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Users, Product, Suppliers, Category, qDetails, Quotes
 from .serializers import UserSerializer
 import jwt, datetime
-
+#API DRF
 class UsersViewSet(viewsets.ModelViewSet):
     queryset = Users.objects.all()
     serializer_class = UserSerializer
+
 
 #VISTAS BÁSICAS
 @login_required
