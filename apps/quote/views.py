@@ -1,6 +1,7 @@
 #DJANGO
+from django.contrib.auth.models import User
 from django.http.response import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -19,13 +20,83 @@ from rest_framework import viewsets
 #DECORATORS
 from django.contrib.auth.decorators import login_required
 #LOCAL FILES
-from .models import Users, Product, Suppliers, Category, qDetails, Quotes
-from .serializers import UserSerializer
+from .models import Role, Users, Product, Suppliers, Category, qDetails, Quotes
+from .serializers import (
+    UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
+    RoleSerializer, SupplierSerializer, ProductSerializer)
 import jwt, datetime
+
+""" RUTAS DE LA API
+    Métodos a usar: GET, POST, PATCH, DELETE
+    "product": "http://127.0.0.1:8000/api/product/",
+    "quotes": "http://127.0.0.1:8000/api/quotes/",
+    "qDetails": "http://127.0.0.1:8000/api/qDetails/",
+    "role": "http://127.0.0.1:8000/api/role/",
+    "category": "http://127.0.0.1:8000/api/category/",
+    "suppliers": "http://127.0.0.1:8000/api/suppliers/"
+ """
+
+
+
 #API DRF
-class UsersViewSet(viewsets.ModelViewSet):
-    queryset = Users.objects.all()
-    serializer_class = UserSerializer
+
+class RoleViewSet(viewsets.ModelViewSet):
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
+
+class SupplierViewSet(viewsets.ModelViewSet):
+    queryset = Suppliers.objects.all()
+    serializer_class = SupplierSerializer
+
+class ProductViewSet(viewsets.ModelViewSet):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class QuotesViewSet(viewsets.ModelViewSet):
+    queryset = Quotes.objects.all()
+    serializer_class = QuotesSerializer
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+class qDetailsViewSet(viewsets.ModelViewSet):
+    queryset = qDetails.objects.all()
+    serializer_class = qDetailsSerializer
+
+
+class UserApiView(APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request, pk=None):
+        if pk:
+            item = Users.objects.get(pk=pk)
+            serializer = UserSerializer(item)
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+
+        items = Users.objects.all()
+        serializer = UserSerializer(items, many=True)
+        return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+    
+    def patch(self, request, pk=None):
+        item = Users.objects.get(pk=pk)
+        serializer = UserSerializer(item, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data})
+        else:
+            return Response({"status": "error", "data": serializer.errors})
+    
+    def delete(self, request, pk=None):
+        item = get_object_or_404(Users, pk=pk)
+        item.delete()
+        return Response({"status": "success", "data": "Item Deleted"})
 
 
 #VISTAS BÁSICAS
@@ -113,7 +184,7 @@ class LogoutView(APIView):
         }
         #logout(request)
         return response
-
+""" 
 #------------------------------SUPLLIERS----------------------------------
 class SuppliersListView(View):
     def get(self, request):
@@ -169,4 +240,4 @@ class ProductListView(View):
 class ProductDetailView(View):
     def get(self, request, pk):
         oneProduct = Product.objects.get(pk=pk)
-        return JsonResponse(model_to_dict(oneProduct))
+        return JsonResponse(model_to_dict(oneProduct)) """
