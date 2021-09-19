@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, request
 from django.urls import reverse
 from django.views import generic
 from django.views import View
@@ -105,7 +105,14 @@ def index(request):
     return render(request, "./quote/index.html")
 
 def login_plain(request):
-    return render(request, "./quote/html/login.html")
+    response = Response()
+    logout(request)
+    response.data = {
+            'message':'Cierre de sesión exitoso'
+        }
+        #logout(request)
+    return response
+    #return render(request, "./quote/html/login.html")
 
 @login_required
 def home(request):
@@ -114,11 +121,11 @@ def home(request):
 @login_required
 def cotizar(request):
     return render(request, "./quote/html/sectionQuote.html")
-
+""" 
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
-
+ """
 
 #------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}

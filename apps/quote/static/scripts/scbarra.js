@@ -1,3 +1,4 @@
+
 // SHOW MENU
 const showMenu = (toggleId, navbarId,bodyId) =>{
     const toggle = document.getElementById(toggleId),
@@ -26,3 +27,5 @@ function colorLink(){
 
 linkColor.forEach(l => l.addEventListener('click', colorLink));
 
+/*var URLactual = window.location;
+alert(URLactual);*/
