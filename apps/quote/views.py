@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views import View
 from django.forms import model_to_dict
+from django.views.generic.base import TemplateView
 #RESTFRAMEWORK
 from rest_framework import serializers, status
 from rest_framework import response
@@ -134,11 +135,8 @@ class SignInView(APIView):
     def post(self, request):
         username = request.data.get('username', None)
         password = request.data.get('password', None)
-        print(username)
-        print(password)
-        user = Users.objects.filter(username=username).first()
 
-        print(f"Lo que devuelve el user: {user.id_user}")
+        user = Users.objects.filter(username=username).first()
 
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado')
@@ -162,6 +160,8 @@ class SignInView(APIView):
             'message': 'Ingreso exitoso',
             'jwt': token
         }
+        #print(request)
+        #return render(request, "./quote/html/sectionHome.html")
         return response
 
 class UserView(APIView):

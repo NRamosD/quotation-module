@@ -195,3 +195,9 @@ button:hover{
 .icon_share{
     margin-right: 0.5em;
 }
+
+/*LABELS*/
+.badge{
+    margin: 1em .5em;   
+}
+/*Inputs numbers */
