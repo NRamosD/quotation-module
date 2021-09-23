@@ -39,7 +39,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class QuotesSerializer(serializers.ModelSerializer):
     description = serializers.CharField(max_length=100)
-    dateQuote = serializers.DateTimeField()
+    date = serializers.DateTimeField()
     total = serializers.DecimalField(max_digits=12, decimal_places=3)
     class Meta:
         model = Quotes

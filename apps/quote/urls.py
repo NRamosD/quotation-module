@@ -1,3 +1,4 @@
+from re import template
 from django.contrib import auth
 from django.urls import path, include
 from django.views import generic
@@ -8,7 +9,7 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
-    UserApiView, SignInView, LogoutView, 
+    UserApiView, userLogout, LoginView
     )
 
 router = routers.DefaultRouter()
@@ -53,15 +54,17 @@ urlpatterns = [
     #VISTAS BÁSICAS
     path('',views.home, name="home"),
     path('cotizar/',views.cotizar, name="quote"),
-    path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
+    #path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
     #path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-    path('logout/', auth_views.logout_then_login, name="logout"),
+    #path('logout/', auth_views.logout_then_login, name="logout"),
     
     #API
     path('api/', include(router.urls)),
     #API INICIO DE SESIÓN
-    path('api/login/', SignInView.as_view(), name='api_login'),
-    path('api/logout/', LogoutView.as_view(), name='api_logout'),
+    #path('login/', SignInView.as_view(), name='login'),
+    path('login/', LoginView.as_view(), name='login'),
+    #path('logout/', userLogout.as_view(), name='logout'),
+    path('logout/', userLogout, name='logout'),
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view')

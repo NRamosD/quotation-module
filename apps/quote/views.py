@@ -1,7 +1,7 @@
 #DJANGO
 from django.contrib.auth.models import User
-from django.http.response import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.http.response import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -121,6 +121,22 @@ def home(request):
 
 @login_required
 def cotizar(request):
+    #print (f"expira {datetime.datetime.fromtimestamp(int('1632366633')).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int('1632366433')).strftime('%Y-%m-%d %H:%M:%S')}")
+    token = request.COOKIES.get('jwt')
+    if not token:
+        raise AuthenticationFailed('Autenticación fallida')
+    
+    #payload = jwt.decode(token, options={"verify_signature": False})
+    try:
+        payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+    except:
+        raise AuthenticationFailed('Autenticación fallida')
+    
+    print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
+    
+    #user = Users.objects.filter(id_user=payload['id']).first()
+    #serializer = UserSerializer(user)
+
     return render(request, "./quote/html/sectionQuote.html")
 """ 
 class Home(LoginRequiredMixin, generic.TemplateView):
@@ -130,40 +146,47 @@ class Home(LoginRequiredMixin, generic.TemplateView):
 
 #------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}
-class SignInView(APIView):
+""" 
+class SignInView(TemplateView):
     template_name='quote/html/login.html'
     def post(self, request):
-        username = request.data.get('username', None)
-        password = request.data.get('password', None)
-
+        login_data = request.POST.dict()
+        username = login_data.get("username")
+        password = login_data.get("password")
         user = Users.objects.filter(username=username).first()
+
 
         if user is None:
             raise AuthenticationFailed('Usuario no encontrado')
         
         if not user.check_password(password):
             raise AuthenticationFailed('Contraseña incorrecta')
-
+        
         payload = {
             'id': user.id_user,
-            'exp' : datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            'iat' : datetime.datetime.utcnow() 
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=3),
+            'iat': datetime.datetime.utcnow()
         }
 
         token = jwt.encode(payload, 'secret', algorithm='HS256')#.decode('utf-8')
-
+        print(token)
+        
         response = Response()
 
-        response.set_cookie(key='jwt',value=token, httponly=True)
+        response.set_cookie(key='jwt', value=token, httponly=True)
 
         response.data = {
-            'message': 'Ingreso exitoso',
+            'message':'Ingreso exitoso',
             'jwt': token
         }
+        print(str(request.COOKIES.get('jwt')))
+        login(request, user)
         #print(request)
         #return render(request, "./quote/html/sectionHome.html")
+        #return redirect('quo:home')
         return response
-
+        #return render_to_response('current_datetime.html', {'current_date': now})
+ """
 class UserView(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
@@ -181,16 +204,66 @@ class UserView(APIView):
         return Response(serializer.data)
 
 
-class LogoutView(APIView):
+def userLogout(request):
+    response = Response()
+    response.delete_cookie('jwt')
+    logout(request)
+    response.data = {
+        'message':'Cierre de sesión exitoso'
+    }
+    return redirect("quo:login")
+
+
+class LoginView(TemplateView):
+    template_name='quote/html/login.html'
+    def post(self, request):
+        login_data = request.POST.dict()
+        username = login_data.get("username")
+        password = login_data.get("password")
+
+        user = Users.objects.filter(username=username).first()
+
+        if user is None:
+            raise AuthenticationFailed('User not found!')
+
+        if not user.check_password(password):
+            raise AuthenticationFailed('Incorrect password!')
+
+        payload = {
+            'id': user.id_user,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+            'iat': datetime.datetime.utcnow()
+        }
+
+        token = jwt.encode(payload, 'secret', algorithm='HS256')#.decode('utf-8')
+        print("el token "+token)
+        response = Response()
+
+        response = redirect('quo:home')
+        response.set_cookie(key='jwt', value=token, httponly=True)
+        response.data = {
+            'jwt': token
+        }
+        print("la cookie "+str(request.COOKIES.get('jwt')))
+        login(request, user)
+        #return response
+        
+        return response
+        #return redirect('quo:home')
+
+
+
+
+""" class LogoutView(TemplateView):
     def post(self, request):
         response = Response()
         response.delete_cookie('jwt')
-        logout(request)
         response.data = {
             'message':'Cierre de sesión exitoso'
         }
+        logout(request)
         #logout(request)
-        return response
+        #return redirect('quo:login') """
 """ 
 #------------------------------SUPLLIERS----------------------------------
 class SuppliersListView(View):
