@@ -2,11 +2,40 @@
 {% load static %}
 {% block title %}Inicio{% endblock %}
 {% block content %}
-<body>
-    <h2>Bienvenido .....</h2>
-    <p>En construccion</p>
-    <h2>Bienvenido {{user.username}}</h2>
-    <div align="center"><img src="{% static 'imagenes/Construccion2.png'%}" alt="" ></div>
-</body>
+<body id="body_home">
+        <h2 id="saludo">HOLA {{user.username}}, ES UN PLACER TENERTE DE VUELTA</h2>
+        
+        <div class="p_opciones">
+            <h2 id="p_titulo_gestion"><i class="fas fa-puzzle-piece icon_gestion"></i> Gestión</h2>
+            <hr>
+            <nav id="p_primera_op">
+                <h1 id="p_titulo">Cuentas <i class="fas fa-users icon_cuentas"></i></h1>
+                <footer id="p_footer_pri"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer>    
+            </nav>
+            <nav id="p_segunda_op">
+                <h1 id="p_titulo">Mi Página <i class="fas fa-globe icon_pagina"></i></h1>
+                <footer id="p_footer_seg"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer>    
+            </nav>
+    
+            <div class="s_opciones">
+                <nav id="s_primera_op">
+                    <h1 id="s_titulo">1250 <i class="fas fa-cogs icon_articulos"></i></h1>
+                    <h1 id="s_descrip">Artículos</h1>
+                    <footer id="s_footer_pri"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer></nav>
+                <nav id="s_segunda_op">
+                    <h1 id="s_titulo">50 <i class="fas fa-users-cog icon_usuarios"></i></h1>
+                    <h1 id="s_descrip">Usuarios</h1>
+                    <footer id="s_footer_seg"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer></nav>
+                <nav id="s_tercera_op">
+                    <h1 id="s_titulo">25 <i class="fas fa-industry icon_proveedores"></i></h1>
+                    <h1 id="s_descrip">Proveedores</h1>
+                    <footer id="s_footer_ter"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer></nav>
+                <nav id="s_cuarta_op">
+                    <h1 id="s_titulo">5 <i class="fas fa-list-ul icon_categorias"></i></h1>
+                    <h1 id="s_descrip">Categorías</h1>
+                    <footer id="s_footer_cua"> <a href="#" id="tit_footer">Acceder</a>  <i class="fas fa-arrow-circle-right icon_acceder"></i></footer></nav>
+            </div>
+        </div>
+     </body>
 
 {% endblock %}

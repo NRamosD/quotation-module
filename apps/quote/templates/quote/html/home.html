@@ -9,10 +9,10 @@
          <!-- STYLES CSS -->
          <link rel="stylesheet" href="{% static 'css/stylesBarra.css'%}">
          <link rel="stylesheet" href="{% static 'css/stylesCotizacion.css'%}">
+         <link rel="stylesheet" href="{% static 'css/stylesHome.css '%}">
          <!-- BOX ICONS CSS-->
          <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
         <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script> 
-        <script src="{% static 'scripts/opbarra.js'%}"></script>
             <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
         <!-- CSS personalizado --> 
@@ -22,7 +22,8 @@
         <link rel="stylesheet" type="text/css" href="{% static 'datatables/datatables.min.css'%}"/>
         <!--datables estilo bootstrap 4 CSS-->  
         <link rel="stylesheet"  type="text/css" href="{% static 'datatables/DataTables-1.10.18/css/dataTables.bootstrap4.min.css'%}">
-
+        <!-- Estilo de home -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/stylesHome.css'%}"/>
          
     </head>
 
@@ -40,7 +41,7 @@
                     </div>
     
                     <ul class="nav__list">
-                        <a href="{% url 'quo:home' %}" class="nav__link active" id="home">
+                        <a href="{% url 'quo:home' %}" class="nav__link" id="home">
                             <i class="fas fa-home nav__icon"></i>
                             <span class="nav__text">Home</span>
                         </a>
@@ -48,11 +49,11 @@
                             <i class="fas fa-file-alt nav__icon"></i>
                             <span class="nav__text">Cotizar</span>
                         </a>
-                        <a href="#" class="nav__link">
+                        <a href="#" class="nav__link" id="documentLoad">
                             <i class="fas fa-file-upload nav__icon"></i>
                             <span class="nav__text">Cargar documento</span>
                         </a>
-                        <a href="#" class="nav__link">
+                        <a href="#" class="nav__link" id="reports">
                             <i class="fas fa-paste nav__icon"></i>
                             <span class="nav__text">Reportes</span>
                         </a>
@@ -74,4 +75,5 @@
 
     <!-- MAIN JS -->
     <script src="{% static 'scripts/scbarra.js'%}"></script>
+    <script src="{% static 'scripts/url.js'%}"></script>
 </html>

@@ -44,18 +44,21 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Precio</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 
             </div>
             <div class="modal-body">
                 <div class="input-group mb-3">
-                    <span class="input-group-text">$</span>
-                    <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-                    <span class="input-group-text">.00</span>
-                  </div>
+                    <h3>Desde: </h3>
+                    <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                    <input type="number" class="form-control" id="SicePrice">
+                    <h3>Hasta: </h3>
+                    <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                    <input type="number" class="form-control" id="ToPrice">
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="PriceFilter()" data-bs-dismiss="modal">Añadir</button>
             </div>
         </div>
     </div>
@@ -66,10 +69,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Tipo de producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 
             </div>
             <div class="modal-body">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" id="ProductTypeOption">
                     <option selected>Click para desplegar</option>
                     <option value="1">Freno</option>
                     <option value="2">Pastilla</option>
@@ -90,8 +93,8 @@
                   </select>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="ProductTypeFilter()" data-bs-dismiss="modal">Añadir</button>
             </div>
         </div>
     </div>
@@ -103,17 +106,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Ingrese el nombre del Fabricante</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ej : Chevrolet">
+                    <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
+                    <input type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
                   </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
             </div>
         </div>
     </div>
@@ -125,21 +128,22 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                 
             </div>
             <div class="modal-body">
                 <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label">Ingrese el nombre del Proveedor</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Ej : DITECA">
+                    <label for="ProviderName" class="form-label">Ingrese el nombre del Proveedor</label>
+                    <input type="text" class="form-control" id="ProviderName" placeholder="Ej : DITECA">
                   </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar cambios</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" onclick="SupplierFilter()" data-bs-dismiss="modal">Añadir</button>
             </div>
         </div>
     </div>
 </div>
+<div id="labels"></div>
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
     <!--Ejemplo tabla PRODUCTOS con DataTables-->
@@ -346,5 +350,6 @@
     <script type="text/javascript" src="{% static 'datatables/datatables.min.js'%}"></script>    
  
     <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script> 
+    <script type="text/javascript" src="{% static 'scripts/addFilter.js'%}"></script>
 </body>
 {% endblock %}
