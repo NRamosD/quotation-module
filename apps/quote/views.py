@@ -11,6 +11,8 @@ from django.views import generic
 from django.views import View
 from django.forms import model_to_dict
 from django.views.generic.base import TemplateView
+
+
 #RESTFRAMEWORK
 from rest_framework import serializers, status
 from rest_framework import response
@@ -26,6 +28,7 @@ from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
     RoleSerializer, SupplierSerializer, ProductSerializer)
 import jwt, datetime
+import requests
 
 """ RUTAS DE LA API
     Métodos a usar: GET, POST, PATCH, DELETE
@@ -137,7 +140,14 @@ def cotizar(request):
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
 
-    return render(request, "./quote/html/sectionQuote.html")
+    # get the list of todos
+    response = requests.get('http://127.0.0.1:8000/api/product/')
+    # transfor the response to json objects
+    todos = response.json()
+    print("respuesta " +str(todos))
+    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})
+
+    #return render(request, "./quote/html/sectionQuote.html")
 """ 
 class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/home.html'
@@ -321,3 +331,10 @@ class ProductDetailView(View):
     def get(self, request, pk):
         oneProduct = Product.objects.get(pk=pk)
         return JsonResponse(model_to_dict(oneProduct)) """
+"""def tabla(request):
+   # get the list of todos
+   response = requests.get('http://127.0.0.1:8000/api/product/')
+   # transfor the response to json objects
+   todos = response.json()
+   print("respuesta " +str(todos))
+   return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
