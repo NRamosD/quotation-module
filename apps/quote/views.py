@@ -338,3 +338,6 @@ class ProductDetailView(View):
    todos = response.json()
    print("respuesta " +str(todos))
    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
+
+def Vista(request):
+    return render(request, "./quote/html/sectionProducts.html")
