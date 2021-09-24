@@ -248,3 +248,6 @@ class ProductDetailView(View):
     def get(self, request, pk):
         oneProduct = Product.objects.get(pk=pk)
         return JsonResponse(model_to_dict(oneProduct)) """
+
+def Vista(request):
+    return render(request, "./quote/html/sectionProducts.html")

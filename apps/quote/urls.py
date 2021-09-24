@@ -8,7 +8,8 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
-    UserApiView, SignInView, LogoutView, 
+    UserApiView, SignInView, LogoutView,
+    Vista 
     )
 
 router = routers.DefaultRouter()
@@ -62,5 +63,7 @@ urlpatterns = [
     path('api/logout/', LogoutView.as_view(), name='api_logout'),
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
-    path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view')
+    path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
+    path('Vista/',views.Vista, name="Vista"),
+    
 ]
