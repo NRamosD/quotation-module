@@ -165,123 +165,20 @@
                                 <td>Tiger Nixon</td>
                                 <td>Arquitecto</td>
                                 <td>Edinburgh</td>
-                            
                             </tr>
                             <tr>
                                 <td>Garrett Winters</td>
                                 <td>Contador</td>
                                 <td>Tokyo</td>
-                            
-                            </tr>                
-                            <tr>
-                                <td>Cedric Kelly</td>
-                                <td>Senior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                                
                             </tr>
+                            {% for todo in todos %}        
                             <tr>
-                                <td>Airi Satou</td>
-                                <td>Contador</td>
-                                <td>Tokyo</td>
-                            
-                            </tr>               
-                            <tr>
-                                <td>Bradley Greer</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                
+                                <td>{{ todo.id_product }}</td>
+                                <td>{{ todo.product_name }}</td>
+                                <td>{{ todo.price }}</td>
                             </tr>
-
-                            <tr>
-                                <td>Bruno Nash</td>
-                                <td>Software Engineer</td>
-                                <td>London</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Sakura Yamamoto</td>
-                                <td>Support Engineer</td>
-                                <td>Tokyo</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Thor Walton</td>
-                                <td>Developer</td>
-                                <td>New York</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Finn Camacho</td>
-                                <td>Support Engineer</td>
-                                <td>San Francisco</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Serge Baldwin</td>
-                                <td>Data Coordinator</td>
-                                <td>Singapore</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Zenaida Frank</td>
-                                <td>Software Engineer</td>
-                                <td>New York</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Zorita Serrano</td>
-                                <td>Software Engineer</td>
-                                <td>San Francisco</td>
-                            
-                            </tr>
-                            <tr>
-                                <td>Jennifer Acosta</td>
-                                <td>Junior Javascript Developer</td>
-                                <td>Edinburgh</td>
-                            
-                            </tr>
-                            <tr>
-                                <td>Cara Stevens</td>
-                                <td>Sales Assistant</td>
-                                <td>New York</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Hermione Butler</td>
-                                <td>Regional Director</td>
-                                <td>London</td>
-                            
-                            </tr>
-                            <tr>
-                                <td>Lael Greer</td>
-                                <td>Systems Administrator</td>
-                                <td>London</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Jonas Alexander</td>
-                                <td>Developer</td>
-                                <td>San Francisco</td>
-                            
-                            </tr>
-                            <tr>
-                                <td>Shad Decker</td>
-                                <td>Regional Director</td>
-                                <td>Edinburgh</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Michael Bruce</td>
-                                <td>Javascript Developer</td>
-                                <td>Singapore</td>
-                                
-                            </tr>
-                            <tr>
-                                <td>Donna Snider</td>
-                                <td>Customer Support</td>
-                                <td>New York</td>
-                                
-                            </tr>
+                            {% endfor %}
+                         </body>
                         </tbody>        
                     </table>                  
                     </div>
@@ -337,6 +234,8 @@
         <li><button id="btn_producto"><i class="fas fa-save icon_save"></i>Guardar</button></li>
         <li><button id="btn_fabricante"><i class="fas fa-share-square icon_share"></i>Enviar</button></li>
     </ul>
+
+ 
 
     <!-- BARRA JS -->
     <script src="{% static 'scripts/scbarra.js'%}"></script>

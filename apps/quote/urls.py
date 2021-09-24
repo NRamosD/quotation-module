@@ -9,6 +9,8 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
+    UserApiView,
+    Vista,
     UserApiView, userLogout, LoginView
     )
 
@@ -67,5 +69,7 @@ urlpatterns = [
     path('logout/', userLogout, name='logout'),
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
-    path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view')
+    path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
+    path('Vista/',views.Vista, name="Vista"),
+    
 ]
