@@ -1,21 +1,3 @@
-*{
-  padding: 50em;
-  margin: 50em;
-  text-decoration: none;  
-}
-body{
-   
-   color: red;
-}
-nav{
-  height: 80em;
-  width: 100em;
-  background: red;
-}
-label.logo{
-  font-size: 35em;
-  font-weight: bold;
+#label{
   color: white;
-  padding: 0 100em;
-  line-height: 80em;
 }

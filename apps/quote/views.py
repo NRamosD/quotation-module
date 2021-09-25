@@ -340,4 +340,4 @@ class ProductDetailView(View):
    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
 
 def Vista(request):
-    return render(request, "./quote/html/sectionProducts.html")
+    return render(request, "./quote/html/sectionCategories.html")
