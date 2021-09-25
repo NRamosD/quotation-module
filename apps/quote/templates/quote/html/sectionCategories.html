@@ -1,40 +1,43 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sección Categorías</title>
-     <!-- STYLES CSS -->
-     <link rel="stylesheet" href="{% static 'css/stylesBarra.css'%}">
-     <link rel="stylesheet" href="{% static 'css/stylesCotizacion.css'%}">
-     <link rel="stylesheet" href="">
-     <!-- BOX ICONS CSS-->
-     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
-    <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script> 
+    <!-- STYLES CSS -->
+    <link rel="stylesheet" href="{% static 'css/stylesBarra.css'%}">
+    <link rel="stylesheet" href="{% static 'css/stylesCotizacion.css'%}">
+    <link rel="stylesheet" href="">
+    <!-- BOX ICONS CSS-->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script>
 
-        <!-- Bootstrap CSS -->
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css'%}">
-    <!-- CSS personalizado --> 
+    <!-- CSS personalizado -->
     <link rel="stylesheet" href="{% static 'css/styleVistas.css'%}">
-    
-    
-    
-    
-    
+
 </head>
-<body>      
-      <nav class="navbar navbar-light" style="background-color: #12192C;">
+
+<body>
+    <nav class="navbar navbar-light" style="background-color: #12192C;">
         <label id="label">VISTA GENERAL DE CATEGORÍAS</label>
         <ul>
             <li id="label"><a href="#"></a> Productos</li>
             <li id="label"><a href="#"></a> Proveedores</li>
-            <li id="label"><a href="#"></a> Categorías</li>    
-            
+            <li id="label"><a href="#"></a> Categorías</li>
+
         </ul>
-      </nav>
-      <asside id="asside">
+    </nav>
+    <nav>
+        <br>
+        <button type="button" class="btn btn-success">Agregar</button>
+        <br>
+    </nav>
+    <asside id="asside">
         <div class="l-navbar" id="navbar">
             <nav class="nav">
                 <div>
@@ -42,11 +45,11 @@
                         <img src="{% static 'imagenes/logo.svg'%}" alt="" class="nav__logo-icon">
                         <span class="nav__logo-text">Tractotren</span>
                     </a>
-    
+
                     <div class="nav__toggle" id="nav-toggle">
                         <i class='bx bx-chevron-right'></i>
                     </div>
-    
+
                     <ul class="nav__list">
                         <a href="{% url 'quo:home' %}" class="nav__link" id="home">
                             <i class="fas fa-home nav__icon"></i>
@@ -67,10 +70,10 @@
                         <a href="#" class="nav__link">
                             <i class="fas fa-info-circle nav__icon"></i>
                             <span class="nav__text">Información </span>
-                        </a>            
+                        </a>
                     </ul>
                 </div>
-                <a href="{% url 'quo:logout' %}" class="nav__link">           
+                <a href="{% url 'quo:logout' %}" class="nav__link">
                     <i class='bx bx-log-out-circle nav__icon'></i>
                     <span class="nav__text">Close</span>
                 </a>
@@ -83,37 +86,38 @@
     <!-- MAIN JS -->
     <script src="{% static 'scripts/scbarra.js'%}"></script>
     <script src="{% static 'scripts/url.js'%}"></script>
-      <div>
+    <div>
         <table class="table">
             <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Descripcion</th>
-                <th scope="col">Precio</th>
-              </tr>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Bujia</td>
-                <td>Elemento de arranque</td>
-                <td>USD $2.50</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
-              </tr>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>FILTROS</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>PASTILLAS</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>INSUMOS</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
             </tbody>
-          </table>
-      </div>
+        </table>
+    </div>
 </body>
+
 </html>

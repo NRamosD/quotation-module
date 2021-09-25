@@ -28,11 +28,16 @@
       <nav class="navbar navbar-light" style="background-color: #12192C;">
         <label id="label">VISTA GENERAL DE PRODUCTOS</label>
         <ul>
-            <li id="label"><a href="{% url 'quo:sectionProducts' %}"></a> Productos</li>
-            <li id="label"><a href="{% url 'quo:sectionCategories' %}"></a> Proveedores</li>
-            <li id="label"><a href="{% url 'quo:sectionVendors' %}"></a> Categorías</li>                
+            <li id="label"><a href="{% static 'templates\quote/html/sectionProducts'%}"></a> Productos</li>
+            <li id="label"><a href="#"></a> Proveedores</li>
+            <li id="label"><a href="#"></a> Categorías</li>             
         </ul>
       </nav>
+      <nav>
+        <br>
+        <button type="button" class="btn btn-success">Agregar</button>
+        <br>
+    </nav>
       <asside id="asside">
         <div class="l-navbar" id="navbar">
             <nav class="nav">
@@ -95,21 +100,21 @@
             <tbody>
               <tr>
                 <th scope="row">1</th>
-                <td>Bujia</td>
+                <td>Bujía</td>
                 <td>Elemento de arranque</td>
                 <td>USD $2.50</td>
               </tr>
               <tr>
                 <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
+                <td>Pastillas</td>
+                <td>Área Frenos</td>
+                <td>USD $26.50</td>
               </tr>
               <tr>
                 <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
-                <td>@twitter</td>
+                <td>Freno</td>
+                <td>Seguridad vehículo</td>
+                <td>USD $132.25</td>
               </tr>
             </tbody>
           </table>
