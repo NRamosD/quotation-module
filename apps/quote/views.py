@@ -341,3 +341,6 @@ class ProductDetailView(View):
 
 def Vista(request):
     return render(request, "./quote/html/sectionVendors.html")
+
+def UsersV(request):
+    return render(request, "./quote/html/GeneralViewUser.html")
