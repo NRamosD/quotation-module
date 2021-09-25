@@ -1,16 +1,16 @@
 *{
-  padding: 0em;
-  margin: 0em;
-  text-decoration: none;
-  
+  padding: 50em;
+  margin: 50em;
+  text-decoration: none;  
 }
 body{
-   font-family: montserrat;
+   
+   color: red;
 }
 nav{
   height: 80em;
   width: 100em;
-  background: blue;
+  background: red;
 }
 label.logo{
   font-size: 35em;

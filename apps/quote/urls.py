@@ -9,7 +9,6 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
-    UserApiView,
     Vista,
     UserApiView, userLogout, LoginView
     )
