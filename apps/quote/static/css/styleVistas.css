@@ -1,36 +1,25 @@
 *{
-    padding : 0;
-    margin :0;
-    text-decoration: none;
-    list-style: none;
+  padding: 0em;
+  margin: 0em;
+  text-decoration: none;
+  
 }
 body{
-    font-family: montserrat;
+   font-family: montserrat;
 }
-nav{
-    height: 80%;
-    width: 80%;
-    background: #34495e;
-}
-label.logo{
-    font-size: 35%;
-    font-weight: bold;
-    color: white;
-    padding: 0 100%;
-    line-height: 80%;
-}
+
 
 /*código para estilo de la tabla de datos*/ 
 #main-container{
-	margin: 150px auto;
-	width: 600px;
+	margin: 150em auto;
+	width: 400em;
 }
 
 table{
-	background-color: white;
-	text-align: left;
+	background-color: tomato;
+	text-align: rightss;
 	border-collapse: collapse;
-	width: 100%;
+	width: 80%;
 }
 
 th, td{
@@ -38,13 +27,13 @@ th, td{
 }
 
 thead{
-	background-color: #246355;
-	border-bottom: solid 5px #0F362D;
-	color: white;
+	background-color: tomato;
+	border-bottom: solid 5px tomato;
+	color: tomato;
 }
 
 tr:nth-child(even){
-	background-color: #ddd;
+	background-color: rgb(112, 106, 106);
 }
 
 tr:hover td{
@@ -53,19 +42,19 @@ tr:hover td{
 }
 /* Código para animacion de boton agregar - pantalla productos */
 button{
-    position: relative;
-    height: 65px;
-    width: 210px;
-    margin: 0 40px;
-    font-size: 23px;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 5px;
+    position: absolute;
+    height: 20em;
+    width: 20em;
+    margin: 0 40em;
+    font-size: 23em;
+    font-weight: 100;
+    letter-spacing: 1em;
+    border-radius: 5em;
     text-transform: uppercase;
-    border: 1px solid transparent;
+    border: 1em solid transparent;
     outline: none;
     cursor: pointer;
-    background: #0d0d0d;
+    background: tomato;
     overflow: hidden;
     transition: 0.6s;
   }
@@ -83,24 +72,24 @@ button{
     left: 0;
     top: 0;
     height: 100%;
-    filter: blur(30px);
+    filter: blur(30em);
     opacity: 0.4;
     transition: 0.6s;
   }
   button:before{
     width: 60px;
     background: rgba(255,255,255,0.6);
-    transform: translateX(-130px) skewX(-45deg);
+    transform: translateX(-130em) skewX(-45deg);
   }
   button:after{
     width: 30px;
     background: rgba(255,255,255,0.6);
-    transform: translateX(-130px) skewX(-45deg);
+    transform: translateX(-130em) skewX(-45deg);
   }
   button:hover:before,
   button:hover:after{
     opacity: 0.6;
-    transform: translateX(320px) skewX(-45deg);
+    transform: translateX(320em) skewX(-45deg);
   }
   button:hover{
     color: #f2f2f2;
