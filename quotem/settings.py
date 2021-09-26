@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework.authtoken',
     'dj_rest_auth',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
@@ -183,3 +184,6 @@ LOGOUT_REDIRECT_URL = '/login/'
 #corsheaders
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+
+#Dirección de archivos excel
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Files")

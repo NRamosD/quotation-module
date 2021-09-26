@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.forms.widgets import Media
 """ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -11,7 +12,7 @@ class Category(models.Model):
     category_vehicle = models.CharField(db_column='ID_CATEGORY_VEHICLE', max_length=20)  # Field name made lowercase.
     category_name = models.CharField(db_column='CATGORY_NAME', max_length=100)  # Field name made lowercase.
     description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
-
+    #media = models.FileField(upload_to='carpeta/') 
     class Meta:
         managed = True
         db_table = 'category'

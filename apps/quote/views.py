@@ -120,22 +120,29 @@ def login_plain(request):
 
 @login_required
 def home(request):
-    return render(request, "./quote/html/sectionHome.html")
-
-@login_required
-def cotizar(request):
-    #print (f"expira {datetime.datetime.fromtimestamp(int('1632366633')).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int('1632366433')).strftime('%Y-%m-%d %H:%M:%S')}")
     token = request.COOKIES.get('jwt')
     if not token:
         raise AuthenticationFailed('Autenticación fallida')
     
-    #payload = jwt.decode(token, options={"verify_signature": False})
     try:
         payload = jwt.decode(token, 'secret', algorithms=['HS256'])
     except:
         raise AuthenticationFailed('Autenticación fallida')
     
-    print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
+    return render(request, "./quote/html/sectionHome.html")
+
+@login_required
+def cotizar(request):
+    token = request.COOKIES.get('jwt')
+    if not token:
+        raise AuthenticationFailed('Autenticación fallida')
+    
+    try:
+        payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+    except:
+        raise AuthenticationFailed('Autenticación fallida')
+    
+    #print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
     
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
