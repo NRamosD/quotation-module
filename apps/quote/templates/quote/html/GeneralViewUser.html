@@ -1,0 +1,139 @@
+{% extends 'quote/html/home.html' %}
+{% load static %}
+
+{% block title %}Vista General Usuarios{% endblock %}
+
+{% block content %}
+<body id="body_users">
+    <h1 id="titulo_usuarios">Usuarios</h1>
+    <h1 id="InfoA">Home</h1>
+    <h1 id="Mark">></h1>
+    <h1 id="InfoB">Vista de Usuarios</h1>
+    <button id="btn_agregar" class="hover-underline-animation"><i class="fas fa-plus but_mas"></i>Añadir</button>
+    <button id="btn_pregunta" class="hover-underline-animationB"><i class="fas fa-question but_circle"></i></button>
+
+    <div class="container_usuarios">
+    <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">        
+                    <table id="myTable" class="table display" style="width:95%">
+                    <thead>
+                        <tr>
+                            <th>ID Usuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Email</th>
+                            <th>Ciudad</th>
+                            <th>Provincia</th>
+                            <th>País</th>
+                            <th>Estado de Usuario</th>
+                            <th>Último acceso al sistema</th>
+                            <th>Acción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>Juan</td>
+                            <td>Perez</td>
+                            <td>juan_perez@gmail.com</td>
+                            <td>Atacames</td>
+                            <td>Esmeraldas</td>
+                            <td>Ecuador</td>
+                            <td>Activo</td>
+                            <td>2021-09-23 03:31:20.500992</td>
+                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                        </tr>
+                    </tbody>        
+                </table>                  
+                </div>
+            </div>
+    </div>  
+    </div> 
+</body>
+
+{% endblock %}

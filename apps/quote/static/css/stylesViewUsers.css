@@ -1,0 +1,147 @@
+#titulo_usuarios{
+    margin-top: 1em;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;      
+    font-size: 1.5em;
+    margin-top: -0.8em;
+    background-color: #12192C;
+    color: white;
+    height: 1.9em;
+    margin-left: -1em;
+    padding-left: 2em;
+    padding-top: 0.3em;
+    width: 103%;
+}
+#body_users{
+    background-color: #EDF1F5;
+}
+#InfoA {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;      
+    font-size: 1em;
+    float: left;
+    margin-left: 55em;
+    margin-top: 0.5em;
+}
+
+#Mark {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;      
+    font-size: 1em;
+    float: left;
+    margin-left: 0.2em;
+    margin-top: 0.5em;
+}
+
+#InfoB {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;      
+    font-size: 1em;
+    float: left;
+    margin-left: 0.2em;
+    margin-top: 0.5em;
+    color: #F5A623;
+}
+
+#btn_agregar{
+    background-color: #F5A623;
+    margin-left: 1em;
+    border-radius: 20px 15px 5px 30px;
+    margin-bottom: 0.5em;
+    height: 2.5em;
+    padding: none;
+}
+#btn_pregunta{
+    background-color: #40C43E;
+    border-radius: 20px 15px 5px 30px;
+    margin-bottom: 0.5em;
+    height: 2.2em;
+}
+.container_usuarios{
+    background-color: white;
+    padding-left: 1.5em;
+}
+#btn_Opciones{
+    background-color: #009EFA; 
+    border-radius: 10px 10px 10px 10px;
+    width: 1em;
+}
+#btn_Opciones_S{
+    background-color: #F62D51;
+    border-radius: 10px 10px 10px 10px;
+    margin-left: 0.5em;
+    width: 1em;
+}
+
+.but_circle{
+    padding-top: -0.5em;
+    float: left;
+}
+.but_mas{
+    margin-right: 0.5em;
+}
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    transform: scaleX(0);
+    height: 2.5px;
+    bottom: 0;
+    left: 1.5em;
+    background-color: #15297C;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+
+/*--------------------------------*/
+.hover-underline-animationB {
+    display: inline-block;
+    position: relative;
+  }
+  
+  .hover-underline-animationB:after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    transform: scaleX(0);
+    height: 2.5px;
+    bottom: 0;
+    left: 1em;
+    background-color: #15297C;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+  }
+  
+  .hover-underline-animationB:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+  }
+
+.button_edit{
+    margin-left: -0.5em;
+    
+}
+.button_delete{
+    margin-left: -0.4em;
+}
+
+#btn_Opciones:hover #pop{
+    animation: pop 0.3s linear 1;
+}
+
+#btn_Opciones_S:hover #pop{
+    animation: pop 0.3s linear 1;
+}
+
+@keyframes pop{
+    50%  {transform: scale(1.4);}
+}
+

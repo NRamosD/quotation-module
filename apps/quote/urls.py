@@ -70,5 +70,5 @@ urlpatterns = [
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
     path('Vista/',views.Vista, name="Vista"),
-    
+    path('UsersV',views.UsersV, name="UsersV")
 ]
