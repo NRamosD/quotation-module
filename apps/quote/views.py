@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views import View
 from django.forms import model_to_dict
+from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 
 
@@ -151,15 +152,20 @@ def cotizar(request):
         request.GET,
         queryset=Product.objects.all()
     )
-    #context['filter_products'] = filter_products.qs
+    context = {}
+    context['todos'] = filter_products
 
+    paginated_products = Paginator(filter_products.qs, 2)
+    page_number = request.GET.get('page')
+    product_page_obj = paginated_products.get_page(page_number)
     
+    context['product_page_obj']=product_page_obj
     # get the list of todos
-    response = requests.get('http://127.0.0.1:8000/api/product/')
+    #response = requests.get('http://127.0.0.1:8000/api/product/')
     # transfor the response to json objects
-    todos = response.json()
-    print("respuesta " +str(todos))
-    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})
+    #todos = response.json()
+    #print("respuesta " +str(todos))
+    return render(request, "./quote/html/sectionQuote.html", context=context)#{"todos": todos})
 
     #return render(request, "./quote/html/sectionQuote.html")
 """ 
