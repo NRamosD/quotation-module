@@ -27,6 +27,8 @@ from .models import Role, Users, Product, Suppliers, Category, qDetails, Quotes
 from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
     RoleSerializer, SupplierSerializer, ProductSerializer)
+from .filters import ProductFilter
+
 import jwt, datetime
 import requests
 
@@ -141,12 +143,17 @@ def cotizar(request):
         payload = jwt.decode(token, 'secret', algorithms=['HS256'])
     except:
         raise AuthenticationFailed('Autenticación fallida')
-    
     #print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
-    
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
 
+    filter_products = ProductFilter(
+        request.GET,
+        queryset=Product.objects.all()
+    )
+    #context['filter_products'] = filter_products.qs
+
+    
     # get the list of todos
     response = requests.get('http://127.0.0.1:8000/api/product/')
     # transfor the response to json objects
