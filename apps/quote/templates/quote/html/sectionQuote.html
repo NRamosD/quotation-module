@@ -1,5 +1,6 @@
 {% extends 'quote/html/home.html' %}
 {% load static %}
+{% load quoextras %}
 
 {% block title %}Cotizar{% endblock %}
 
@@ -147,6 +148,10 @@
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
     <!--Ejemplo tabla PRODUCTOS con DataTables-->
+    <form action="" method="get">
+        {{ todos.form.as_p }}
+        <input type="submit" value="Press">
+    </form>
     <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Artículos</h2>
     <div class="container_productos">
         <div class="row">
@@ -171,7 +176,7 @@
                                     <td>Contador</td>
                                     <td>Tokyo</td>
                                 </tr>-->
-                                {% for todo in todos %}        
+                                {% for todo in product_page_obj %}
                                 <tr>
                                     <td>{{ todo.id_product }}</td>
                                     <td>{{ todo.product_name }}</td>
@@ -181,7 +186,24 @@
 
 
                             </tbody>        
-                        </table>                  
+                        </table>
+                        <div class="Pagination">
+                            <span class="step-links">
+                                {% if product_page_obj.has_previous %}
+                                    <a href="?page=1">&laquo; 1</a>
+                                    <a href="?page={{ product_page_obj.previous_page_number }}">Anterior</a>
+                                {% endif %}
+
+                                <span class="actual">
+                                    Página {{product_page_obj.number}} de {{product_page_obj.paginator.num_pages}}.
+                                </span>
+
+                                {% if product_page_obj.has_next %}
+                                    <a href="?page={{ product_page_obj.next_page_number }}">Siguiente</a>
+                                    <a href="?page={{ product_page_obj.paginator.num_pages }}">Última &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>                  
                     </div>
                 </div>
         </div>  
