@@ -143,15 +143,21 @@ def cotizar(request):
     #print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
+    context = {}
+    
+    qs = Product.objects.all()
+    product_searcher = request.GET.get('productname')
 
-    filter_products = ProductFilter(
+    if product_searcher != '' and product_searcher is not None:
+        qs = qs.filter(product_name__icontains=product_searcher)
+    """ filter_products = ProductFilter(
         request.GET,
         queryset=Product.objects.all()
-    )
-    context = {}
-    context['todos'] = filter_products
+    ) """
+    
+    context['todos'] = qs
 
-    paginated_products = Paginator(filter_products.qs, 2)
+    paginated_products = Paginator(qs, 5)
     page_number = request.GET.get('page')
     product_page_obj = paginated_products.get_page(page_number)
     

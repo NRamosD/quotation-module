@@ -158,14 +158,15 @@ button:hover{
     background: #F5A623;
     width: 3.4em;
     height: 3.4em;
-    text-align: center;
     line-height: 3.4em;
     color: white;
     border-radius: 50%;
     cursor: pointer;
+    align-items: center;
 }
 
 /*==========ICONOS===========*/
+
 .icon_herramienta{
     margin-right: 1em;
     margin-top: 0.6em;
