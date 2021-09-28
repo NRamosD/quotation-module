@@ -364,3 +364,6 @@ def Vista(request):
 
 def UsersV(request):
     return render(request, "./quote/html/GeneralViewUser.html")
+
+def ModalAddUser(request):
+    return render(request, "./quote/html/AddUserModal.html")

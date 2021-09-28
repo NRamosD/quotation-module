@@ -1,0 +1,9 @@
+label{
+    display: inline-block;
+    width: 10em;
+}
+#input_modal_AUser{
+    border-radius: 5px 5px 5px 5px;
+    width: 24em;
+    margin-left: 2em;
+}
