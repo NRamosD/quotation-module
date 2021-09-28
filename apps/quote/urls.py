@@ -9,8 +9,8 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
-    Vista,
-    UserApiView, userLogout, LoginView
+    UserApiView, userLogout, LoginView,
+    Vista
     )
 
 router = routers.DefaultRouter()

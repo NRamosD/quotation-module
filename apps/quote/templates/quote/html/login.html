@@ -8,19 +8,25 @@
     <script src="https://kit.fontawesome.com/7d201eafed.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class=" w3l-login-form">
+    <div class="w3l-login-form">
         <h2>Tracto tren</h2>
+        {% if showalert %}
+            <div class="alert">
+                <div class="text-alert">
+                    Su sesión ha expirado. Por favor inicie sesión nuevamente.
+                </div>
+            </div>
+        {% endif %}
         <form class="user" method="POST">
             {% csrf_token %}
-            <div class=" w3l-form-group">  
-                <label>Usuario:</label>
+            
+            <div class=" w3l-form-group">
                 <div class="group">
                     <i class="fas fa-user"></i>
                     <input type="text" id="idusername" name="username" class="form-control" placeholder="Usuario" required="required" />
                 </div>
             </div>
             <div class=" w3l-form-group">
-                <label>Contraseña:</label>
                 <div class="group">
                     <i class="fas fa-unlock"></i>
                     <input type="password" id="id_password" name="password" class="form-control" placeholder="Contraseña" required="required" />
@@ -32,7 +38,6 @@
             </div>
             <button type="submit" name="submit">Acceder</button>
         </form>
-        <p class=" w3l-register-p">Crear cuenta<a href="#" class="register"> Registrarse</a></p>
     </div>
 </body>
 </html>

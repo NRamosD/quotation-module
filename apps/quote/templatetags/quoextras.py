@@ -3,7 +3,7 @@ from django import template
 register = template.Library()
 
 @register.simple_tag
-def quo_url(value, field_name, urlencode=None):
+def quote_url(value, field_name, urlencode=None):
     url = '?{}={}'.format(field_name, value)
     
     if urlencode:

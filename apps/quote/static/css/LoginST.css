@@ -1,3 +1,17 @@
+/* alert */
+.alert{
+    background-color: #fc3955;
+    margin: 0;
+    padding: 0;
+    align-content: center;
+    border-radius: 1em;
+}
+.text-alert{
+    padding: 1em;
+    font-size: 1em;
+}
+
+
 body {
     margin: 0;
     padding: 0;
@@ -7,6 +21,8 @@ body {
     font-family: 'Raleway', sans-serif;
     padding-top: 7em;
 }
+
+
 h1 {
     margin: 0;
     color: #ffffff;
@@ -78,10 +94,6 @@ input[type="password"] {
     color: #000;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    outline: none;
-}
 
 button {
     background: #fc3955;

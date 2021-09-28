@@ -200,4 +200,9 @@ button:hover{
 .badge{
     margin: 1em .5em;   
 }
-/*Inputs numbers */
+
+#search_btn{
+    background-color: transparent;
+}
+
+

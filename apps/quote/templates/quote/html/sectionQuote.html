@@ -24,10 +24,12 @@
     
     <!-- BARRA BUSQUEDA. -->
     <div class="buscar">
-        <input type="text" placeholder="Qué estás buscando?" required>
-        <div class="btn_busqueda">
-            <i class="fas fa-search icon_search"></i>
-        </div>
+        <form action="" method="get">
+            <input id="id_product_name" name="product_name" type="text" placeholder="Qué estás buscando?" required>
+            <div class="btn_busqueda">
+                <i id="search_btn" class="fas fa-search icon_search" type="submit" ></i>
+            </div>
+        </form>
     </div>
 
     <!-- FILTROS. -->
@@ -148,10 +150,7 @@
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
     <!--Ejemplo tabla PRODUCTOS con DataTables-->
-    <form action="" method="get">
-        {{ todos.form.as_p }}
-        <input type="submit" value="Press">
-    </form>
+
     <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Artículos</h2>
     <div class="container_productos">
         <div class="row">
@@ -189,9 +188,10 @@
                         </table>
                         <div class="Pagination">
                             <span class="step-links">
+                               
                                 {% if product_page_obj.has_previous %}
-                                    <a href="?page=1">&laquo; 1</a>
-                                    <a href="?page={{ product_page_obj.previous_page_number }}">Anterior</a>
+                                    <a href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
+                                    <a href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
                                 {% endif %}
 
                                 <span class="actual">
@@ -199,8 +199,8 @@
                                 </span>
 
                                 {% if product_page_obj.has_next %}
-                                    <a href="?page={{ product_page_obj.next_page_number }}">Siguiente</a>
-                                    <a href="?page={{ product_page_obj.paginator.num_pages }}">Última &raquo;</a>
+                                    <a href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
+                                    <a href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
                                 {% endif %}
                             </span>
                         </div>                  

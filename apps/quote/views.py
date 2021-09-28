@@ -1,4 +1,5 @@
 #DJANGO
+from decimal import Context
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -111,17 +112,8 @@ class UserApiView(APIView):
 def index(request):
     return render(request, "./quote/index.html")
 
-def login_plain(request):
-    response = Response()
-    logout(request)
-    response.data = {
-            'message':'Cierre de sesión exitoso'
-        }
-        #logout(request)
-    return response
-    #return render(request, "./quote/html/login.html")
 
-@login_required
+#@login_required
 def home(request):
     token = request.COOKIES.get('jwt')
     if not token:
@@ -130,7 +122,10 @@ def home(request):
     try:
         payload = jwt.decode(token, 'secret', algorithms=['HS256'])
     except:
-        raise AuthenticationFailed('Autenticación fallida')
+        return redirect('quo:login')
+        #response = Response() "./quote/html/login.html"
+        #return render(request, 'quo:login' , context=context)
+        #raise AuthenticationFailed('Autenticación fallida')
     
     return render(request, "./quote/html/sectionHome.html")
 
@@ -143,7 +138,8 @@ def cotizar(request):
     try:
         payload = jwt.decode(token, 'secret', algorithms=['HS256'])
     except:
-        raise AuthenticationFailed('Autenticación fallida')
+        return redirect('quo:login')
+        #raise AuthenticationFailed('Autenticación fallida')
     #print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
@@ -220,10 +216,8 @@ class SignInView(TemplateView):
 class UserView(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
-
         if not token:
             raise AuthenticationFailed('Autenticación fallida')
-        
         try:
             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except:
@@ -244,8 +238,21 @@ def userLogout(request):
     return redirect("quo:login")
 
 
+
 class LoginView(TemplateView):
     template_name='quote/html/login.html'
+    def get(self, request):
+        context={}
+        token = request.COOKIES.get('jwt')
+        if token:
+            try:
+                payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+            except:
+                context['showalert'] = True
+                return render(request, "./quote/html/login.html", context=context)
+        
+        return redirect('quo:home')
+
     def post(self, request):
         login_data = request.POST.dict()
         username = login_data.get("username")
