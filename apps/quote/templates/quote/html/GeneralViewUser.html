@@ -68,10 +68,61 @@
     </div>
   </div>
 
+  <!-- Modal Editar-->
+  <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    Editar Usuario
+                </h5>
+                
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">
+                        ×
+                    </span>
+                </button>
+            </div>
 
+            <div class="modal-body">
 
+                <!-- Data passed is displayed in this part of the modal body -->
+                    <label id="label_modal_field" for="name">Nombre:</label>
+                    <input id="EUser_N" type="text" maxlength="150" required placeholder="Nombre del usuario"><br><br>
+                    <label id="label_modal_field" for="Apellido">Apellido:</label>
+                    <input id="EUser_A" type="text" maxlength="150" required placeholder="Apellido del usuario"><br><br>
+                    <label id="label_modal_field" for="Correo">Correo electrónico:</label>
+                    <input id="EUser_E" type="email" required placeholder="Email"><br><br>
+                    <label id="label_modal_field" for="Cedula">Cédula:</label>
+                    <input id="EUser_C" type="text" maxlength="10" required placeholder="Cédula sin guión"><br><br>
+                    <label id="label_modal_field" for="Telefono">Teléfono:</label>
+                    <input id="EUser_T" type="text" maxlength="10" ><br><br>
+                    <label id="label_modal_field" for="Celular">Celular:</label>
+                    <input id="EUser_CE" type="text" maxlength="10" required ><br><br>
+                    <label id="label_modal_field" for="Ciudad">Ciudad:</label>
+                    <input id="EUser_CI" type="text" maxlength="100" required placeholder="Ciudad(Ubicación)"><br><br>
+                    <label id="label_modal_field" for="Provincia">Provincia:</label>
+                    <input id="EUser_P" type="text" maxlength="100" required placeholder="Provincia(Ubicación)"><br><br>
+                    <label id="label_modal_field" ="Pais">País:</label>
+                    <input id="EUser_PA" type="text" maxlength="100" required placeholder="País(Ubicación)"><br><br>
+                    <label id="label_modal_field" for="username">Nombre de Usuario:</label>
+                    <input id="EUser_NU" type="text" maxlength="150" required placeholder="Nombre de Usuario"><br><br>
+                    <label id="label_modal_field" for="password">Contraseña:</label>
+                    <input id="EUser_CO" type="password" pattern=".{8,}" required placeholder="Incluya números y símbolos"><br><br>
+                    <label id="label_modal_field" for="password_verification">Repetir Contraseña:</label>
+                    <input id="EUser_RC" type="password" pattern=".{8,}" required><br><br>
 
-    <div class="container_usuarios">
+                <h6 id="modal_body"></h6>
+                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalEdit" id="submit">
+                    Aceptar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!-- TABLA INFO USERS-->
+  <div class="container_usuarios">
     <div class="row">
             <div class="col-lg-12">
                 <div class="table-responsive">        
@@ -91,7 +142,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr id="1">
                             <td>1</td>
                             <td>Juan</td>
                             <td>Perez</td>
@@ -101,7 +152,7 @@
                             <td>Ecuador</td>
                             <td>Activo</td>
                             <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                            <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
                         </tr>
                         <tr>
                             <td>2</td>
@@ -192,7 +243,23 @@
                 </div>
             </div>
     </div>  
-    </div> 
+  </div> 
 </body>
+
+<script type="text/javascript">
+  $("#btn_Opciones").click(function () {
+      var nombre =  document.getElementById('1').cells[1].innerText;
+      var apellido =  document.getElementById('1').cells[2].innerText;
+      var correo =  document.getElementById('1').cells[3].innerText;
+      var ciudad =  document.getElementById('1').cells[4].innerText;
+      var provincia =  document.getElementById('1').cells[5].innerText;
+      var pais =  document.getElementById('1').cells[6].innerText;
+      $("#EUser_N").val(nombre);
+      $("#EUser_A").val(apellido);
+      $("#EUser_CI").val(ciudad);
+      $("#EUser_P").val(provincia);
+      $("#EUser_PA").val(pais);
+  });
+</script>
 
 {% endblock %}
