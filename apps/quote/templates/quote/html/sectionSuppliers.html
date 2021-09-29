@@ -10,11 +10,67 @@
   <nav id="navbar_Views">
     <label id="label">VISTA GENERAL DE PROVEEDORES</label>
   </nav>
-  <nav>
-    <br>
-    <button type="button" class="btn btn-success">Agregar</button>
-    <br>
-  </nav>
+  <!-- Button modal Proveedores -->
+  <br>
+  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Agregar
+  </button>
+
+  <!-- Modal Proveedores-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Información del Producto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">Descripción</span>
+            <input type="text" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm">
+          </div>
+          <div>
+            <span class="input-group-text"> Precio [$]</span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+          </div>
+          <div>
+            <span class="input-group-text"> Marca </span>
+            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+          </div>
+          <div>
+            <span class="input-group-text">Fecha de Registro</span>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text">dd/mm/aa</span>
+            <input type="text" aria-label="First name" class="form-control">
+            <input type="text" aria-label="Last name" class="form-control">
+            <input type="text" aria-label="Last name" class="form-control">
+          </div>
+          <br>
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">Disponibilidad</label>
+            <select class="form-select" id="inputGroupSelect01">
+              <option selected>...</option>
+              <option value="1">Inmediata</option>
+              <option value="2">Tiempo de espera</option>
+              <option value="3">Nula</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
