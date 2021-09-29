@@ -373,7 +373,7 @@ class ProductDetailView(View):
    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
 
 def Vista(request):
-    return render(request, "./quote/html/sectionVendors.html")
+    return render(request, "./quote/html/sectionCategories.html")
 
 def UsersV(request):
     return render(request, "./quote/html/GeneralViewUser.html")
