@@ -5,59 +5,54 @@
 {% block title %}Vista General Usuarios{% endblock %}
 
 {% block content %}
-<body>      
-      <nav class="navbar navbar-light" style="background-color: #12192C;">
-        <label id="label">VISTA GENERAL DE PROVEEDORES</label>
-        <ul>
-            <li id="label"><a href="#"></a> Productos</li>
-            <li id="label"><a href="#"></a> Proveedores</li>
-            <li id="label"><a href="#"></a> Categorías</li>    
-            
-        </ul>
-      </nav>
-      <nav>
-        <br>
-        <button type="button" class="btn btn-success">Agregar</button>
-        <br>
-    </nav>
-      
-  
-  
 
-    <!-- MAIN JS -->
-    <script src="{% static 'scripts/scbarra.js'%}"></script>
-    <script src="{% static 'scripts/url.js'%}"></script>
-      <div>
-        <table class="table">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Contacto</th>
-                <th scope="col">Telefono</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Genuino</td>
-                <td>Javier</td>
-                <td>988400000</td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Luna</td>
-                <td>Antonela</td>
-                <td>989011623</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Lavca</td>
-                <td>Byron</td>
-                <td>995380912</td>
-              </tr>
-            </tbody>
-          </table>
-      </div>
+<body>
+  <nav id="navbar_Views">
+    <label id="label">VISTA GENERAL DE PROVEEDORES</label>
+  </nav>
+  <nav>
+    <br>
+    <button type="button" class="btn btn-success">Agregar</button>
+    <br>
+  </nav>
+
+
+
+
+  <!-- MAIN JS -->
+  <script src="{% static 'scripts/scbarra.js'%}"></script>
+  <script src="{% static 'scripts/url.js'%}"></script>
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Contacto</th>
+          <th scope="col">Telefono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">1</th>
+          <td>Genuino</td>
+          <td>Javier</td>
+          <td>988400000</td>
+        </tr>
+        <tr>
+          <th scope="row">2</th>
+          <td>Luna</td>
+          <td>Antonela</td>
+          <td>989011623</td>
+        </tr>
+        <tr>
+          <th scope="row">3</th>
+          <td>Lavca</td>
+          <td>Byron</td>
+          <td>995380912</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </body>
 {% endblock %}
