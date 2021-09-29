@@ -159,10 +159,32 @@ def cotizar(request):
         context = {}
         
         qs = Product.objects.all()
+        print(qs[0].price)
         product_searcher = request.GET.get('productname')
+        product_price_since = request.GET.get('sincePrice')
+        product_price_to = request.GET.get('toPrice')
+        product_producer = request.GET.get('producerName')
+        product_provider = request.GET.get('providerName')
+        
 
         if product_searcher != '' and product_searcher is not None:
             qs = qs.filter(product_name__icontains=product_searcher)
+
+        if product_price_since != '' and product_price_since is not None and product_price_to != '' and product_price_to is not None:
+            qs = qs.filter(price__gte=product_price_since, price__lte=product_price_to)
+        elif product_price_since != '' and product_price_since is not None and product_price_to == '' and product_price_to is None:
+            qs = qs.filter(price__gte=product_price_since)
+        elif product_price_since == '' and product_price_since is None and product_price_to != '' and product_price_to is not None:
+            qs = qs.filter(price__lte=product_price_to)
+
+        #TENEMOS QUE HACER EL JOIN PARA RECUPERAR LOS DATOS CON NOMBRES
+        """ if product_producer != '' and product_producer is not None:
+            qs = qs.filter(product_name__icontains=product_producer)
+        
+        if product_provider != '' and product_provider is not None:
+            qs = qs.filter(product_name__icontains=product_provider) """
+
+
         """ filter_products = ProductFilter(
             request.GET,
             queryset=Product.objects.all()

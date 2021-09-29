@@ -1,16 +1,16 @@
 function PriceFilter(){
-    if(parseFloat(SicePrice.value)>parseFloat(ToPrice.value)){
+    if(parseFloat(SincePrice.value)>parseFloat(ToPrice.value)){
         return alert("El primer valor debe ser mayor al segundo.")
     }
-    if (SicePrice.value!='' && ToPrice.value!=''){
+    if (SincePrice.value!='' && ToPrice.value!=''){
         let content = `
-        <span class="badge badge-warning" style="font-size: 1em;">Desde $${SicePrice.value} hasta $${ToPrice.value}</span>`
+        <span class="badge badge-warning" style="font-size: 1em;">Desde $${SincePrice.value} hasta $${ToPrice.value}</span>`
         labels.innerHTML += content
         return
     }
-    if(SicePrice.value!=''){
+    if(SincePrice.value!=''){
         let content = `
-        <span class="badge badge-warning" style="font-size: 1em;">Desde $${SicePrice.value}</span>`
+        <span class="badge badge-warning" style="font-size: 1em;">Desde $${SincePrice.value}</span>`
         labels.innerHTML += content
     }
     if (ToPrice.value!=''){

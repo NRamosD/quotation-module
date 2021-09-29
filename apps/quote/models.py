@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token """
 
+
 class Category(models.Model):
     id_category_product = models.AutoField(db_column='ID_CATEGORY_PRODUCT', primary_key=True)  # Field name made lowercase.
     category_vehicle = models.CharField(db_column='ID_CATEGORY_VEHICLE', max_length=20)  # Field name made lowercase.
@@ -99,14 +100,19 @@ class usuarioManager(BaseUserManager):
         return usuario """
 
 
+gender_options = [
+    ('M', 'Masculino'),
+    ('F', 'Femenino')
+]
+
 class Users(AbstractUser):
     id_user = models.AutoField(db_column='ID_USER', primary_key=True)  # Field name made lowercase.
     id_role = models.ForeignKey(Role, models.DO_NOTHING, db_column='ID_ROLE')  # Field name made lowercase.
     id_card = models.CharField(db_column='ID_CARD', unique=True, max_length=10)  # Field name made lowercase.
-    gender = models.CharField(db_column='GENDER', max_length=1)  # Field name made lowercase.
+    gender = models.CharField(db_column='GENDER', max_length=1, null=False, blank=False, choices=gender_options)  # Field name made lowercase.
     born_date = models.DateTimeField(db_column='BORN_DATE')  # Field name made lowercase.
     landline = models.CharField(db_column='LANDLINE', max_length=15, blank=True, null=True)  # Field name made lowercase.
-    movile_phone = models.CharField(db_column='MOVILE_PHONE', max_length=15)  # Field name made lowercase.
+    mobile_phone = models.CharField(db_column='MOVILE_PHONE', max_length=15)  # Field name made lowercase.
     city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.

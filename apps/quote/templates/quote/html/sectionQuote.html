@@ -22,130 +22,130 @@
     <header id="head_cotizacion"><i class="fas fa-file-alt nav__icon"></i> / Cotización</header>
     <br><label class="Titulo"><a>Código o nombre del producto</a></label><br>
     
-    <!-- BARRA BUSQUEDA. -->
-    <div class="buscar">
-        <form action="" method="GET">
-            <input name="productname" type="text" placeholder="Qué estás buscando?" required>
-                <button class="btn_busqueda" type="submit">
-                    <i class="fas fa-search icon_search"> </i>
-                </button>
-        </form>
-    </div>
+    <form method="GET">
+        <!-- BARRA BUSQUEDA. -->
+        <div>
+            <input name="productname" type="text" placeholder="Qué estás buscando?">
+        </div>
 
-    <!-- FILTROS. -->
+        <!-- FILTROS. -->
 
-    <ul id="bot_filtro">
-        <li><button data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
-        <li><button data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
-        <li><button data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
-        <li><button data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
-    </ul>
+        <ul id="bot_filtro">
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
+        </ul>
 
-<!-- Modal Precio -->
-<div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Precio</h5>
-                 
-            </div>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <h3>Desde: </h3>
-                    <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
-                    <input type="number" class="form-control" id="SicePrice">
-                    <h3>Hasta: </h3>
-                    <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
-                    <input type="number" class="form-control" id="ToPrice">
+        <!-- Modal Precio -->
+        <div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Precio</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <h3>Desde: </h3>
+                            <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                            <input  name="sincePrice" type="number" class="form-control" id="SincePrice">
+                            <h3>Hasta: </h3>
+                            <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                            <input name="toPrice" type="number" class="form-control" id="ToPrice">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="PriceFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="PriceFilter()" data-bs-dismiss="modal">Añadir</button>
-            </div>
         </div>
-    </div>
-</div>
-<!-- Modal Tipo de producto-->
-<div class="modal fade" id="exampleModalTP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Tipo de producto</h5>
-                 
-            </div>
-            <div class="modal-body">
-                <select class="form-select" aria-label="Default select example" id="ProductTypeOption">
-                    <option selected>Click para desplegar</option>
-                    <option value="1">Freno</option>
-                    <option value="2">Pastilla</option>
-                    <option value="3">Bujías</option>
-                    <option value="4">Embrague</option>
-                    <option value="5">Discos</option>
-                    <option value="6">Filtros</option>
-                    <option value="7">Insumos</option>
-                    <option value="8">Aceites</option>
-                    <option value="9">Lavadora</option>
-                    <option value="10">Maquinaria pesada</option>
-                    <option value="11">Turbos</option>
-                    <option value="12">Bombas</option>
-                    <option value="13">Llantas</option>
-                    <option value="14">Accesorios</option>
-                    <option value="15">Otros...</option>
+        <!-- Modal Tipo de producto-->
+        <div class="modal fade" id="exampleModalTP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tipo de producto</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <select class="form-select" aria-label="Default select example" id="ProductTypeOption">
+                            <option selected>Click para desplegar</option>
+                            <option value="1">Freno</option>
+                            <option value="2">Pastilla</option>
+                            <option value="3">Bujías</option>
+                            <option value="4">Embrague</option>
+                            <option value="5">Discos</option>
+                            <option value="6">Filtros</option>
+                            <option value="7">Insumos</option>
+                            <option value="8">Aceites</option>
+                            <option value="9">Lavadora</option>
+                            <option value="10">Maquinaria pesada</option>
+                            <option value="11">Turbos</option>
+                            <option value="12">Bombas</option>
+                            <option value="13">Llantas</option>
+                            <option value="14">Accesorios</option>
+                            <option value="15">Otros...</option>
 
-                  </select>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="ProductTypeFilter()" data-bs-dismiss="modal">Añadir</button>
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="ProductTypeFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal Fabricante-->
-<div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
-                 
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
-                    <input type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
-                  </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
+        <!-- Modal Fabricante-->
+        <div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
+                            <input name="producerName" type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<!-- Modal proveedor-->
-<div class="modal fade" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
-                 
-            </div>
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="ProviderName" class="form-label">Ingrese el nombre del Proveedor</label>
-                    <input type="text" class="form-control" id="ProviderName" placeholder="Ej : DITECA">
-                  </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" onclick="SupplierFilter()" data-bs-dismiss="modal">Añadir</button>
+        <!-- Modal proveedor-->
+        <div class="modal fade" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="ProviderName" class="form-label">Ingrese el nombre del Proveedor</label>
+                            <input name="providerName" type="text" class="form-control" id="ProviderName" placeholder="Ej : DITECA">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="SupplierFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+        <button type="submit">
+            <i class="fas fa-search icon_search"> </i>
+        </button>
+    </form>
 <div id="labels"></div>
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
