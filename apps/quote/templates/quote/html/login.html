@@ -15,8 +15,11 @@
                 <div class="text-alert">
                     Su sesión ha expirado. Por favor inicie sesión nuevamente.
                 </div>
+                <a href="{% url 'quo:login' %}" id="oklogin">
+                    <button>OK</button>
+                </a>
             </div>
-        {% endif %}
+        {% else %}
         <form class="user" method="POST">
             {% csrf_token %}
             
@@ -32,12 +35,18 @@
                     <input type="password" id="id_password" name="password" class="form-control" placeholder="Contraseña" required="required" />
                 </div>
             </div>
+            {% if notexistuser %}
+            <div class="alert text-alert">
+                Usuario o contraseña incorrecta.
+            </div>
+            {% endif %}
             <div class="forgot">
                 <a href="#">Recuperar Contraseña</a>
                 <p><input type="checkbox">Recordarme</p>
             </div>
             <button type="submit" name="submit">Acceder</button>
         </form>
+        {% endif %}
     </div>
 </body>
 </html>

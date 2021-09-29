@@ -115,7 +115,15 @@ def index(request):
 
 #@login_required
 def home(request):
-    token = request.COOKIES.get('jwt')
+    if checkToken(request):
+        return render(request, "./quote/html/sectionHome.html")
+        
+    logout(request)
+    return render(request, "./quote/html/login.html", {'showalert':True})
+    
+    
+
+    """ token = request.COOKIES.get('jwt')
     if not token:
         raise AuthenticationFailed('Autenticación fallida')
     
@@ -127,11 +135,12 @@ def home(request):
         #return render(request, 'quo:login' , context=context)
         #raise AuthenticationFailed('Autenticación fallida')
     
-    return render(request, "./quote/html/sectionHome.html")
+    return render(request, "./quote/html/sectionHome.html") """
 
-@login_required
+
+#@login_required
 def cotizar(request):
-    token = request.COOKIES.get('jwt')
+    """ token = request.COOKIES.get('jwt')
     if not token:
         raise AuthenticationFailed('Autenticación fallida')
     
@@ -139,42 +148,52 @@ def cotizar(request):
         payload = jwt.decode(token, 'secret', algorithms=['HS256'])
     except:
         return redirect('quo:login')
+     """
+    
+    
         #raise AuthenticationFailed('Autenticación fallida')
     #print (f"expira {datetime.datetime.fromtimestamp(int(payload['exp'])).strftime('%Y-%m-%d %H:%M:%S')} inicia {datetime.datetime.fromtimestamp(int(payload['iat'])).strftime('%Y-%m-%d %H:%M:%S')}")
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
-    context = {}
-    
-    qs = Product.objects.all()
-    product_searcher = request.GET.get('productname')
+    if checkToken(request):
+        context = {}
+        
+        qs = Product.objects.all()
+        product_searcher = request.GET.get('productname')
 
-    if product_searcher != '' and product_searcher is not None:
-        qs = qs.filter(product_name__icontains=product_searcher)
-    """ filter_products = ProductFilter(
-        request.GET,
-        queryset=Product.objects.all()
-    ) """
-    
-    context['todos'] = qs
+        if product_searcher != '' and product_searcher is not None:
+            qs = qs.filter(product_name__icontains=product_searcher)
+        """ filter_products = ProductFilter(
+            request.GET,
+            queryset=Product.objects.all()
+        ) """
+        
+        context['todos'] = qs
 
-    paginated_products = Paginator(qs, 5)
-    page_number = request.GET.get('page')
-    product_page_obj = paginated_products.get_page(page_number)
-    
-    context['product_page_obj']=product_page_obj
-    # get the list of todos
-    #response = requests.get('http://127.0.0.1:8000/api/product/')
-    # transfor the response to json objects
-    #todos = response.json()
-    #print("respuesta " +str(todos))
-    return render(request, "./quote/html/sectionQuote.html", context=context)#{"todos": todos})
+        paginated_products = Paginator(qs, 5)
+        page_number = request.GET.get('page')
+        product_page_obj = paginated_products.get_page(page_number)
+        
+        context['product_page_obj']=product_page_obj
+        # get the list of todos
+        #response = requests.get('http://127.0.0.1:8000/api/product/')
+        # transfor the response to json objects
+        #todos = response.json()
+        #print("respuesta " +str(todos))
+        return render(request, "./quote/html/sectionQuote.html", context=context)#{"todos": todos})
 
+    return render(request, "./quote/html/login.html", {'showalert':True})
+    #return redirect('quo:login')
     #return render(request, "./quote/html/sectionQuote.html")
-""" 
-class Home(LoginRequiredMixin, generic.TemplateView):
+    """ 
+    class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
- """
+    """
+
+
+
+
 
 #------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}
@@ -219,19 +238,7 @@ class SignInView(TemplateView):
         return response
         #return render_to_response('current_datetime.html', {'current_date': now})
  """
-class UserView(APIView):
-    def get(self, request):
-        token = request.COOKIES.get('jwt')
-        if not token:
-            raise AuthenticationFailed('Autenticación fallida')
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except:
-            raise AuthenticationFailed('Autenticación fallida')
-        
-        user = Users.objects.filter(id_user=payload['id']).first()
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
+
 
 
 def userLogout(request):
@@ -248,16 +255,8 @@ def userLogout(request):
 class LoginView(TemplateView):
     template_name='quote/html/login.html'
     def get(self, request):
-        context={}
-        token = request.COOKIES.get('jwt')
-        if token:
-            try:
-                payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-            except:
-                context['showalert'] = True
-                return render(request, "./quote/html/login.html", context=context)
+        return render(request, "./quote/html/login.html")
         
-        return redirect('quo:home')
 
     def post(self, request):
         login_data = request.POST.dict()
@@ -265,22 +264,29 @@ class LoginView(TemplateView):
         password = login_data.get("password")
 
         user = Users.objects.filter(username=username).first()
+        response = Response()
 
-        if user is None:
-            raise AuthenticationFailed('User not found!')
+        if user is None or not user.check_password(password):
+            print("entró")
+            return render(request, "./quote/html/login.html", {'notexistuser': True})
+            #return render(request, "./quote/html/login.html", {'showalert':True})
 
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
+        """ if not user.check_password(password):
+            response = redirect('quo:home')
+            response.data = {
+                'notexistuser': True 
+            }
+            return response """
+
 
         payload = {
             'id': user.id_user,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=1),
             'iat': datetime.datetime.utcnow()
         }
 
         token = jwt.encode(payload, 'secret', algorithm='HS256')#.decode('utf-8')
         print("el token "+token)
-        response = Response()
 
         response = redirect('quo:home')
         response.set_cookie(key='jwt', value=token, httponly=True)
@@ -294,7 +300,20 @@ class LoginView(TemplateView):
         return response
         #return redirect('quo:home')
 
+#Devuelve falso si el usuario no esta autenticado o tiene token caducado
+def checkToken(request):
+    token = request.COOKIES.get('jwt')
 
+    if request.user.is_authenticated:
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except:
+            logout(request)
+            return False
+
+        return True
+        
+    return False
 
 
 """ class LogoutView(TemplateView):
