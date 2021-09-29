@@ -281,7 +281,7 @@ class LoginView(TemplateView):
 
         payload = {
             'id': user.id_user,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=1),
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
             'iat': datetime.datetime.utcnow()
         }
 
@@ -392,7 +392,7 @@ class ProductDetailView(View):
    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
 
 def Vista(request):
-    return render(request, "./quote/html/sectionProducts.html")
+    return render(request, "./quote/html/sectionSuppliers.html")
 
 def UsersV(request):
     return render(request, "./quote/html/GeneralViewUser.html")
