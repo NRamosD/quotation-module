@@ -162,6 +162,7 @@
                                     <th>ID</th>
                                     <th>Nombre</th>
                                     <th>Cantidad</th>
+                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="productsTableELements">
@@ -180,6 +181,7 @@
                                     <td>{{ todo.id_product }}</td>
                                     <td>{{ todo.product_name }}</td>
                                     <td>{{ todo.price }}</td>
+                                    <td><button id="button_move" onclick="Mover()"><i class="fas fa-arrow-circle-right icon_move_r"></i></button></td>
                                 </tr>
                                 {% endfor %} 
 
@@ -225,7 +227,7 @@
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
+              <th>1</th>
               <td>Ruliman</td>
               <td>12.50</td>
               <td>12.50</td>
@@ -276,4 +278,25 @@
     <!-- <script type="text/javascript" src="{% static 'scripts/filterManager.js'%}"></script> -->
 
 </body>
+
+<script type="text/javascript">
+
+$("#productsTable tr").click(function(){
+   $(this).addClass('selected').siblings().removeClass('selected');    
+   var nombre_articulo=$(this).find('td:nth-child(2)').html();
+   var ultimo= parseInt(0,10);
+   var ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
+
+   ultimo++;
+
+   var fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ '12.50' +"</td><td>"+ '12.50' +'</td><td><button id="bt_borrar"><i class="fas fa-trash-alt"></i></button></td></tr>';
+  /* alert(ultimo);
+   alert(value);*/   
+   
+   var btn = document.createElement("TR");
+   	btn.innerHTML=fila;
+    document.getElementById("tabla_cotizacion").appendChild(btn);
+});
+
+</script>
 {% endblock %}
