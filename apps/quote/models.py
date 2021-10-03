@@ -122,7 +122,7 @@ class Users(AbstractUser):
         db_table = 'users'
 
     def __str__(self):
-        return f'{self.id_card}'
+        return f'{self.id_user}'
 
 
 

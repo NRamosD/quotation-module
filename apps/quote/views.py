@@ -165,33 +165,47 @@ def cotizar(request):
         product_price_to = request.GET.get('toPrice')
         product_producer = request.GET.get('producerName')
         product_provider = request.GET.get('providerName')
-        
+        product_category = request.GET.get('categoryProduct')
+        #falta el de categorias, tengo que poner en el desplegable las categorías que hay con un for
 
         if product_searcher != '' and product_searcher is not None:
             qs = qs.filter(product_name__icontains=product_searcher)
 
         if product_price_since != '' and product_price_since is not None and product_price_to != '' and product_price_to is not None:
             qs = qs.filter(price__gte=product_price_since, price__lte=product_price_to)
-        elif product_price_since != '' and product_price_since is not None and product_price_to == '' and product_price_to is None:
+        elif product_price_to == '' or product_price_to is None:
             qs = qs.filter(price__gte=product_price_since)
-        elif product_price_since == '' and product_price_since is None and product_price_to != '' and product_price_to is not None:
+        elif product_price_since == '' or product_price_since is None:
             qs = qs.filter(price__lte=product_price_to)
 
-        #TENEMOS QUE HACER EL JOIN PARA RECUPERAR LOS DATOS CON NOMBRES
-        """ if product_producer != '' and product_producer is not None:
-            qs = qs.filter(product_name__icontains=product_producer)
+        if product_category != '' and product_category is not None:
+            qsCategory = Category.objects.filter(category_name__icontains=product_category)
+            try:
+                qs = qs.filter(id_supplier=qsCategory[0].id_supplier)
+            except:
+                pass
+
+        if product_producer != '' and product_producer is not None:
+            qs = qs.filter(brand__icontains=product_producer)
+            #qsProducer = qsProducer.filter(id_supplier__id_supplier=product_producer)
         
         if product_provider != '' and product_provider is not None:
-            qs = qs.filter(product_name__icontains=product_provider) """
+            qsProducer = Suppliers.objects.filter(supplier_name__icontains=product_producer)
+            try:
+                qs = qs.filter(id_supplier=qsProducer[0].id_supplier)
+            except:
+                pass
 
 
         """ filter_products = ProductFilter(
             request.GET,
             queryset=Product.objects.all()
         ) """
-        
+        #mando los datos al frontend
         context['todos'] = qs
 
+        context['Categories'] = Category.objects.all()
+        
         paginated_products = Paginator(qs, 5)
         page_number = request.GET.get('page')
         product_page_obj = paginated_products.get_page(page_number)

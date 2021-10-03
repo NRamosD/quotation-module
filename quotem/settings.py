@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'quotem.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-DATABASES = {
+""" DATABASES = {   #BD EXTERNA
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'quote',
@@ -96,7 +96,28 @@ DATABASES = {
             'ssl': {'ca': 'BaltimoreCyberTrustRoot.crt.pem'}
         }
     }
+} """
+
+DATABASES = {   #BD LOCAL
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME' : 'quote_local',
+        'USER' : 'root',
+        'PASSWORD' : '123.123-123.',
+        'HOST' : 'localhost',
+        'PORT' : '3306',
+        'OPTIONS': {
+        }
+    }
 }
+
+
+
+
+
+
+
+
 
 
 # Password validation

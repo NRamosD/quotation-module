@@ -71,24 +71,11 @@
                         
                     </div>
                     <div class="modal-body">
-                        <select class="form-select" aria-label="Default select example" id="ProductTypeOption">
-                            <option selected>Click para desplegar</option>
-                            <option value="1">Freno</option>
-                            <option value="2">Pastilla</option>
-                            <option value="3">Bujías</option>
-                            <option value="4">Embrague</option>
-                            <option value="5">Discos</option>
-                            <option value="6">Filtros</option>
-                            <option value="7">Insumos</option>
-                            <option value="8">Aceites</option>
-                            <option value="9">Lavadora</option>
-                            <option value="10">Maquinaria pesada</option>
-                            <option value="11">Turbos</option>
-                            <option value="12">Bombas</option>
-                            <option value="13">Llantas</option>
-                            <option value="14">Accesorios</option>
-                            <option value="15">Otros...</option>
-
+                        <select name="categoryProduct" class="form-select" aria-label="Default select example" id="ProductTypeOption">
+                            <option selected></option>
+                            {% for category in Categories %}
+                                <option value="{{ category.category_name }}" >{{ category.category_name }}</option>
+                            {% endfor %}
                         </select>
                     </div>
                     <div class="modal-footer">
