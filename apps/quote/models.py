@@ -11,7 +11,7 @@ from rest_framework.authtoken.models import Token """
 class Category(models.Model):
     id_category_product = models.AutoField(db_column='ID_CATEGORY_PRODUCT', primary_key=True)  # Field name made lowercase.
     category_vehicle = models.CharField(db_column='ID_CATEGORY_VEHICLE', max_length=20)  # Field name made lowercase.
-    category_name = models.CharField(db_column='CATGORY_NAME', max_length=100)  # Field name made lowercase.
+    category_name = models.CharField(db_column='CATEGORY_NAME', max_length=100)  # Field name made lowercase.
     description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
     #media = models.FileField(upload_to='carpeta/') 
     class Meta:

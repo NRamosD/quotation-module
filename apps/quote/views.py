@@ -173,9 +173,9 @@ def cotizar(request):
 
         if product_price_since != '' and product_price_since is not None and product_price_to != '' and product_price_to is not None:
             qs = qs.filter(price__gte=product_price_since, price__lte=product_price_to)
-        elif product_price_to == '' or product_price_to is None:
+        elif product_price_to == '' or product_price_to is None and product_price_since != '' and product_price_since is not None:
             qs = qs.filter(price__gte=product_price_since)
-        elif product_price_since == '' or product_price_since is None:
+        elif product_price_since == '' or product_price_since is None and product_price_to != '' and product_price_to is not None:
             qs = qs.filter(price__lte=product_price_to)
 
         if product_category != '' and product_category is not None:

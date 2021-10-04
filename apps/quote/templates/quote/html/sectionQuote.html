@@ -74,7 +74,7 @@
                         <select name="categoryProduct" class="form-select" aria-label="Default select example" id="ProductTypeOption">
                             <option selected></option>
                             {% for category in Categories %}
-                                <option value="{{ category.category_name }}" >{{ category.category_name }}</option>
+                                <option value="{{ category.category_name }}" >{{ category.category_name }} ({{category.category_vehicle}})</option>
                             {% endfor %}
                         </select>
                     </div>
