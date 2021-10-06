@@ -435,3 +435,6 @@ def UsersV(request):
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")
+
+def Reports(request):
+    return render(request, "./quote/html/Reports.html")

@@ -71,5 +71,6 @@ urlpatterns = [
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
     path('Vista/',views.Vista, name="Vista"),
     path('UsersV/',views.UsersV, name="UsersV"),
-    path('AddUserModal/',views.ModalAddUser, name="AddUserModal")
+    path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
+    path('Reports',views.Reports, name="Reports")
 ]
