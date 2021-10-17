@@ -163,3 +163,18 @@ class qDetails(models.Model):
     def __str__(self):
         return f'{self.id_qdetails}'
 
+#Tabla para guardar archivos
+class ProductFiles(models.Model):
+    id_pfiles = models.AutoField(db_column='ID_PFILES', primary_key=True)  # Field name made lowercase.
+    name_pfiles = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    productfile = models.FileField(upload_to='products/')
+
+    class Meta:
+        managed = True
+        db_table = 'productfile'
+    
+    def __str__(self):
+        return f'{self.id_pfiles}'
+
+
+

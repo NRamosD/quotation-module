@@ -9,7 +9,7 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
-    UserApiView, userLogout, LoginView,
+    UserApiView, userLogout, LoginView, uploadDocument,
     Vista
     )
 
@@ -72,5 +72,6 @@ urlpatterns = [
     path('Vista/',views.Vista, name="Vista"),
     path('UsersV/',views.UsersV, name="UsersV"),
     path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
-    path('Reports',views.Reports, name="Reports")
+    path('informes/',views.Reports, name="report"),
+    path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
 ]

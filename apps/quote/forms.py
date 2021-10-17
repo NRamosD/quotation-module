@@ -1,10 +1,10 @@
 from django import forms
 from django.forms import fields
-from .models import Category
+from .models import ProductFiles
 
-class uploadFile(forms.ModelForm):
+class ProductFilesForm(forms.ModelForm):
     class Meta:
-        model = Category
-        fields = ['category_name', 'media' ]
+        model = ProductFiles
+        fields = ['name_pfiles', 'productfile' ]
     
     
