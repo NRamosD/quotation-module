@@ -10,7 +10,7 @@ from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
     UserApiView, userLogout, LoginView,
-    Vista
+    Vista,SuppliersList,CategoriesList,ProductsList
     )
 
 router = routers.DefaultRouter()
@@ -70,6 +70,9 @@ urlpatterns = [
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
     path('Vista/',views.Vista, name="Vista"),
+    path('Listar1/',views.SuppliersList, name="SupplierList"),
+    path('Listar2/',views.CategoriesList, name="CategoriesList"),
+    path('Listar3/',views.ProductsList, name="ProductsList"),
     path('UsersV/',views.UsersV, name="UsersV"),
     path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
     path('Reports',views.Reports, name="Reports")

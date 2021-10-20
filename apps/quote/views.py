@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, request
 from django.urls import reverse
 from django.views import generic
+from django.views.generic import ListView 
 from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
@@ -210,7 +211,9 @@ def cotizar(request):
         page_number = request.GET.get('page')
         product_page_obj = paginated_products.get_page(page_number)
         
-        context['product_page_obj']=product_page_obj
+        context['product_page_obj']=product_page_obj       
+
+        
         # get the list of todos
         #response = requests.get('http://127.0.0.1:8000/api/product/')
         # transfor the response to json objects
@@ -226,10 +229,22 @@ def cotizar(request):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
     """
+#bro ya aprendí :v    
+def SuppliersList(request):
+    todo = Suppliers.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionSuppliers.html", contexto)
+
+def CategoriesList(request):
+    todo = Category.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionCategories.html", contexto)
 
 
-
-
+def ProductsList(request):
+    todo = Product.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionProducts.html", contexto)
 
 #------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}
