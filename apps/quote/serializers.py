@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import get_user_model
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails
+from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails, ProductFiles
 from rest_framework.authtoken.models import Token
 
 from apps.quote import models
@@ -87,3 +87,12 @@ class qDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = qDetails
         fields = ('__all__')
+
+class ProductFileSerializer(serializers.ModelSerializer):
+    name_pfiles = serializers.CharField(required=True, max_length=200)
+    productfile = serializers.FileField(required=True)
+
+    class Meta:
+        model = ProductFiles
+        fields = ('__all__')
+

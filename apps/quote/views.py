@@ -1,5 +1,6 @@
 #DJANGO
 from decimal import Context
+from decouple import RepositoryEmpty
 from django.contrib.auth.models import User
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
@@ -27,9 +28,10 @@ from rest_framework import viewsets
 from django.contrib.auth.decorators import login_required
 #LOCAL FILES
 from .models import Role, Users, Product, Suppliers, Category, qDetails, Quotes
+from .forms import ProductFilesForm
 from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
-    RoleSerializer, SupplierSerializer, ProductSerializer)
+    RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer)
 from .filters import ProductFilter
 
 import jwt, datetime
@@ -318,7 +320,6 @@ class LoginView(TemplateView):
         response = Response()
 
         if user is None or not user.check_password(password):
-            print("entró")
             return render(request, "./quote/html/login.html", {'notexistuser': True})
             #return render(request, "./quote/html/login.html", {'showalert':True})
 
@@ -453,3 +454,25 @@ def ModalAddUser(request):
 
 def Reports(request):
     return render(request, "./quote/html/Reports.html")
+
+class uploadDocument(TemplateView):
+    template_name='quote/html/uploadDocument.html'
+    
+    def get(self, request):
+        return render(request, "./quote/html/uploadDocument.html")
+        
+    def post(self, request):
+        form = ProductFilesForm(request.POST or None, request.FILES or None)
+        uploadproduct_data = request.POST.dict()
+        print(uploadproduct_data)
+        
+        #filename = uploadproduct_data.get("filename")
+        #productfile = uploadproduct_data.get("productsfile")
+
+        serializer = ProductFileSerializer(data=uploadproduct_data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+        else:
+            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+    

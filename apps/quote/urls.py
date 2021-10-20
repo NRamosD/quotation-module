@@ -9,8 +9,13 @@ from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet,
+<<<<<<< HEAD
     UserApiView, userLogout, LoginView,
     Vista,SuppliersList,CategoriesList,ProductsList
+=======
+    UserApiView, userLogout, LoginView, uploadDocument,
+    Vista
+>>>>>>> 4103ae90e1ebd97c2033fa232c219f0176ed50ca
     )
 
 router = routers.DefaultRouter()
@@ -75,5 +80,6 @@ urlpatterns = [
     path('Listar3/',views.ProductsList, name="ProductsList"),
     path('UsersV/',views.UsersV, name="UsersV"),
     path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
-    path('Reports',views.Reports, name="Reports")
+    path('informes/',views.Reports, name="report"),
+    path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
 ]
