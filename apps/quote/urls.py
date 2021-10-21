@@ -8,14 +8,9 @@ from . import views
 from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
-    SupplierViewSet, qDetailsViewSet,
-<<<<<<< HEAD
+    SupplierViewSet, qDetailsViewSet, productFilesViewSet,
     UserApiView, userLogout, LoginView,
-    Vista,SuppliersList,CategoriesList,ProductsList
-=======
-    UserApiView, userLogout, LoginView, uploadDocument,
-    Vista
->>>>>>> 4103ae90e1ebd97c2033fa232c219f0176ed50ca
+    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument
     )
 
 router = routers.DefaultRouter()
@@ -26,6 +21,7 @@ router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
 router.register('category', CategoryViewSet)
 router.register('suppliers', SupplierViewSet)
+router.register('ProductFiles', productFilesViewSet)
 
 
 """ 
