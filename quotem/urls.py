@@ -19,6 +19,10 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework import routers
 
+#media url entry
+from django.conf.urls.static import static
+from django.conf import settings
+
 # Api router
 router = routers.DefaultRouter()
 
@@ -28,7 +32,7 @@ urlpatterns = [
     path('', include(('apps.quote.urls','quo'), namespace='quo')),
     path('', include(router.urls)),
     path('auth/', obtain_auth_token)
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """    path('dj-rest-auth/', include('dj_rest_auth.urls')),
     path('api-auth/', include('rest_framework.urls')),"""

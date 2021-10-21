@@ -26,6 +26,7 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 #DECORATORS
 from django.contrib.auth.decorators import login_required
+
 #LOCAL FILES
 from .models import ProductFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes
 from .forms import ProductFilesForm
@@ -33,9 +34,9 @@ from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
     RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer)
 from .filters import ProductFilter
-
+from apps.quote.upload import uploadDataDB
+#PYTHON LIBRARIES
 import jwt, datetime
-import requests, json
 
 """ RUTAS DE LA API
     Métodos a usar: GET, POST, PATCH, DELETE
@@ -466,24 +467,37 @@ class uploadDocument(TemplateView, APIView):
         return render(request, "./quote/html/uploadDocument.html")
         
     def post(self, request):
+        name = request.POST.get('name_pfiles')
+        file = request.FILES['productfile']
+        print(f"transformacion ---> {str(file)}")
+        body ={
+            'name_pfiles': name,
+            'productfile': file
+        }
+        print(body)
         """uploadproduct_data = request.POST.dict()
         jd = json.loads(uploadproduct_data)
         ProductFiles.objects.create(name_pfiles = jd['name_pfiles'], productfile = jd['productfile'])
         return render(request, "./quote/html/uploadDocument.html")"""
         #form = ProductFilesForm(request.POST or None, request.FILES or None)
-        uploadproduct_data = request.POST.dict()
-        print(uploadproduct_data)
+        #uploadproduct_data = request.POST.dict()
+        #print(uploadproduct_data)
         #print(form)
         response = Response()
-        filename = uploadproduct_data.get("filename")
-        productfile = uploadproduct_data.get("productsfile")
-        print(f"aqui esta {filename}")
-        print(f"aqui esta {productfile}")
-        response = redirect('quo:home')
-        serializer = ProductFileSerializer(data=uploadproduct_data)
+        #filename = uploadproduct_data.get("filename")
+        #productfile = uploadproduct_data.get("productsfile")
+        #print(f"aqui esta {filename}")
+        #print(f"aqui esta {productfile}")
+        serializer = ProductFileSerializer(data=body)
         if serializer.is_valid():
             serializer.save()
-            response = redirect('quo:home')
+            response = redirect('quo:uploadDocument')
+            response.data = {
+                'success': True 
+            }
+            uploadDataDB.uploadDocumentXlsx(file)
+
+
             return response
             #print(Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK))
             #render(request, "./quote/html/uploadDocument.html")
