@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, request
 from django.urls import reverse
 from django.views import generic
+from django.views.generic import ListView 
 from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
@@ -26,7 +27,7 @@ from rest_framework import viewsets
 #DECORATORS
 from django.contrib.auth.decorators import login_required
 #LOCAL FILES
-from .models import Role, Users, Product, Suppliers, Category, qDetails, Quotes
+from .models import ProductFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes
 from .forms import ProductFilesForm
 from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
@@ -34,7 +35,7 @@ from .serializers import (
 from .filters import ProductFilter
 
 import jwt, datetime
-import requests
+import requests, json
 
 """ RUTAS DE LA API
     Métodos a usar: GET, POST, PATCH, DELETE
@@ -73,6 +74,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class qDetailsViewSet(viewsets.ModelViewSet):
     queryset = qDetails.objects.all()
     serializer_class = qDetailsSerializer
+
+class productFilesViewSet(viewsets.ModelViewSet):
+    queryset = ProductFiles.objects.all()
+    serializer_class = ProductFileSerializer
 
 
 class UserApiView(APIView):
@@ -212,7 +217,9 @@ def cotizar(request):
         page_number = request.GET.get('page')
         product_page_obj = paginated_products.get_page(page_number)
         
-        context['product_page_obj']=product_page_obj
+        context['product_page_obj']=product_page_obj       
+
+        
         # get the list of todos
         #response = requests.get('http://127.0.0.1:8000/api/product/')
         # transfor the response to json objects
@@ -228,10 +235,22 @@ def cotizar(request):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
     """
+#bro ya aprendí :v    
+def SuppliersList(request):
+    todo = Suppliers.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionSuppliers.html", contexto)
+
+def CategoriesList(request):
+    todo = Category.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionCategories.html", contexto)
 
 
-
-
+def ProductsList(request):
+    todo = Product.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/sectionProducts.html", contexto)
 
 #------------------------------LOGIN----------------------------------
 # usuario de prueba {"username":"jaja", "password":"123123123"}
@@ -440,24 +459,34 @@ def ModalAddUser(request):
 def Reports(request):
     return render(request, "./quote/html/Reports.html")
 
-class uploadDocument(TemplateView):
-    template_name='quote/html/uploadDocument.html'
+class uploadDocument(TemplateView, APIView):
+    template_name='./quote/html/uploadDocument.html'
     
     def get(self, request):
         return render(request, "./quote/html/uploadDocument.html")
         
     def post(self, request):
-        form = ProductFilesForm(request.POST or None, request.FILES or None)
+        """uploadproduct_data = request.POST.dict()
+        jd = json.loads(uploadproduct_data)
+        ProductFiles.objects.create(name_pfiles = jd['name_pfiles'], productfile = jd['productfile'])
+        return render(request, "./quote/html/uploadDocument.html")"""
+        #form = ProductFilesForm(request.POST or None, request.FILES or None)
         uploadproduct_data = request.POST.dict()
         print(uploadproduct_data)
-        
-        #filename = uploadproduct_data.get("filename")
-        #productfile = uploadproduct_data.get("productsfile")
-
+        #print(form)
+        response = Response()
+        filename = uploadproduct_data.get("filename")
+        productfile = uploadproduct_data.get("productsfile")
+        print(f"aqui esta {filename}")
+        print(f"aqui esta {productfile}")
+        response = redirect('quo:home')
         serializer = ProductFileSerializer(data=uploadproduct_data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK)
+            response = redirect('quo:home')
+            return response
+            #print(Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK))
+            #render(request, "./quote/html/uploadDocument.html")
         else:
             return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-    
+

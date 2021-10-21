@@ -8,9 +8,9 @@ from . import views
 from rest_framework import routers
 from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
-    SupplierViewSet, qDetailsViewSet,
-    UserApiView, userLogout, LoginView, uploadDocument,
-    Vista
+    SupplierViewSet, qDetailsViewSet, productFilesViewSet,
+    UserApiView, userLogout, LoginView,
+    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument
     )
 
 router = routers.DefaultRouter()
@@ -21,6 +21,7 @@ router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
 router.register('category', CategoryViewSet)
 router.register('suppliers', SupplierViewSet)
+router.register('ProductFiles', productFilesViewSet)
 
 
 """ 
@@ -70,6 +71,9 @@ urlpatterns = [
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
     path('Vista/',views.Vista, name="Vista"),
+    path('Listar1/',views.SuppliersList, name="SupplierList"),
+    path('Listar2/',views.CategoriesList, name="CategoriesList"),
+    path('Listar3/',views.ProductsList, name="ProductsList"),
     path('UsersV/',views.UsersV, name="UsersV"),
     path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
     path('informes/',views.Reports, name="report"),

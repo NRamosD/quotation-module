@@ -64,7 +64,7 @@
             </select>
           </div>
         </div>
-        
+
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="button" class="btn btn-primary">Guardar</button>
@@ -81,31 +81,35 @@
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nombre</th>
-          <th scope="col">Descripcion</th>
-          <th scope="col">Precio</th>
+          <th>ID producto</th>
+          <th>ID Proveedor</th>
+          <th>ID Categoría</th>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Precio</th>
+          <th>Marca</th>
+          <th>Disponibilidad</th>
+          <th>Fecha Registro</th>
+          <th>Fecha modificación</th>
+
+
         </tr>
       </thead>
-      <tbody>
+      <tbody id="productsTableELements">
+        {% for todo in todos %}
         <tr>
-          <th scope="row">1</th>
-          <td>Bujía</td>
-          <td>Elemento de arranque</td>
-          <td>USD $2.50</td>
+          <td>{{ todo.id_product }}</td>
+          <td>{{ todo.id_supplier }}</td>
+          <td>{{ todo.id_category_product }}</td>
+          <td>{{ todo.product_name }}</td>
+          <td>{{ todo.description }}</td>
+          <td>{{ todo.price }}</td>
+          <td>{{ todo.brand }}</td>
+          <td>{{ todo.availability }}</td>
+          <td>{{ todo.registration_date }}</td>
+          <td>{{ todo.last_modified }}</td>
         </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Pastillas</td>
-          <td>Área Frenos</td>
-          <td>USD $26.50</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Freno</td>
-          <td>Seguridad vehículo</td>
-          <td>USD $132.25</td>
-        </tr>
+        {% endfor %}
       </tbody>
     </table>
   </div>

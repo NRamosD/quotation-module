@@ -167,7 +167,7 @@ class qDetails(models.Model):
 class ProductFiles(models.Model):
     id_pfiles = models.AutoField(db_column='ID_PFILES', primary_key=True)  # Field name made lowercase.
     name_pfiles = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    productfile = models.FileField(upload_to='products/')
+    productfile = models.FileField(upload_to='productsFiles/')
 
     class Meta:
         managed = True
