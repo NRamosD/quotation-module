@@ -136,7 +136,7 @@
                             <th>Ciudad</th>
                             <th>Provincia</th>
                             <th>País</th>
-                            <th>Estado de Usuario</th>
+                            <th>Telefono de Usuario</th>
                             <th>Último acceso al sistema</th>
                             <th>Acción</th>
                         </tr>
@@ -150,94 +150,25 @@
                             <td>Atacames</td>
                             <td>Esmeraldas</td>
                             <td>Ecuador</td>
-                            <td>Activo</td>
+                            <td>0996876674</td>
                             <td>2021-09-23 03:31:20.500992</td>
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
                         </tr>
+                        {% for todo in todos %}
                         <tr>
-                            <td>2</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                            <td>{{ todo.id_user }}</td>
+                            <td>{{ todo.name }}</td>
+                            <td>{{ todo.lastname }}</td>
+                            <td>{{ todo.mail }}</td>
+                            <td>{{ todo.city }}</td>
+                            <td>{{ todo.province }}</td>
+                            <td>{{ todo.country }}</td>
+                            <td>{{ todo.mobile_phone }}</td>
+                            <td>{{ todo.last_login }}</td>
+                            <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+
                         </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>Juan</td>
-                            <td>Perez</td>
-                            <td>juan_perez@gmail.com</td>
-                            <td>Atacames</td>
-                            <td>Esmeraldas</td>
-                            <td>Ecuador</td>
-                            <td>Activo</td>
-                            <td>2021-09-23 03:31:20.500992</td>
-                            <td><button id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                        </tr>
+                        {% endfor %}
                     </tbody>        
                 </table>                  
                 </div>

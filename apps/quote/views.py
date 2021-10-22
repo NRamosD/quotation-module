@@ -450,9 +450,12 @@ class ProductDetailView(View):
 
 def Vista(request):
     return render(request, "./quote/html/sectionSuppliers.html")
+    
 
 def UsersV(request):
-    return render(request, "./quote/html/GeneralViewUser.html")
+    todo = Users.objects.all()
+    contexto = {'todos': todo}
+    return render(request, "./quote/html/GeneralViewUser.html", contexto)
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")
@@ -475,19 +478,7 @@ class uploadDocument(TemplateView, APIView):
             'productfile': file
         }
         print(body)
-        """uploadproduct_data = request.POST.dict()
-        jd = json.loads(uploadproduct_data)
-        ProductFiles.objects.create(name_pfiles = jd['name_pfiles'], productfile = jd['productfile'])
-        return render(request, "./quote/html/uploadDocument.html")"""
-        #form = ProductFilesForm(request.POST or None, request.FILES or None)
-        #uploadproduct_data = request.POST.dict()
-        #print(uploadproduct_data)
-        #print(form)
         response = Response()
-        #filename = uploadproduct_data.get("filename")
-        #productfile = uploadproduct_data.get("productsfile")
-        #print(f"aqui esta {filename}")
-        #print(f"aqui esta {productfile}")
         serializer = ProductFileSerializer(data=body)
         if serializer.is_valid():
             serializer.save()
@@ -503,4 +494,3 @@ class uploadDocument(TemplateView, APIView):
             #render(request, "./quote/html/uploadDocument.html")
         else:
             return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
-
