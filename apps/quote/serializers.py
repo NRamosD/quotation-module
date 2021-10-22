@@ -90,7 +90,7 @@ class qDetailsSerializer(serializers.ModelSerializer):
 
 class ProductFileSerializer(serializers.ModelSerializer):
     name_pfiles = serializers.CharField(required=True, max_length=200)
-    productfile = serializers.FileField(required=True)
+    productfile = serializers.FileField(read_only=True)
 
     class Meta:
         model = ProductFiles

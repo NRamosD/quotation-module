@@ -207,4 +207,5 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
 #Dirección de archivos excel
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Files")
+FILES_ROOT = os.path.join(BASE_DIR, 'Documentos')
+#MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Documentos")

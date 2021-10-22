@@ -23,6 +23,7 @@ router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
 router.register('category', CategoryViewSet)
 router.register('suppliers', SupplierViewSet)
+router.register('ProductFiles', productFilesViewSet)
 
 
 """ 
