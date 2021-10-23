@@ -1,7 +1,9 @@
 #DJANGO
 from decimal import Context
+from re import template
 from decouple import RepositoryEmpty
 from django.contrib.auth.models import User
+from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
@@ -15,6 +17,7 @@ from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
+from .forms import UserForm
 
 
 #RESTFRAMEWORK
@@ -452,10 +455,15 @@ def Vista(request):
     return render(request, "./quote/html/sectionSuppliers.html")
     
 
-def UsersV(request):
-    todo = Users.objects.all()
-    contexto = {'todos': todo}
-    return render(request, "./quote/html/GeneralViewUser.html", contexto)
+#def UsersV(request):
+    #todo = Users.objects.all()
+    #contexto = {'todos': todo}
+    #return render(request, "./quote/html/GeneralViewUser.html", contexto)
+class ListadoUsuario(ListView):
+    model= Users
+    template_name= './quote/html/GeneralViewUser.html'
+    context_object_name = 'usuarios'
+    queryset= Users.objects.filter()
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")

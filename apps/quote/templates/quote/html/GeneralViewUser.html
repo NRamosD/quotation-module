@@ -142,6 +142,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!--  
                         <tr id="1">
                             <td>1</td>
                             <td>Juan</td>
@@ -154,12 +155,13 @@
                             <td>2021-09-23 03:31:20.500992</td>
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
                         </tr>
-                        {% for todo in todos %}
-                        <tr>
+                        -->
+                        {% for todo in usuarios %}
+                        <tr id="1">
                             <td>{{ todo.id_user }}</td>
-                            <td>{{ todo.name }}</td>
-                            <td>{{ todo.lastname }}</td>
-                            <td>{{ todo.mail }}</td>
+                            <td>{{ todo.first_name }}</td>
+                            <td>{{ todo.last_name }}</td>
+                            <td>{{ todo.email }}</td>
                             <td>{{ todo.city }}</td>
                             <td>{{ todo.province }}</td>
                             <td>{{ todo.country }}</td>

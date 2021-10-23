@@ -116,10 +116,8 @@ class Users(AbstractUser):
     city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
-    name= models.CharField(db_column='FIRST_NAME',max_length=150) # Field name made lowercase.
-    lastname=models.CharField(db_column='LAST_NAME',max_length=150)
-    mail=models.CharField(db_column='EMAIL',max_length=254)
-    last_login=models.CharField(db_column='LAST_LOGIN',max_length=6)
+
+
 
     class Meta:
         managed = True
