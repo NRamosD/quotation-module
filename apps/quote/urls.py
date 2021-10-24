@@ -3,7 +3,7 @@ from django.contrib import auth
 from django.urls import path, include
 from django.views import generic
 from django.contrib.auth import views as auth_views
-from .views import ListadoUsuario, ActualizarUsuaio
+from .views import ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario
 
 from . import views
 from rest_framework import routers
@@ -79,4 +79,6 @@ urlpatterns = [
     path('AddUserModal/<int:pk>',ActualizarUsuaio.as_view(), name="AddUserModal"),
     path('informes/',views.Reports, name="report"),
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
+    path('EliminarUser/<int:pk>', EliminarUsuario.as_view(), name='EliminarUser'),
+    path('crear_usuario/', CrearUsuario.as_view(), name='crear_usuario')
 ]

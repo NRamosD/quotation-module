@@ -2,6 +2,7 @@
 from decimal import Context
 from re import template
 from decouple import RepositoryEmpty
+from django.contrib.auth import models
 from django.contrib.auth.models import User
 from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, JsonResponse
@@ -13,12 +14,13 @@ from django.http import HttpResponseRedirect, request
 from django.urls import reverse_lazy
 from django.urls.base import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView, UpdateView 
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
-from .forms import UserForm
+from django.views.generic.edit import CreateView, DeleteView
+from .forms import CreateUserForm, UserForm
 
 
 #RESTFRAMEWORK
@@ -468,13 +470,30 @@ class ListadoUsuario(ListView):
 
 class ActualizarUsuaio(UpdateView):
     model= Users
-    template_name= './quote/html/AddUserModal.html'
+    template_name= './quote/html/EditarUsuario.html'
     form_class= UserForm
     success_url=reverse_lazy('quo:UsersV')
 
+class EliminarUsuario(DeleteView):
+    model= Users
+    template_name= './quote/html/users_confirm_delete.html'
+    success_url=reverse_lazy('quo:UsersV')
+
+class CrearUsuario(CreateView):
+    model: Users
+    form_class= CreateUserForm
+    template_name= './quote/html/CreateUserView.html'
+    success_url=reverse_lazy('quo:UsersV')
+    
+
+def crear_usuario(request):
+    return render(request, "./quote/html/CreateUserView.html")
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")
+
+def EliminarUser(request):
+    return render(request, './quote/html/users_confirm_delete.html')
 
 def Reports(request):
     return render(request, "./quote/html/Reports.html")
