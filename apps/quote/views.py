@@ -10,9 +10,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, request
-from django.urls import reverse
+from django.urls import reverse_lazy
+from django.urls.base import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView 
+from django.views.generic import ListView, UpdateView 
 from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
@@ -464,6 +465,13 @@ class ListadoUsuario(ListView):
     template_name= './quote/html/GeneralViewUser.html'
     context_object_name = 'usuarios'
     queryset= Users.objects.filter()
+
+class ActualizarUsuaio(UpdateView):
+    model= Users
+    template_name= './quote/html/AddUserModal.html'
+    form_class= UserForm
+    success_url=reverse_lazy('quo:UsersV')
+
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")

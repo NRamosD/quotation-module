@@ -157,7 +157,7 @@
                         </tr>
                         -->
                         {% for todo in usuarios %}
-                        <tr id="1">
+                        <tr>
                             <td>{{ todo.id_user }}</td>
                             <td>{{ todo.first_name }}</td>
                             <td>{{ todo.last_name }}</td>
@@ -168,6 +168,7 @@
                             <td>{{ todo.mobile_phone }}</td>
                             <td>{{ todo.last_login }}</td>
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                            <td><a href="{% url 'quo:AddUserModal' todo.id_user %}">UPDATE</a></td>
 
                         </tr>
                         {% endfor %}
@@ -177,22 +178,13 @@
             </div>
     </div>  
   </div> 
+
+
+  <div class="modal fade" id="edicion" role="dialog">
+
+  </div>
 </body>
 
-<script type="text/javascript">
-  $("#btn_Opciones").click(function () {
-      var nombre =  document.getElementById('1').cells[1].innerText;
-      var apellido =  document.getElementById('1').cells[2].innerText;
-      var correo =  document.getElementById('1').cells[3].innerText;
-      var ciudad =  document.getElementById('1').cells[4].innerText;
-      var provincia =  document.getElementById('1').cells[5].innerText;
-      var pais =  document.getElementById('1').cells[6].innerText;
-      $("#EUser_N").val(nombre);
-      $("#EUser_A").val(apellido);
-      $("#EUser_CI").val(ciudad);
-      $("#EUser_P").val(provincia);
-      $("#EUser_PA").val(pais);
-  });
-</script>
+
 
 {% endblock %}
