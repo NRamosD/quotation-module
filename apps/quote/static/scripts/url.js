@@ -6,12 +6,12 @@ if(url == "http://127.0.0.1:8000/"){
 if(url == "http://127.0.0.1:8000/cotizar/"){
     quote.className += " active";
 }
-if(url == "http://127.0.0.1:8000/cargar/"){
-    //home.classList.add('active');
+if(url == "http://127.0.0.1:8000/cargar_documento/"){
+    documentLoad.className += " active";
 }
-if(url == "http://127.0.0.1:8000/reportes/"){
-    //quote.classList.add('active');
+if(url == "http://127.0.0.1:8000/informes/"){
+    reports.className += " active";
 }
 if(url == "http://127.0.0.1:8000/info/"){
-    //quote.classList.add('active');
+    info.className += " active";
 }

@@ -1,0 +1,248 @@
+{% extends 'quote/html/home.html' %}
+{% load static %}
+{% load quoextras %}
+
+{% block title %}Cotizar{% endblock %}
+
+{% block content %}
+<body id="body_cotizacion">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+    integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+    integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+    crossorigin="anonymous"></script>
+
+
+    <!-- ENCABEZADO. -->
+    <header id="head_cotizacion"><i class="fas fa-file-alt nav__icon"></i> / Cotización</header>
+    <br><label class="Titulo"><a>Código o nombre del producto</a></label><br>
+    
+    <form method="GET">
+        <!-- BARRA BUSQUEDA. -->
+        <div>
+            <input name="productname" type="text" placeholder="Qué estás buscando?">
+        </div>
+
+        <!-- FILTROS. -->
+
+        <ul id="bot_filtro">
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
+            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
+        </ul>
+
+        <!-- Modal Precio -->
+        <div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Precio</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="input-group mb-3">
+                            <h3>Desde: </h3>
+                            <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                            <input  name="sincePrice" type="number" class="form-control" id="SincePrice">
+                            <h3>Hasta: </h3>
+                            <span class="input-group-text" style="background-color: transparent; border-color: transparent;">$</span>
+                            <input name="toPrice" type="number" class="form-control" id="ToPrice">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="PriceFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal Tipo de producto-->
+        <div class="modal fade" id="exampleModalTP" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tipo de producto</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <select name="categoryProduct" class="form-select" aria-label="Default select example" id="ProductTypeOption">
+                            <option selected></option>
+                            {% for category in Categories %}
+                                <option value="{{ category.id_category_product }}" >{{ category.category_name }} ({{category.category_vehicle}})</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="ProductTypeFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Fabricante-->
+        <div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
+                            <input name="producerName" type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal proveedor-->
+        <div class="modal fade" id="exampleModalProveedor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Proveedor</h5>
+                        
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="ProviderName" class="form-label">Ingrese el nombre del Proveedor</label>
+                            <input name="providerName" type="text" class="form-control" id="ProviderName" placeholder="Ej : DITECA">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-primary" onclick="SupplierFilter()" data-bs-dismiss="modal">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="submit">
+            <i class="fas fa-search icon_search"> </i>
+        </button>
+    </form>
+<div id="labels"></div>
+
+     <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
+    <!--Ejemplo tabla PRODUCTOS con DataTables-->
+
+    <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Artículos</h2>
+    <div class="container_productos">
+        <div class="row">
+                <div class="col-lg-12">
+                    <div class="table-responsive">        
+                        <table id="productsTable" class="table table-striped table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Precio (USD)</th>
+                                    <th>Acción</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productsTableELements">
+                                <!-- <tr>
+                                    <td>Tiger Nixon</td>
+                                    <td>Arquitecto</td>
+                                    <td>Edinburgh</td>
+                                </tr>
+                                <tr>
+                                    <td>Garrett Winters</td>
+                                    <td>Contador</td>
+                                    <td>Tokyo</td>
+                                </tr>-->
+                                {% for products in product_page_obj %}
+                                <tr>
+                                    <td>{{ products.id_product }}</td>
+                                    <td>{{ products.product_name }}</td>
+                                    <td>${{ products.price }}</td>
+                                    <td><button id="button_move" onclick="Mover()"><i class="fas fa-arrow-circle-right icon_move_r"></i></button></td>
+                                </tr>
+                                {% endfor %} 
+
+
+                            </tbody>        
+                        </table>
+                        <div class="Pagination">
+                            <span class="step-links">
+                               
+                                {% if product_page_obj.has_previous %}
+                                    <a href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
+                                    <a href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
+                                {% endif %}
+
+                                <span class="actual">
+                                    Página {{product_page_obj.number}} de {{product_page_obj.paginator.num_pages}}.
+                                </span>
+
+                                {% if product_page_obj.has_next %}
+                                    <a href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
+                                    <a href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
+                                {% endif %}
+                            </span>
+                        </div>                  
+                    </div>
+                </div>
+        </div>  
+    </div>    
+    <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
+    
+    <!--Ejemplo tabla COTIZACION con DataTables-->
+    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Lista de Cotización</h2>
+    <div class="container_cotizaciones">
+        <table class="table table-striped" id="tabla_cotizacion">
+        <thead>
+            <tr>
+              <th scope="col">N°</th>
+              <th scope="col">Artículos</th>
+              <th scope="col">Precio Unit.</th>
+              <th scope="col">Precio Tot.</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- aqui van las filas que se pasarán a la cotización -->
+          </tbody>
+        </table>
+    </div>
+    <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
+
+    <!--BOTONES FINALES-->
+    <ul id="bot_finales">
+        <li><button id="btn_precio"><i class="fas fa-print icon_print"></i>Imprimir</button></li>
+        <li><button id="btn_producto"><i class="fas fa-save icon_save"></i>Guardar</button></li>
+        <li><button id="btn_fabricante"><i class="fas fa-share-square icon_share"></i>Enviar</button></li>
+    </ul>
+
+ 
+
+    <!-- BARRA JS -->
+    <script src="{% static 'scripts/scbarra.js'%}"></script>
+
+    <!-- jQuery, Popper.js, Bootstrap JS -->
+    <script src="{% static 'jquery/jquery-3.3.1.min.js'%}"></script>
+    <script src="{% static 'popper/popper.min.js'%}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js'%}"></script>
+    
+    <!-- datatables JS -->
+    <script type="text/javascript" src="{% static 'datatables/datatables.min.js'%}"></script>    
+ 
+    <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script> 
+    <script type="text/javascript" src="{% static 'scripts/addFilter.js'%}"></script>
+    <!-- <script type="text/javascript" src="{% static 'scripts/filterManager.js'%}"></script> -->
+
+</body>
+
+{% endblock %}

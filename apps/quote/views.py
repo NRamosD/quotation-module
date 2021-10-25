@@ -35,6 +35,7 @@ from .serializers import (
     RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer)
 from .filters import ProductFilter
 from apps.quote.upload import uploadDataDB
+from apps.quote.reports import predefined
 #PYTHON LIBRARIES
 import jwt, datetime
 
@@ -124,7 +125,7 @@ def index(request):
 #@login_required
 def home(request):
     if checkToken(request):
-        return render(request, "./quote/html/sectionHome.html")
+        return render(request, "./quote/html/sections/sectionHome.html")
         
     logout(request)
     return render(request, "./quote/html/login.html", {'showalert':True})
@@ -210,8 +211,6 @@ def cotizar(request):
             queryset=Product.objects.all()
         ) """
         #mando los datos al frontend
-        context['todos'] = qs
-
         context['Categories'] = Category.objects.all()
         
         paginated_products = Paginator(qs, 5)
@@ -226,7 +225,7 @@ def cotizar(request):
         # transfor the response to json objects
         #todos = response.json()
         #print("respuesta " +str(todos))
-        return render(request, "./quote/html/sectionQuote.html", context=context)#{"todos": todos})
+        return render(request, "./quote/html/sections/sectionQuote.html", context=context)#{"todos": todos})
 
     return render(request, "./quote/html/login.html", {'showalert':True})
     #return redirect('quo:login')
@@ -240,63 +239,18 @@ def cotizar(request):
 def SuppliersList(request):
     todo = Suppliers.objects.all()
     contexto = {'todos': todo}
-    return render(request, "./quote/html/sectionSuppliers.html", contexto)
+    return render(request, "./quote/html/sections/sectionSuppliers.html", contexto)
 
 def CategoriesList(request):
     todo = Category.objects.all()
     contexto = {'todos': todo}
-    return render(request, "./quote/html/sectionCategories.html", contexto)
+    return render(request, "./quote/html/sections/sectionCategories.html", contexto)
 
 
 def ProductsList(request):
     todo = Product.objects.all()
     contexto = {'todos': todo}
-    return render(request, "./quote/html/sectionProducts.html", contexto)
-
-#------------------------------LOGIN----------------------------------
-# usuario de prueba {"username":"jaja", "password":"123123123"}
-""" 
-class SignInView(TemplateView):
-    template_name='quote/html/login.html'
-    def post(self, request):
-        login_data = request.POST.dict()
-        username = login_data.get("username")
-        password = login_data.get("password")
-        user = Users.objects.filter(username=username).first()
-
-
-        if user is None:
-            raise AuthenticationFailed('Usuario no encontrado')
-        
-        if not user.check_password(password):
-            raise AuthenticationFailed('Contraseña incorrecta')
-        
-        payload = {
-            'id': user.id_user,
-            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=3),
-            'iat': datetime.datetime.utcnow()
-        }
-
-        token = jwt.encode(payload, 'secret', algorithm='HS256')#.decode('utf-8')
-        print(token)
-        
-        response = Response()
-
-        response.set_cookie(key='jwt', value=token, httponly=True)
-
-        response.data = {
-            'message':'Ingreso exitoso',
-            'jwt': token
-        }
-        print(str(request.COOKIES.get('jwt')))
-        login(request, user)
-        #print(request)
-        #return render(request, "./quote/html/sectionHome.html")
-        #return redirect('quo:home')
-        return response
-        #return render_to_response('current_datetime.html', {'current_date': now})
- """
-
+    return render(request, "./quote/html/sections/sectionProducts.html", contexto)
 
 
 def userLogout(request):
@@ -309,7 +263,8 @@ def userLogout(request):
     return redirect("quo:login")
 
 
-
+#------------------------------LOGIN----------------------------------
+# usuario de prueba {"username":"jaja", "password":"123123123"}
 class LoginView(TemplateView):
     template_name='quote/html/login.html'
     def get(self, request):
@@ -327,14 +282,6 @@ class LoginView(TemplateView):
         if user is None or not user.check_password(password):
             return render(request, "./quote/html/login.html", {'notexistuser': True})
             #return render(request, "./quote/html/login.html", {'showalert':True})
-
-        """ if not user.check_password(password):
-            response = redirect('quo:home')
-            response.data = {
-                'notexistuser': True 
-            }
-            return response """
-
 
         payload = {
             'id': user.id_user,
@@ -373,16 +320,6 @@ def checkToken(request):
     return False
 
 
-""" class LogoutView(TemplateView):
-    def post(self, request):
-        response = Response()
-        response.delete_cookie('jwt')
-        response.data = {
-            'message':'Cierre de sesión exitoso'
-        }
-        logout(request)
-        #logout(request)
-        #return redirect('quo:login') """
 """ 
 #------------------------------SUPLLIERS----------------------------------
 class SuppliersListView(View):
@@ -394,52 +331,7 @@ class SuppliersDetailView(View):
     def get(self, request, pk):
         oneSupplier = Suppliers.objects.get(pk=pk)
         return JsonResponse(model_to_dict(oneSupplier))
-
-#------------------------------CATEGORY----------------------------------
-class CategoryListView(View):
-    def get(self, request):
-        categoryList = Category.objects.all()
-        return JsonResponse(list(categoryList.values()), safe=False)
-
-class CategoryDetailView(View):
-    def get(self, request, pk):
-        oneCategory = Category.objects.get(pk=pk)
-        return JsonResponse(model_to_dict(oneCategory))
-
-#------------------------------QUOTE DETAILS----------------------------------
-class qDetailsListView(View):
-    def get(self, request):
-        quoteDetailsList = qDetails.objects.all()
-        return JsonResponse(list(quoteDetailsList.values()), safe=False)
-
-class qDetailDetailView(View):
-    def get(self, request, pk):
-        oneQuoteDetail = qDetails.objects.get(pk=pk)
-        return JsonResponse(model_to_dict(oneQuoteDetail))
-
-
-#------------------------------QUOTE----------------------------------
-class QuoteListView(View):
-    def get(self, request):
-        quoteList = Quotes.objects.all()
-        return JsonResponse(list(quoteList.values()), safe=False)
-
-class QuoteDetailView(View):
-    def get(self, request, pk):
-        oneQuote = Quotes.objects.get(pk=pk)
-        return JsonResponse(model_to_dict(oneQuote))
-
-
-#------------------------------PRODUCTS----------------------------------
-class ProductListView(View):
-    def get(self, request):
-        productList = Product.objects.all()
-        return JsonResponse(list(productList.values()), safe=False)
-
-class ProductDetailView(View):
-    def get(self, request, pk):
-        oneProduct = Product.objects.get(pk=pk)
-        return JsonResponse(model_to_dict(oneProduct)) """
+"""
 """def tabla(request):
    # get the list of todos
    response = requests.get('http://127.0.0.1:8000/api/product/')
@@ -460,37 +352,84 @@ def UsersV(request):
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")
 
-def Reports(request):
-    return render(request, "./quote/html/Reports.html")
-
 class uploadDocument(TemplateView, APIView):
-    template_name='./quote/html/uploadDocument.html'
+    template_name='./quote/html/sections/sectionUploadDocument.html'
     
     def get(self, request):
-        return render(request, "./quote/html/uploadDocument.html")
+        if checkToken(request):
+            return render(request, "./quote/html/sections/sectionUploadDocument.html")
+        logout(request)
+        return render(request, "./quote/html/login.html", {'showalert':True})
         
     def post(self, request):
         name = request.POST.get('name_pfiles')
         file = request.FILES['productfile']
-        print(f"transformacion ---> {str(file)}")
+        #print(f"transformacion ---> {str(file)}")
         body ={
             'name_pfiles': name,
             'productfile': file
         }
-        print(body)
+        #print(body)
         response = Response()
         serializer = ProductFileSerializer(data=body)
         if serializer.is_valid():
-            serializer.save()
-            response = redirect('quo:uploadDocument')
+            #response = redirect('quo:uploadDocument')
             response.data = {
                 'success': True 
             }
-            uploadDataDB.uploadDocumentXlsx(file)
-
-
-            return response
+            try:
+                uploadDataDB.uploadDocumentXlsx(file)
+                serializer.save()
+                response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
+                return response
+            except:
+                response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': False})
+                return response
+        
             #print(Response({"status": "success", "data": serializer.data}, status=status.HTTP_200_OK))
             #render(request, "./quote/html/uploadDocument.html")
         else:
-            return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+            response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': False})
+            return response
+
+
+class Reports(TemplateView):
+    template_name = './quote/html/sections/sectionReports.html'
+    response = Response()
+    def get (self, request):
+        if checkToken(request):
+
+            if request.GET.get('download'):
+                predefined.reportUser()
+
+            quotes = Quotes.objects.all()
+            data = {
+                "quotesList" : quotes
+            }
+            return render(request, './quote/html/sections/sectionReports.html', data)
+        logout(request)
+        return render(request, "./quote/html/login.html", {'showalert':True})
+    def post (self, request):
+        if request.POST['download']=='downloadUserReport':
+            print('funcionó')
+            response = Response()
+            response = redirect('quo:report')
+            response.data = {
+                'algo': "sakjd"
+            }
+            return response    
+
+ 
+
+def descargar(request):
+    print(f'las propiedades {dir(request.POST)}')
+    print(f'El valor {request.POST}')
+    if request.POST['mybtn2']=='':
+        print("me tocaron we")
+
+    response = Response()
+    response = redirect('quo:report')
+    response.data ={
+        'algo': "sakjd"
+    }
+    return response

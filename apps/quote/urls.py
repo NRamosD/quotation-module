@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.urls import path, include
 from django.views import generic
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
 
 from . import views
 from rest_framework import routers
@@ -10,7 +11,7 @@ from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet, productFilesViewSet,
     UserApiView, userLogout, LoginView,
-    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument
+    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument, Reports, descargar
     )
 
 router = routers.DefaultRouter()
@@ -76,6 +77,7 @@ urlpatterns = [
     path('Listar3/',views.ProductsList, name="ProductsList"),
     path('UsersV/',views.UsersV, name="UsersV"),
     path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
-    path('informes/',views.Reports, name="report"),
+    path('informes/',login_required(Reports.as_view()), name="report"),
+    path('informes/descargar',descargar, name="reportDescargar"),
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
 ]
