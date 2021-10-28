@@ -1,20 +1,26 @@
 #DJANGO
 from decimal import Context
+from re import template
 from decouple import RepositoryEmpty
+from django.contrib.auth import models
 from django.contrib.auth.models import User
+from django.db.models.query import QuerySet
 from django.http.response import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, request
-from django.urls import reverse
+from django.urls import reverse_lazy
+from django.urls.base import reverse_lazy
 from django.views import generic
-from django.views.generic import ListView 
+from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.views import View
 from django.forms import model_to_dict
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView, DeleteView
+from .forms import CreateUserForm, UserForm
 
 
 #RESTFRAMEWORK
@@ -344,13 +350,43 @@ def Vista(request):
     return render(request, "./quote/html/sectionSuppliers.html")
     
 
-def UsersV(request):
-    todo = Users.objects.all()
-    contexto = {'todos': todo}
-    return render(request, "./quote/html/GeneralViewUser.html", contexto)
+#def UsersV(request):
+    #todo = Users.objects.all()
+    #contexto = {'todos': todo}
+    #return render(request, "./quote/html/GeneralViewUser.html", contexto)  
+class ListadoUsuario(ListView):
+    model= Users
+    template_name= './quote/html/GeneralViewUser.html'
+    context_object_name = 'usuarios'
+    queryset= Users.objects.filter()
+
+class ActualizarUsuaio(UpdateView):
+    model= Users
+    template_name= './quote/html/EditarUsuario.html'
+    form_class= UserForm
+    success_url=reverse_lazy('quo:UsersV')
+
+class EliminarUsuario(DeleteView):
+    model= Users
+    template_name= './quote/html/users_confirm_delete.html'
+    success_url=reverse_lazy('quo:UsersV')
+
+class CrearUsuario(CreateView):
+    model: Users
+    form_class= CreateUserForm
+    template_name= './quote/html/CreateUserView.html'
+    success_url=reverse_lazy('quo:UsersV')
+    
+
+def crear_usuario(request):
+    return render(request, "./quote/html/CreateUserView.html")
 
 def ModalAddUser(request):
     return render(request, "./quote/html/AddUserModal.html")
+
+def EliminarUser(request):
+    return render(request, './quote/html/users_confirm_delete.html')
+
 
 class uploadDocument(TemplateView, APIView):
     template_name='./quote/html/sections/sectionUploadDocument.html'
@@ -410,10 +446,13 @@ class Reports(TemplateView):
         logout(request)
         return render(request, "./quote/html/login.html", {'showalert':True})
     def post (self, request):
+        print(f"Esa vaina {request.POST}")
         if request.POST['download']=='downloadUserReport':
-            print('funcionó')
+            allUsers = Users.objects.all()
+            #print(f"tupla -> {a[0].first_name}")
+            predefined.reportUser(allUsers)
             response = Response()
-            response = redirect('quo:report')
+            response = redirect('http://127.0.0.1:8000/Documents/ReporteUsuarios.pdf')
             response.data = {
                 'algo': "sakjd"
             }
@@ -433,3 +472,4 @@ def descargar(request):
         'algo': "sakjd"
     }
     return response
+    #return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

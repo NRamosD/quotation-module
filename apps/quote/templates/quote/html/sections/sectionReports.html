@@ -46,24 +46,22 @@
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
                             <form method="post" name="downloadUserReportForm">
                                 {% csrf_token %}
-                                <button type="submit" id="download" name="download" value="downloadUserReport"><i class="fas fa-file-download icon_download"></i></button>
+                                <button type="submit" class="btn_dw" name="download" value="downloadUserReport"><i class="fas fa-file-download icon_download"></i></button>
                             </form>
-                            <button onclick='javascript:location.href="{% url 'quo:report' %}"' type="submit" id="download" name="download" value="downloadUserReport"><i class="fas fa-file-download icon_download"></i></button>
-                            
                         </aside>
                     </ul>
                     <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Información general #2
                         <p id="listado_ts_info">Reporte Artículos</p>
                         <aside class="ts_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                     <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Información general #3
                         <p id="listado_ts_info">Reporte Proveedores</p>
                         <aside class="ts_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                 </ol>

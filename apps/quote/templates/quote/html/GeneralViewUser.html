@@ -22,104 +22,11 @@
     <h1 id="InfoA">Home</h1>
     <h1 id="Mark">></h1>
     <h1 id="InfoB">Vista de Usuarios</h1>
-    <button id="btn_agregar" class="hover-underline-animation" data-bs-toggle="modal" data-bs-target="#ModalAddU"><i class="fas fa-plus but_mas"></i>Añadir</button>
+    <button id="btn_agregar" class="hover-underline-animation" onclick= "abrir_modal_creacion('{% url 'quo:crear_usuario' %}');"><i class="fas fa-plus but_mas"></i>Añadir</button>
     <button id="btn_pregunta" class="hover-underline-animationB"><i class="fas fa-question but_circle"></i></button>
 
   
-  <!-- Modal Añadir -->
-  <div class="modal fade" id="ModalAddU" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Usuario</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <label id="label_modal_field" for="name">Nombre:</label>
-          <input id="input_modal_AUser" type="text" maxlength="150" required placeholder="Nombre del usuario"><br><br>
-          <label id="label_modal_field" for="Apellido">Apellido:</label>
-          <input id="input_modal_AUser" type="text" maxlength="150" required placeholder="Apellido del usuario"><br><br>
-          <label id="label_modal_field" for="Correo">Correo electrónico:</label>
-          <input id="input_modal_AUser" type="email" required placeholder="Email"><br><br>
-          <label id="label_modal_field" for="Cedula">Cédula:</label>
-          <input id="input_modal_AUser" type="number" maxlength="10" required placeholder="Cédula sin guión"><br><br>
-          <label id="label_modal_field" for="Telefono">Teléfono:</label>
-          <input id="input_modal_AUser" type="number" maxlength="10" ><br><br>
-          <label id="label_modal_field" for="Celular">Celular:</label>
-          <input id="input_modal_AUser" type="number" maxlength="10" required ><br><br>
-          <label id="label_modal_field" for="Ciudad">Ciudad:</label>
-          <input id="input_modal_AUser" type="text" maxlength="100" required placeholder="Ciudad(Ubicación)"><br><br>
-          <label id="label_modal_field" for="Provincia">Provincia:</label>
-          <input id="input_modal_AUser" type="text" maxlength="100" required placeholder="Provincia(Ubicación)"><br><br>
-          <label id="label_modal_field" ="Pais">País:</label>
-          <input id="input_modal_AUser" type="text" maxlength="100" required placeholder="País(Ubicación)"><br><br>
-          <label id="label_modal_field" for="username">Nombre de Usuario:</label>
-          <input id="input_modal_AUser" type="text" maxlength="150" required placeholder="Nombre de Usuario"><br><br>
-          <label id="label_modal_field" for="password">Contraseña:</label>
-          <input id="input_modal_AUser" type="password" pattern=".{8,}" required placeholder="Incluya números y símbolos"><br><br>
-          <label id="label_modal_field" for="password_verification">Repetir Contraseña:</label>
-          <input id="input_modal_AUser" type="password" pattern=".{8,}" required><br><br>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary">Guardar Cambios</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal Editar-->
-  <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Editar Usuario
-                </h5>
-                
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">
-                        ×
-                    </span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-
-                <!-- Data passed is displayed in this part of the modal body -->
-                    <label id="label_modal_field" for="name">Nombre:</label>
-                    <input id="EUser_N" type="text" maxlength="150" required placeholder="Nombre del usuario"><br><br>
-                    <label id="label_modal_field" for="Apellido">Apellido:</label>
-                    <input id="EUser_A" type="text" maxlength="150" required placeholder="Apellido del usuario"><br><br>
-                    <label id="label_modal_field" for="Correo">Correo electrónico:</label>
-                    <input id="EUser_E" type="email" required placeholder="Email"><br><br>
-                    <label id="label_modal_field" for="Cedula">Cédula:</label>
-                    <input id="EUser_C" type="text" maxlength="10" required placeholder="Cédula sin guión"><br><br>
-                    <label id="label_modal_field" for="Telefono">Teléfono:</label>
-                    <input id="EUser_T" type="text" maxlength="10" ><br><br>
-                    <label id="label_modal_field" for="Celular">Celular:</label>
-                    <input id="EUser_CE" type="text" maxlength="10" required ><br><br>
-                    <label id="label_modal_field" for="Ciudad">Ciudad:</label>
-                    <input id="EUser_CI" type="text" maxlength="100" required placeholder="Ciudad(Ubicación)"><br><br>
-                    <label id="label_modal_field" for="Provincia">Provincia:</label>
-                    <input id="EUser_P" type="text" maxlength="100" required placeholder="Provincia(Ubicación)"><br><br>
-                    <label id="label_modal_field" ="Pais">País:</label>
-                    <input id="EUser_PA" type="text" maxlength="100" required placeholder="País(Ubicación)"><br><br>
-                    <label id="label_modal_field" for="username">Nombre de Usuario:</label>
-                    <input id="EUser_NU" type="text" maxlength="150" required placeholder="Nombre de Usuario"><br><br>
-                    <label id="label_modal_field" for="password">Contraseña:</label>
-                    <input id="EUser_CO" type="password" pattern=".{8,}" required placeholder="Incluya números y símbolos"><br><br>
-                    <label id="label_modal_field" for="password_verification">Repetir Contraseña:</label>
-                    <input id="EUser_RC" type="password" pattern=".{8,}" required><br><br>
-
-                <h6 id="modal_body"></h6>
-                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModalEdit" id="submit">
-                    Aceptar Cambios
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 
  <!-- TABLA INFO USERS-->
   <div class="container_usuarios">
@@ -142,6 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <!--  
                         <tr id="1">
                             <td>1</td>
                             <td>Juan</td>
@@ -154,18 +62,21 @@
                             <td>2021-09-23 03:31:20.500992</td>
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
                         </tr>
-                        {% for todo in todos %}
+                        -->
+                        {% for todo in usuarios %}
                         <tr>
                             <td>{{ todo.id_user }}</td>
-                            <td>{{ todo.name }}</td>
-                            <td>{{ todo.lastname }}</td>
-                            <td>{{ todo.mail }}</td>
+                            <td>{{ todo.first_name }}</td>
+                            <td>{{ todo.last_name }}</td>
+                            <td>{{ todo.email }}</td>
                             <td>{{ todo.city }}</td>
                             <td>{{ todo.province }}</td>
                             <td>{{ todo.country }}</td>
                             <td>{{ todo.mobile_phone }}</td>
                             <td>{{ todo.last_login }}</td>
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
+                            <td><a href="{% url 'quo:AddUserModal' todo.id_user %}">UPDATE</a></td>
+                            <td><a href="{% url 'quo:EliminarUser' todo.id_user %}">ELIMINAR</a></td>
 
                         </tr>
                         {% endfor %}
@@ -175,22 +86,32 @@
             </div>
     </div>  
   </div> 
+
+  <div class="modal fade" id="creacion" role="dialog">
+
+  </div>
+
+  <div class="modal fade" id="edicion" role="dialog">
+
+  </div>
+
+  <div class="modal fade" id="eliminacion" role="dialog">
+
+  </div>
+
+
+  
 </body>
 
-<script type="text/javascript">
-  $("#btn_Opciones").click(function () {
-      var nombre =  document.getElementById('1').cells[1].innerText;
-      var apellido =  document.getElementById('1').cells[2].innerText;
-      var correo =  document.getElementById('1').cells[3].innerText;
-      var ciudad =  document.getElementById('1').cells[4].innerText;
-      var provincia =  document.getElementById('1').cells[5].innerText;
-      var pais =  document.getElementById('1').cells[6].innerText;
-      $("#EUser_N").val(nombre);
-      $("#EUser_A").val(apellido);
-      $("#EUser_CI").val(ciudad);
-      $("#EUser_P").val(provincia);
-      $("#EUser_PA").val(pais);
-  });
-</script>
-
 {% endblock %}
+
+{% block extrajs%}
+<script type="text/javascript">
+  function abrir_modal_creacion(url){
+    var $ =jQuery.noConflict();
+    $('#creacion').load(url,function(){
+      $(this).modal('Show');
+    });
+  }
+</script>
+{% endblock extrajs%}

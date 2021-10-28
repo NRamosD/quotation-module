@@ -1,0 +1,15 @@
+{% extends 'quote/html/home.html' %}
+
+{% load static %}
+
+{% block title %}Eliminar Usuario{% endblock %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    <p><strong>Desea eliminar al usuario registrado {{ object.first_name }}?</strong></p>
+    <button type="submit" class="btn btn-danger">Confirmar</button>
+</form>
+
+{% endblock content%}

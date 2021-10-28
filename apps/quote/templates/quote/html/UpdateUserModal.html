@@ -1,0 +1,64 @@
+{% extends 'quote/html/home.html' %}
+
+{% load static %}
+
+{% block title %}Eliminar Usuario{% endblock %}
+
+{% block content %}
+  <!-- Modal -->
+  <form method="POST">
+    {% csrf_token %} 
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Agregar Nuevo Usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.first_name.label }}</span>
+            <div class="col-12 col-md-9">{{ form.first_name }}</div>
+          </div>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.last_name.label }}</span>
+            <div class="col-12 col-md-9">{{ form.last_name }}</div>
+          </div>
+          <div>
+            <span class="input-group-text" id="addon-wrapping">{{ form.email.label }}</span>
+            <div class="col-12 col-md-9">{{ form.email }}</div>
+          </div>
+          <div>
+            <span class="input-group-text">Teléfono:</span>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text">{{ form.mobile_phone.label }}</span>
+            <div class="col-12 col-md-9">{{ form.mobile_phone }}</div>
+          </div>
+          <br>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.city.label }}</span>
+            <div class="col-12 col-md-9">{{ form.city }}</div>
+          </div>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.province.label }}</span>
+            <div class="col-12 col-md-9">{{ form.province }}</div>
+          </div>         
+          <div class="input-group mb-3">
+            <label class="input-group-text" for="inputGroupSelect01">{{ form.country.label }}</label>
+            <div class="col-12 col-md-9">{{ form.country }}</div>
+          </div>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.username.label }}</span>
+            <div class="col-12 col-md-9">{{ form.username }}</div>
+          </div>
+          <div>
+            <span class="input-group-text" id="inputGroup-sizing-sm">{{ form.password.label }}</span>
+            <div class="col-12 col-md-9">{{ form.password }}</div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-danger">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+</form>
+
+{% endblock content%}
