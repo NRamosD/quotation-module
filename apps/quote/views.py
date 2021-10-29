@@ -88,7 +88,7 @@ class productFilesViewSet(viewsets.ModelViewSet):
     serializer_class = ProductFileSerializer
 
 
-class UserApiView(APIView):
+class UserApiView(TemplateView, APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -131,7 +131,19 @@ def index(request):
 #@login_required
 def home(request):
     if checkToken(request):
-        return render(request, "./quote/html/sections/sectionHome.html")
+        nProducts = str(Product.objects.all().count())
+        nUsers = Users.objects.all().count()
+        nSuppliers = Suppliers.objects.all().count()
+        nCategories = Category.objects.all().count()
+        nQuotes = Quotes.objects.all().count()
+        data = {
+            'nProducts' : nProducts,
+            'nUsers' : nUsers,
+            'nSuppliers': nSuppliers,
+            'nCatego': nCategories,
+            'nQuo': nQuotes
+        }
+        return render(request, "./quote/html/sections/sectionHome.html", context=data)
         
     logout(request)
     return render(request, "./quote/html/login.html", {'showalert':True})
@@ -447,29 +459,28 @@ class Reports(TemplateView):
         return render(request, "./quote/html/login.html", {'showalert':True})
     def post (self, request):
         print(f"Esa vaina {request.POST}")
-        if request.POST['download']=='downloadUserReport':
+        if request.POST['download']=='dUR':
             allUsers = Users.objects.all()
             #print(f"tupla -> {a[0].first_name}")
             predefined.reportUser(allUsers)
             response = Response()
             response = redirect('http://127.0.0.1:8000/Documents/ReporteUsuarios.pdf')
-            response.data = {
-                'algo': "sakjd"
-            }
-            return response    
+            return response
+            
+        if request.POST['download']=='dPR':
+            allProducts = Product.objects.all()
+            #print(f"tupla -> {a[0].first_name}")
+            predefined.reportProducts(allProducts)
+            response = Response()
+            response = redirect('http://127.0.0.1:8000/Documents/ReporteProductos.pdf')
+            return response
+        
+        if request.POST['download']=='dPP':
+            allSuppliers = Suppliers.objects.all()
+            #print(f"tupla -> {a[0].first_name}")
+            predefined.reportSuppliers(allSuppliers)
+            response = Response()
+            response = redirect('http://127.0.0.1:8000/Documents/ReporteProveedores.pdf')
+            return response  
 
- 
 
-def descargar(request):
-    print(f'las propiedades {dir(request.POST)}')
-    print(f'El valor {request.POST}')
-    if request.POST['mybtn2']=='':
-        print("me tocaron we")
-
-    response = Response()
-    response = redirect('quo:report')
-    response.data ={
-        'algo': "sakjd"
-    }
-    return response
-    #return Response({"status": "error", "data": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

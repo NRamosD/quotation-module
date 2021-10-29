@@ -11,7 +11,7 @@ from .views import (
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
     SupplierViewSet, qDetailsViewSet, productFilesViewSet,
     UserApiView, userLogout, LoginView,
-    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument, Reports, descargar,
+    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument, Reports,
     ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario
     )
 
@@ -78,10 +78,10 @@ urlpatterns = [
     path('Listar3/',views.ProductsList, name="ProductsList"),
     #upload data
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
+    #reports
     path('informes/',login_required(Reports.as_view()), name="report"),
-    path('informes/descargar',descargar, name="reportDescargar"),
     #Users
-    path('UsersV/',ListadoUsuario.as_view(), name="UsersV"),
+    path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
     path('AddUserModal/<int:pk>',ActualizarUsuaio.as_view(), name="AddUserModal"),
     path('EliminarUser/<int:pk>', EliminarUsuario.as_view(), name='EliminarUser'),
     path('crear_usuario/', CrearUsuario.as_view(), name='crear_usuario')

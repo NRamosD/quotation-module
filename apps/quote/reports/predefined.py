@@ -101,6 +101,166 @@ def reportUser(allUsers):
         pdf.output(f'./files/ReporteUsuarios.pdf','F')
 
 
+def reportProducts(allProducts):
+        # datos para usar
+        productsList = []
+        for x in allProducts:
+                #`ID_PRODUCT`, `PRODUCT_NAME` `PRICE`, `BRAND`, `AVAILABILITY`,`LAST_MODIFIED`, `ID_CATEGORY_PRODUCT`, `ID_SUPPLIER`
+                time = str(x.last_modified)
+                date = time.split('.')
+                productsList.append((x.id_product, x.product_name, x.price, x.brand, x.availability, date[0], x.id_category_product, x.id_supplier))
+
+        dataInTuple = tuple(productsList)
+
+        pdf = FPDF(orientation = 'P', unit = 'mm', format='A4') 
+        pdf.add_page()
+
+        # TEXTO
+        pdf.set_font('Arial', '', 15)
+
+        # titulo
+        pdf.cell(w = 0, h = 15, txt = 'Reporte de Productos', border = 1, ln=1,
+                align = 'C', fill = 0)
+
+
+        # TEXTO
+        pdf.set_font('Arial', '', 9)
+        #`ID_PRODUCT`, `PRODUCT_NAME` `PRICE`, `BRAND`, `AVAILABILITY`,`LAST_MODIFIED`, `ID_CATEGORY_PRODUCT`, `ID_SUPPLIER`
+        pdf.cell(w = 10, h = 10, txt = 'ID', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 35, h = 10, txt = 'Nombre', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 18, h = 10, txt = 'Precio', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 25, h = 10, txt = 'Marca', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 18, h = 10, txt = 'Disponible', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 30, h = 10, txt = 'Últ. Modif.', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 18, h = 10, txt = 'Categoría', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.multi_cell(w = 0, h = 10, txt = 'Proveedor', border = 1,
+                align = 'C', fill = 0)
+
+        
+        # TEXTO
+        pdf.set_font('Arial', '', 6)
+        # valores
+        for valor in dataInTuple:
+                pdf.cell(w = 10, h = 7, txt = str(valor[0]), border = 1, align = 'C', fill = 0)
+                if len(valor[1])>22:
+                        pdf.set_font('Arial', '', 5)
+                        pdf.cell(w = 35, h = 7, txt = valor[1], border = 1, align = 'C', fill = 0)
+                else:
+                        pdf.cell(w = 35, h = 7, txt = valor[1], border = 1, align = 'C', fill = 0)
+                pdf.set_font('Arial', '', 6)
+                pdf.cell(w = 18, h = 7, txt = str(valor[2]), border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 25, h = 7, txt = valor[3], border = 1, align = 'C', fill = 0)
+                if valor[4] == 1:
+                        pdf.cell(w = 18, h = 7, txt = 'Si', border = 1, align = 'C', fill = 0)
+                else:
+                        pdf.cell(w = 18, h = 7, txt = 'No', border = 1, align = 'C', fill = 0)
+
+                pdf.cell(w = 30, h = 7, txt = str(valor[5]), border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 18, h = 7, txt = str(valor[6]), border = 1, align = 'C', fill = 0)
+                if len(str(valor[7]))>27:
+                        pdf.set_font('Arial', '', 4.5)
+                        pdf.multi_cell(w = 0, h = 7, txt = str(valor[7]), border = 1, align = 'C', fill = 0)
+                else:
+                        pdf.multi_cell(w = 0, h = 7, txt = str(valor[7]), border = 1, align = 'C', fill = 0)
+                pdf.set_font('Arial', '', 6)
+                
+
+        #elDato = pdf.output('hoja.pdf','D')
+        #print(f"plano  -> {elDato}")
+        #print(f'el tipo {type(elDato)}')
+        pdf.output(f'./files/ReporteProductos.pdf','F')
+
+
+
+
+
+def reportSuppliers(allSuppliers):
+        # datos para usar
+        productsList = []
+        for x in allSuppliers:
+                #id_supplier,`supplier_name`, `conctact_name` `landline` `mobile_phone`, `email`, `city`,`province`, `country`
+                productsList.append((x.id_supplier, x.supplier_name, x.conctact_name, x.landline, x.mobile_phone, x.email,  x.city, x.province, x.country, x.address))
+
+        dataInTuple = tuple(productsList)
+
+        pdf = FPDF(orientation = 'P', unit = 'mm', format='A4') 
+        pdf.add_page()
+
+        # TEXTO
+        pdf.set_font('Arial', '', 15)
+
+        # titulo
+        pdf.cell(w = 0, h = 15, txt = 'Reporte de Proveedores', border = 1, ln=1,
+                align = 'C', fill = 0)
+
+
+        # TEXTO
+        pdf.set_font('Arial', '', 9)
+        #id_supplier,`supplier_name`, `conctact_name` `landline` `mobile_phone`, `email`, Dirección(address,  `city`,`province`, `country`)
+        pdf.cell(w = 10, h = 10, txt = 'ID', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 38, h = 10, txt = 'Nombre', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 18, h = 10, txt = 'Encargado', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 25, h = 10, txt = 'Teléfono', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 34, h = 10, txt = 'Correo', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.multi_cell(w = 0, h = 10, txt = 'Dirección', border = 1,
+                align = 'C', fill = 0)
+
+        
+        # TEXTO
+        pdf.set_font('Arial', '', 6)
+        # valores
+        for valor in dataInTuple:
+                pdf.cell(w = 10, h = 7, txt = str(valor[0]), border = 1, align = 'C', fill = 0)
+                if len(valor[1])>22:
+                        pdf.set_font('Arial', '', 5)
+                        pdf.cell(w = 38, h = 7, txt = valor[1], border = 1, align = 'C', fill = 0)
+                else:
+                        pdf.cell(w = 38, h = 7, txt = valor[1], border = 1, align = 'C', fill = 0)
+                pdf.set_font('Arial', '', 6)
+                pdf.cell(w = 18, h = 7, txt = valor[2], border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 25, h = 7, txt = f"{valor[3]} - {valor[4]}", border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 34, h = 7, txt = valor[5], border = 1, align = 'C', fill = 0)
+                addr = f"{valor[9]} ({valor[6]}, {valor[7]}, {valor[8]})"
+                if len(addr)>63:
+                        pdf.set_font('Arial', '', 4.5)
+                        pdf.multi_cell(w = 0, h = 7, txt = addr, border = 1, align = 'C', fill = 0)
+                else:
+                      pdf.multi_cell(w = 0, h = 7, txt = addr, border = 1, align = 'C', fill = 0)
+                pdf.set_font('Arial', '', 6)
+
+        #elDato = pdf.output('hoja.pdf','D')
+        #print(f"plano  -> {elDato}")
+        #print(f'el tipo {type(elDato)}')
+        pdf.output(f'./files/ReporteProveedores.pdf','F')
+
+
+
+
+
 
 
 

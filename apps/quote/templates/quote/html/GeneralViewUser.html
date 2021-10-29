@@ -22,6 +22,28 @@
     <h1 id="InfoA">Home</h1>
     <h1 id="Mark">></h1>
     <h1 id="InfoB">Vista de Usuarios</h1>
+
+    <div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
+                  
+              </div>
+              <div class="modal-body">
+                  <div class="mb-3">
+                      <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
+                      <input name="producerName" type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                  <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
+              </div>
+          </div>
+      </div>
+    </div>
+
     <button id="btn_agregar" class="hover-underline-animation" onclick= "abrir_modal_creacion('{% url 'quo:crear_usuario' %}');"><i class="fas fa-plus but_mas"></i>Añadir</button>
     <button id="btn_pregunta" class="hover-underline-animationB"><i class="fas fa-question but_circle"></i></button>
 

@@ -44,24 +44,30 @@
                         <p id="listado_ts_info">Información sobre los usuarios registrados en el sistema.</p>
                         <aside class="ts_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <form method="post" name="downloadUserReportForm">
+                            <form method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="btn_dw" name="download" value="downloadUserReport"><i class="fas fa-file-download icon_download"></i></button>
+                                <button type="submit" class="btn_dw" name="download" value="dUR"><i class="fas fa-file-download icon_download"></i></button>
                             </form>
                         </aside>
                     </ul>
-                    <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Información general #2
-                        <p id="listado_ts_info">Reporte Artículos</p>
+                    <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Productos
+                        <p id="listado_ts_info">Información sobre los productos registrados en el sistema.</p>
                         <aside class="ts_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn_dw" name="download" value="dPR"><i class="fas fa-file-download icon_download"></i></button>
+                            </form>
                         </aside>
                     </ul>
-                    <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Información general #3
-                        <p id="listado_ts_info">Reporte Proveedores</p>
+                    <ul id="listado_ts"><i class="fas fa-circle icon_point"></i>Reporte Proveedores
+                        <p id="listado_ts_info">Información sobre los proveedores registrados en el sistema.</p>
                         <aside class="ts_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <form method="post">
+                                {% csrf_token %}
+                                <button type="submit" class="btn_dw" name="download" value="dPP"><i class="fas fa-file-download icon_download"></i></button>
+                            </form>
                         </aside>
                     </ul>
                 </ol>
@@ -79,21 +85,21 @@
                         <p id="listado_tt_info">Reporte X</p>
                         <aside class="tt_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                     <ul id="listado_tt"><i class="fas fa-circle icon_point"></i>Reporte #2
                         <p id="listado_tt_info">Reporte XX</p>
                         <aside class="tt_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                     <ul id="listado_tt"><i class="fas fa-circle icon_point"></i>Reporte #3
                         <p id="listado_tt_info">Reporte XY</p>
                         <aside class="tt_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                 </ol>
@@ -109,21 +115,21 @@
                         <p id="listado_tc_info">Reporte Z</p>
                         <aside class="tc_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                     <ul id="listado_tt"><i class="fas fa-circle icon_point"></i>Reporte #2
                         <p id="listado_tt_info">Reporte ZX</p>
                         <aside class="tt_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                     <ul id="listado_tt"><i class="fas fa-circle icon_point"></i>Reporte #3
                         <p id="listado_tt_info">Reporte ZY</p>
                         <aside class="tt_acciones">
                             <button id="btn_eye"><i class="fas fa-eye icon_eye"></i></button>
-                            <button id="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
+                            <button class="btn_dw"><i class="fas fa-file-download icon_download"></i></button>
                         </aside>
                     </ul>
                 </ol>
