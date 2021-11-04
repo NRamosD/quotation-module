@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/stylesBarra.css'%}">
     <link rel="stylesheet" href="{% static 'css/stylesCotizacion.css'%}">
     <link rel="stylesheet" href="{% static 'css/stylesHome.css '%}">
+    <link rel="stylesheet" href="{% static 'css/styleUploadDocument.css '%}">
 
 
     <!-- BOX ICONS CSS-->
@@ -97,7 +98,7 @@
                         <i class="fas fa-paste nav__icon"></i>
                         <span class="nav__text">Reportes</span>
                     </a>
-                    <a href="#" class="nav__link">
+                    <a href="#" class="nav__link" id="info" >
                         <i class="fas fa-info-circle nav__icon"></i>
                         <span class="nav__text">Información </span>
                     </a>
@@ -116,5 +117,9 @@
 <!-- MAIN JS -->
 <script src="{% static 'scripts/scbarra.js'%}"></script>
 <script src="{% static 'scripts/url.js'%}"></script>
+<script src="{% static 'scripts/home.js'%}"></script>
+
+{% block extrajs%}
+{% endblock extrajs%}
 
 </html>

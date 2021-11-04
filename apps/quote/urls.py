@@ -3,8 +3,11 @@ from django.contrib import auth
 from django.urls import path, include
 from django.views import generic
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from rest_framework import routers
 
 from . import views
+<<<<<<< HEAD
 from rest_framework import routers
 from .views import (    
     CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
@@ -12,6 +15,14 @@ from .views import (
     UserApiView, userLogout, LoginView,
     SuppliersList,CategoriesList,ProductsList,
     uploadDocument,    
+=======
+from .views import (
+    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
+    SupplierViewSet, qDetailsViewSet, productFilesViewSet,
+    UserApiView, userLogout, LoginView,
+    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument, Reports,
+    ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario
+>>>>>>> a2d518ec1a53d4688699a48f3ed6ef62ac81f245
     )
 
 router = routers.DefaultRouter()
@@ -77,8 +88,13 @@ urlpatterns = [
     path('Listar1/',views.SuppliersList, name="SupplierList"),
     path('Listar2/',views.CategoriesList, name="CategoriesList"),
     path('Listar3/',views.ProductsList, name="ProductsList"),
-    path('UsersV/',views.UsersV, name="UsersV"),
-    path('AddUserModal/',views.ModalAddUser, name="AddUserModal"),
-    path('informes/',views.Reports, name="report"),
+    #upload data
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
+    #reports
+    path('informes/',login_required(Reports.as_view()), name="report"),
+    #Users
+    path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
+    path('AddUserModal/<int:pk>',ActualizarUsuaio.as_view(), name="AddUserModal"),
+    path('EliminarUser/<int:pk>', EliminarUsuario.as_view(), name='EliminarUser'),
+    path('crear_usuario/', CrearUsuario.as_view(), name='crear_usuario')
 ]

@@ -25,7 +25,7 @@ class Quotes(models.Model):
     id_quote = models.AutoField(db_column='ID_QUOTE', primary_key=True)  # Field name made lowercase.
     description = models.CharField(db_column='DESCRIPTION', max_length=100, blank=True, null=True)  # Field name made lowercase.
     date = models.DateTimeField(db_column='DATE', auto_now_add=True)  # Field name made lowercase.
-    total = models.DecimalField(db_column='TOTAL', max_digits=12, decimal_places=3)  # Field name made lowercase.
+    total = models.DecimalField(db_column='TOTAL', max_digits=12, decimal_places=2)  # Field name made lowercase.
     class Meta:
         managed = True
         db_table = 'quotes'
@@ -116,10 +116,6 @@ class Users(AbstractUser):
     city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
-    name= models.CharField(db_column='FIRST_NAME',max_length=150) # Field name made lowercase.
-    lastname=models.CharField(db_column='LAST_NAME',max_length=150)
-    mail=models.CharField(db_column='EMAIL',max_length=254)
-    last_login=models.CharField(db_column='LAST_LOGIN',max_length=6)
 
     class Meta:
         managed = True
@@ -137,7 +133,7 @@ class Product(models.Model):
     #id_category_vehicle = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_VEHICLE', related_name='FK_ID_CATEGORY_VEHICLE')  # Field name made lowercase.
     product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100)  # Field name made lowercase.
     description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=3)  # Field name made lowercase.
+    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=2)  # Field name made lowercase.
     brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # Field name made lowercase.
     availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Field name made lowercase.
     registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # Field name made lowercase.
@@ -156,7 +152,7 @@ class qDetails(models.Model):
     id_quote = models.ForeignKey(Quotes, models.DO_NOTHING, db_column='ID_QUOTE')  # Field name made lowercase.
     id_product = models.ForeignKey(Product, models.DO_NOTHING, db_column='ID_PRODUCT', related_name='FK_ID_PRODUCT')  # Field name made lowercase.
     amount = models.IntegerField(db_column='AMOUNT')  # Field name made lowercase.
-    subtotal = models.DecimalField(db_column='SUBTOTAL', max_digits=12, decimal_places=3)  # Field name made lowercase.
+    subtotal = models.DecimalField(db_column='SUBTOTAL', max_digits=12, decimal_places=2)  # Field name made lowercase.
 
     class Meta:
         managed = True
