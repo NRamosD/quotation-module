@@ -7,13 +7,16 @@ from django.contrib.auth.decorators import login_required
 from rest_framework import routers
 
 from . import views
-from .views import (
-    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
-    SupplierViewSet, qDetailsViewSet, productFilesViewSet,
+from rest_framework import routers
+from .views import (    
+    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
+    SupplierViewSet, qDetailsViewSet,
     UserApiView, userLogout, LoginView,
-    Vista,SuppliersList,CategoriesList,ProductsList, uploadDocument, Reports,
+    SuppliersList,CategoriesList,ProductsList,
+    uploadDocument,Reports,
     ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario
     )
+
 
 router = routers.DefaultRouter()
 #router.register('users', UsersViewSet)
@@ -72,7 +75,6 @@ urlpatterns = [
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
-    path('Vista/',views.Vista, name="Vista"),
     path('Listar1/',views.SuppliersList, name="SupplierList"),
     path('Listar2/',views.CategoriesList, name="CategoriesList"),
     path('Listar3/',views.ProductsList, name="ProductsList"),

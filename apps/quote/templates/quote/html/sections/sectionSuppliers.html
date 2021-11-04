@@ -4,6 +4,7 @@
 {% block title %}Vista General Proveedores{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/styleVistas.css '%}">
 
 <body>
   <nav id="navbar_Views">
@@ -11,7 +12,7 @@
   </nav>
   <!-- Button modal Categories -->
   <br>
-  <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  <button id="btnCrud" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Agregar
   </button>
 

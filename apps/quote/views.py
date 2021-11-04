@@ -269,7 +269,7 @@ def CategoriesList(request):
 def ProductsList(request):
     todo = Product.objects.all()
     contexto = {'todos': todo}
-    return render(request, "./quote/html/sections/sectionProducts.html", contexto)
+    return render(request, "./quote/html/sectionProducts.html", contexto)
 
 
 def userLogout(request):
@@ -359,9 +359,8 @@ class SuppliersDetailView(View):
    print("respuesta " +str(todos))
    return render(request, "./quote/html/sectionQuote.html", {"todos": todos})"""
 
-def Vista(request):
-    return render(request, "./quote/html/sectionSuppliers.html")
-    
+def CreateProduct(request):
+    return render(request, "./quote/html/ProductCreate.html")
 
 #def UsersV(request):
     #todo = Users.objects.all()

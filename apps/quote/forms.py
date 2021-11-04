@@ -1,7 +1,9 @@
 from django import forms
-from django.db.models.base import Model
+from django.forms import ModelForm
 from django.forms import fields, widgets
-from .models import ProductFiles, Users
+from .models import Product, ProductFiles, Users
+from apps.quote.models import Product
+from django.db.models.base import Model
 
 class ProductFilesForm(forms.ModelForm):
     class Meta:
