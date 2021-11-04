@@ -206,6 +206,16 @@ LOGOUT_REDIRECT_URL = '/login/'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
+"""
+--------------------------------------------------------------------------------------------
+https://docs.djangoproject.com/en/dev/howto/static-files/
+DEPLOY STATIC FILES: https://docs.djangoproject.com/en/dev/howto/static-files/deployment/ --
+--------------------------------------------------------------------------------------------
+"""
+
+
 #Dirección de archivos excel
-FILES_ROOT = os.path.join(BASE_DIR, 'Documentos')
+#FILES_ROOT = os.path.join(BASE_DIR, 'Documentos')  #Serving static files during development
+MEDIA_ROOT = os.path.join(BASE_DIR, 'files').replace('\\', '/') #folder
+MEDIA_URL = '/Documents/' #url route
 #MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "Documentos")

@@ -187,4 +187,8 @@ a {
   -webkit-transition: .5s;
   transition: .5s;
 }
+#btnCrud{
+  background-color: #F5A623;
+  color:red;
+}
 

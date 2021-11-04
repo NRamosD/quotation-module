@@ -6,13 +6,12 @@ from django.contrib.auth import views as auth_views
 
 from . import views
 from rest_framework import routers
-from .views import (
-    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, 
+from .views import (    
+    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
     SupplierViewSet, qDetailsViewSet,
     UserApiView, userLogout, LoginView,
-    Vista,SuppliersList,CategoriesList,ProductsList,
-    uploadDocument,
-    Vista
+    SuppliersList,CategoriesList,ProductsList,
+    uploadDocument,    
     )
 
 router = routers.DefaultRouter()
@@ -72,7 +71,9 @@ urlpatterns = [
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
-    path('Vista/',views.Vista, name="Vista"),
+    path('CrearP/',views.CreateProduct, name="CrearP"),
+    path('CrearS/',views.CreateSupplier, name="CrearS"),
+    path('CrearC/',views.CreateCategorie, name="CrearC"),
     path('Listar1/',views.SuppliersList, name="SupplierList"),
     path('Listar2/',views.CategoriesList, name="CategoriesList"),
     path('Listar3/',views.ProductsList, name="ProductsList"),
