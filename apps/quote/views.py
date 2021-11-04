@@ -30,6 +30,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from rest_framework.generics import CreateAPIView
 #DECORATORS
 from django.contrib.auth.decorators import login_required
 
@@ -88,7 +89,7 @@ class productFilesViewSet(viewsets.ModelViewSet):
     serializer_class = ProductFileSerializer
 
 
-class UserApiView(TemplateView, APIView):
+class UserApiView(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
@@ -370,25 +371,25 @@ class ListadoUsuario(ListView):
     model= Users
     template_name= './quote/html/GeneralViewUser.html'
     context_object_name = 'usuarios'
-    queryset= Users.objects.filter()
+    queryset= Users.objects.all()
 
 class ActualizarUsuaio(UpdateView):
     model= Users
-    template_name= './quote/html/EditarUsuario.html'
-    form_class= UserForm
-    success_url=reverse_lazy('quo:UsersV')
+    form_class = UserForm
+    template_name= './quote/html/editUser.html'
+    context_object_name = 'usuario'
+    success_url=reverse_lazy('quo:usersv')
 
 class EliminarUsuario(DeleteView):
     model= Users
-    template_name= './quote/html/users_confirm_delete.html'
-    success_url=reverse_lazy('quo:UsersV')
-
+    template_name= './quote/html/deleteUser.html'
+    success_url=reverse_lazy('quo:usersv')
+#CreateView
 class CrearUsuario(CreateView):
     model: Users
     form_class= CreateUserForm
-    template_name= './quote/html/CreateUserView.html'
-    success_url=reverse_lazy('quo:UsersV')
-    
+    template_name= './quote/html/createUser.html'
+    success_url=reverse_lazy('quo:usersv')
 
 def crear_usuario(request):
     return render(request, "./quote/html/CreateUserView.html")
@@ -420,6 +421,7 @@ class uploadDocument(TemplateView, APIView):
         #print(body)
         response = Response()
         serializer = ProductFileSerializer(data=body)
+        print(f"aqui mismo --> {serializer}")
         if serializer.is_valid():
             #response = redirect('quo:uploadDocument')
             response.data = {
@@ -458,7 +460,6 @@ class Reports(TemplateView):
         logout(request)
         return render(request, "./quote/html/login.html", {'showalert':True})
     def post (self, request):
-        print(f"Esa vaina {request.POST}")
         if request.POST['download']=='dUR':
             allUsers = Users.objects.all()
             #print(f"tupla -> {a[0].first_name}")

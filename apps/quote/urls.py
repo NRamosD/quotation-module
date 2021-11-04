@@ -82,7 +82,7 @@ urlpatterns = [
     path('informes/',login_required(Reports.as_view()), name="report"),
     #Users
     path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
-    path('AddUserModal/<int:pk>',ActualizarUsuaio.as_view(), name="AddUserModal"),
-    path('EliminarUser/<int:pk>', EliminarUsuario.as_view(), name='EliminarUser'),
-    path('crear_usuario/', CrearUsuario.as_view(), name='crear_usuario')
+    path('editar_usuario/<int:pk>',ActualizarUsuaio.as_view(), name="editUser"),
+    path('eliminar_usuario/<int:pk>', EliminarUsuario.as_view(), name='deleteUser'),
+    path('crear_usuario/', CrearUsuario.as_view(), name='createUser')
 ]

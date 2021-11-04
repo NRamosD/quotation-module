@@ -1,0 +1,23 @@
+<div class="modal-dialog " role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelCreate">Crear nuevo usuario</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'quo:deleteUser' object.id_user %}" method="POST">
+                {% csrf_token %}
+                <p><strong>¿Desea eliminar al usuario registrado {{ object.first_name }}?</strong></p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                </div>
+            </form>
+        </div>
+        
+        
+    </div>
+  </div>
+  

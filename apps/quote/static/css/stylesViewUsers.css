@@ -57,15 +57,14 @@
     background-color: white;
     padding-left: 1.5em;
 }
-#btn_Opciones{
+.btn_edit{
     background-color: #009EFA; 
     border-radius: 10px 10px 10px 10px;
     width: 1em;
 }
-#btn_Opciones_S{
+.button_delete{
     background-color: #F62D51;
     border-radius: 10px 10px 10px 10px;
-    margin-left: 0.5em;
     width: 1em;
 }
 

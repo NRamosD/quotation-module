@@ -2,7 +2,7 @@
 
 {% load static %}
 
-{% block title %}Vista General Usuarios{% endblock %}
+{% block title %}Usuarios{% endblock %}
 
 {% block content %}
 <body id="body_users">
@@ -23,32 +23,12 @@
     <h1 id="Mark">></h1>
     <h1 id="InfoB">Vista de Usuarios</h1>
 
-    <div class="modal fade" id="exampleModalFabricante" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
-                  
-              </div>
-              <div class="modal-body">
-                  <div class="mb-3">
-                      <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
-                      <input name="producerName" type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                  <button type="button" class="btn btn-primary" onclick="ProducerFilter()" data-bs-dismiss="modal">Añadir</button>
-              </div>
-          </div>
-      </div>
-    </div>
+    
+    <button id="btn_agregar" onclick="openUserCreate('{% url 'quo:createUser' %}')" data-target="#createUserModal" class="btn btn-primary" data-toggle="modal">Añadir</button>
 
-    <button id="btn_agregar" class="hover-underline-animation" onclick= "abrir_modal_creacion('{% url 'quo:crear_usuario' %}');"><i class="fas fa-plus but_mas"></i>Añadir</button>
     <button id="btn_pregunta" class="hover-underline-animationB"><i class="fas fa-question but_circle"></i></button>
 
   
-
 
  <!-- TABLA INFO USERS-->
   <div class="container_usuarios">
@@ -85,21 +65,19 @@
                             <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
                         </tr>
                         -->
-                        {% for todo in usuarios %}
-                        <tr>
-                            <td>{{ todo.id_user }}</td>
-                            <td>{{ todo.first_name }}</td>
-                            <td>{{ todo.last_name }}</td>
-                            <td>{{ todo.email }}</td>
-                            <td>{{ todo.city }}</td>
-                            <td>{{ todo.province }}</td>
-                            <td>{{ todo.country }}</td>
-                            <td>{{ todo.mobile_phone }}</td>
-                            <td>{{ todo.last_login }}</td>
-                            <td><button data-toggle="modal" data-target="#exampleModalEdit" id="btn_Opciones"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button><button id="btn_Opciones_S"><i id="pop" class="fas fa-times button_delete"></i></button></td>
-                            <td><a href="{% url 'quo:AddUserModal' todo.id_user %}">UPDATE</a></td>
-                            <td><a href="{% url 'quo:EliminarUser' todo.id_user %}">ELIMINAR</a></td>
-
+                        {% for u in usuarios %}
+                        <tr name="row{{ u.id_user }}">
+                            <td>{{ u.id_user }}</td>
+                            <td>{{ u.first_name }}</td>
+                            <td>{{ u.last_name }}</td>
+                            <td>{{ u.email }}</td>
+                            <td>{{ u.city }}</td>
+                            <td>{{ u.province }}</td>
+                            <td>{{ u.country }}</td>
+                            <td>{{ u.mobile_phone }}</td>
+                            <td>{{ u.last_login }}</td>
+                            <td><button onclick="openUserEdit('{% url 'quo:editUser' u.id_user %}')" data-toggle="modal" data-target="#exampleModalEdit" class="btn_edit"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button></td>
+                            <td><button onclick="openUserDelete('{% url 'quo:deleteUser' u.id_user %}')" class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
                         </tr>
                         {% endfor %}
                     </tbody>        
@@ -107,33 +85,46 @@
                 </div>
             </div>
     </div>  
-  </div> 
+    </div> 
 
-  <div class="modal fade" id="creacion" role="dialog">
+    {% block modal%}
+    {% endblock %}
 
-  </div>
+    <div class="modal fade" role="dialog" id="createUserModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
 
-  <div class="modal fade" id="edicion" role="dialog">
-
-  </div>
-
-  <div class="modal fade" id="eliminacion" role="dialog">
-
-  </div>
+    <div class="modal fade" role="dialog" id="editUserModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
+    <div class="modal fade" role="dialog" id="deleteUserModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+    </div>
 
 
-  
+
+
 </body>
 
 {% endblock %}
 
 {% block extrajs%}
 <script type="text/javascript">
-  function abrir_modal_creacion(url){
+  function openUserCreate(url){
     var $ =jQuery.noConflict();
-    $('#creacion').load(url,function(){
-      $(this).modal('Show');
+    $('#createUserModal').load(url,function(){
+      $(this).modal('show');
     });
   }
+  function openUserEdit(url){
+    var $ =jQuery.noConflict();
+    $('#editUserModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+  function openUserDelete(url){
+    var $ =jQuery.noConflict();
+    $('#editUserModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+
 </script>
 {% endblock extrajs%}
