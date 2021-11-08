@@ -103,7 +103,7 @@ DATABASES = {   #BD LOCAL
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'quote_local',
         'USER' : 'root',
-        'PASSWORD' : '', #No olviden dejar vacio este campo si no configuraron contraseña
+        'PASSWORD' : '123.Contra.123', #No olviden dejar vacio este campo si no configuraron contraseña   123.Contra.123
         'HOST' : 'localhost',
         'PORT' : '3306',
         'OPTIONS': {
