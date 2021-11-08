@@ -1,0 +1,41 @@
+{% extends 'quote/html/home.html' %}
+{% load static %}
+
+
+{% block title %}Cotizar Final{% endblock %}
+
+{% block content %}
+<body id="body_products">
+<div class="container_usuarios">
+    <div class="row">
+            <div class="col-lg-12">
+                <div class="table-responsive">        
+                    <table id="myTable" class="table display" style="width:95%">
+                    <thead>
+                        <tr>
+                            <th>ID del producto</th>
+                                <th>Nombre producto</th>
+                                <th>Descripción del producto</th>
+                                <th>Precio (USD)</th>
+                                <th>Marca</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        {% for p in productos %}
+                        <tr name="row{{ p.id_product }}">
+                            <td>{{ p.id_product }}</td>
+                            <td>{{ p.product_name }}</td>
+                            <td>{{ p.description }}</td>
+                            <td>{{ p.price }}</td>
+                            <td>{{ p.brand }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>        
+                </table>                  
+                </div>
+            </div>
+    </div>  
+    </div> 
+</body>
+{% endblock %}
