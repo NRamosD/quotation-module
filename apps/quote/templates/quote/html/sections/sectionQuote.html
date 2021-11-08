@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit">
+        <button id="searchBtn" type="submit" onclick="searchClick()">
             <i class="fas fa-search icon_search"> </i>
         </button>
     </form>
@@ -168,7 +168,7 @@
                                     <td>{{ products.id_product }}</td>
                                     <td>{{ products.product_name }}</td>
                                     <td>${{ products.price }}</td>
-                                    <td><button id="button_move" onclick="Mover()"><i class="fas fa-arrow-circle-right icon_move_r"></i></button></td>
+                                    <td><button id="button_move"><i class="fas fa-arrow-circle-right icon_move_r"></i></button></td>
                                 </tr>
                                 {% endfor %} 
 
@@ -212,7 +212,7 @@
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="selectedItems">
             <!-- aqui van las filas que se pasarán a la cotización -->
           </tbody>
         </table>
@@ -240,31 +240,9 @@
     <script type="text/javascript" src="{% static 'datatables/datatables.min.js'%}"></script>    
  
     <script type="text/javascript" src="{% static 'scripts/datat.js'%}"></script> 
-    <script type="text/javascript" src="{% static 'scripts/addFilter.js'%}"></script>
+    <script type="text/javascript" src="{% static 'scripts/sectionQuote.js'%}"></script>
     <!-- <script type="text/javascript" src="{% static 'scripts/filterManager.js'%}"></script> -->
 
 </body>
-
-<script type="text/javascript">
-
-    $("#productsTable tr").click(function(){
-       $(this).addClass('selected').siblings().removeClass('selected');    
-       var nombre_articulo=$(this).find('td:nth-child(2)').html();
-       var ultimo= parseInt(0,10);
-       var ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
-    
-       ultimo++;
-    
-       var fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ '12.50' +"</td><td>"+ '12.50' +'</td><td><button id="bt_borrar"><i class="fas fa-trash-alt"></i></button></td></tr>';
-      /* alert(ultimo);
-       alert(value);*/   
-       
-       var btn = document.createElement("TR");
-           btn.innerHTML=fila;
-        document.getElementById("tabla_cotizacion").appendChild(btn);
-    });
-    
-    </script>
-
 
 {% endblock %}
