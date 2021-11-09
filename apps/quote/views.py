@@ -128,6 +128,8 @@ class UserApiView(APIView):
 def index(request):
     return render(request, "./quote/index.html")
 
+def loading(request):
+    return render(request, "./quote/html/LoadingSis.html")
 
 #@login_required
 def home(request):
