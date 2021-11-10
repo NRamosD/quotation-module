@@ -1,40 +1,40 @@
 {% extends 'quote/html/home.html' %}
 {% load static %}
-
 {% block title %}Cargar documento{% endblock %}
-
 {% block content %}
+
 
 <body>
     <nav id="titulo">Subir Documento</nav>
     {% if success %}
-        <div class="alert-succes" id="alert-succes">
-            <div class="text-alert">
-                <b>Documento cargado exitosamente</b>
-            </div>
-            <button onclick="removeAlertUpload()" id="btn-succes" >OK</button>
+    <div class="alert-succes" id="alert-succes">
+        <div class="text-alert">
+            <b>Documento cargado exitosamente</b>
         </div>
+        <button onclick="removeAlertUpload()" id="btn-succes">OK</button>
+    </div>
     {% elif success == False %}
-        <div class="alert-problem" id="alert-problem">
-            <div class="text-alert">
-                <b>Ocurrió un problema al cargar el documento</b>
-            </div>
-            <button onclick="removeAlertUploadProblem()" id="btn-problem" >OK</button>
+    <div class="alert-problem" id="alert-problem">
+        <div class="text-alert">
+            <b>Ocurrió un problema al cargar el documento</b>
         </div>
+        <button onclick="removeAlertUploadProblem()" id="btn-problem">OK</button>
+    </div>
     {% endif %}
-    <h2>Cargar documento en formato Excel</h2>
-    <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel" data-post-url="{% url 'quo:uploadDocument' %}">
-        {% csrf_token %}
-        <label for="name_pfiles">Nombre del archivo</label>
-        <input type="text" name="name_pfiles" id="name_pfiles">
-        <label for="productfile">Archivo a subir</label>
-        <input type="file" name="productfile" id="productfile">
-
-
-        <input type="submit" value="Subir documento">
-    </form>
-
+    <div id="UploadDoc">
+        <h4>Cargar documento en formato Excel </h4>        
+        <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+            data-post-url="{% url 'quo:uploadDocument' %}">
+            {% csrf_token %}
+            <label for="name_pfiles">Nombre del archivo</label>
+            <input type="text" name="name_pfiles" id="name_pfiles">
+            <label for="productfile">Archivo a subir</label>
+            <input type="file" name="productfile" id="productfile">
+            <input id="BtnSubir" type="submit" value="Subir documento">
+        </form>
+    </div>
 </body>
+
 </html>
 
 {% endblock %}
