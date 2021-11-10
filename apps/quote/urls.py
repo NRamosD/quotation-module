@@ -9,18 +9,18 @@ from rest_framework import routers
 from . import views
 from rest_framework import routers
 from .views import (    
-    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
+    CategoryViewSet, ListadoProductos,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
     SupplierViewSet, qDetailsViewSet,
     UserApiView, userLogout, LoginView,
     SuppliersList,CategoriesList,ProductsList,
     uploadDocument,Reports,
-    ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario
+    ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario, ListadoProductos
     )
 
 
 router = routers.DefaultRouter()
 #router.register('users', UsersViewSet)
-router.register('product', ProductViewSet)
+#router.register('product', ProductViewSet)
 router.register('quotes', QuotesViewSet)
 router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
@@ -86,5 +86,7 @@ urlpatterns = [
     path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
     path('editar_usuario/<int:pk>',ActualizarUsuaio.as_view(), name="editUser"),
     path('eliminar_usuario/<int:pk>', EliminarUsuario.as_view(), name='deleteUser'),
-    path('crear_usuario/', CrearUsuario.as_view(), name='createUser')
+    path('crear_usuario/', CrearUsuario.as_view(), name='createUser'),
+    #Product
+    path('cotizacion_general/', ListadoProductos.as_view(), name='cotizaciong')
 ]

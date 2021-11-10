@@ -22,7 +22,7 @@
             <button onclick="removeAlertUploadProblem()" id="btn-problem" >OK</button>
         </div>
     {% endif %}
-    <h2>Aqui se carga el Excel</h2>
+    <h2>Cargar documento en formato Excel</h2>
     <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel" data-post-url="{% url 'quo:uploadDocument' %}">
         {% csrf_token %}
         <label for="name_pfiles">Nombre del archivo</label>

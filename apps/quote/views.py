@@ -365,7 +365,17 @@ def CreateProduct(request):
 #def UsersV(request):
     #todo = Users.objects.all()
     #contexto = {'todos': todo}
-    #return render(request, "./quote/html/GeneralViewUser.html", contexto)  
+    #return render(request, "./quote/html/GeneralViewUser.html", contexto) 
+    # 
+#Listado de Productos--------------------------------
+
+class ListadoProductos(ListView):
+    model= Product
+    template_name='./quote/html/sectionQuoteElements.html'
+    context_object_name= 'productos'
+    queryset= Product.objects.all()
+
+# Listado de Usuarios-------------------------------- 
 class ListadoUsuario(ListView):
     model= Users
     template_name= './quote/html/GeneralViewUser.html'
@@ -398,6 +408,9 @@ def ModalAddUser(request):
 
 def EliminarUser(request):
     return render(request, './quote/html/users_confirm_delete.html')
+
+def CotizacionFinal(request):
+    return render(request, './quote/html/sectionQuoteElements.html')
 
 
 class uploadDocument(TemplateView, APIView):
