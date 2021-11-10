@@ -113,68 +113,47 @@ $("#productsTable tr").click(function(){
         alert(value);*/   
         var btn = document.createElement("TR");
         btn.innerHTML=fila;
-        document.getElementById("tabla_cotizacion").appendChild(btn);
+        document.getElementById("selectedItems").appendChild(btn);
     }
     
- });
- function deleteRow(){
-    
+});
+function deleteRow(){
     let i = selectedId.indexOf( bt_borrar.value );
- 
     if ( i !== -1 ) {
         selectedId.splice( i, 1 );
     }
-
     let row = bt_borrar.parentNode.parentNode;
     row.parentNode.removeChild(row);
  }
 
- $("#bt_borrar").click(function(){
-    
-    //document.getElementById("tabla_cotizacion").deleteRow(0); 
-    /*$(this).addClass('selected').siblings().removeClass('selected');    
-    var nombre_articulo=$(this).find('td:nth-child(2)').html();
-    var id=$(this).find('td:nth-child(1)').html();
-    var ultimo= parseInt(0,10);
-    var ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
- 
-    ultimo++;
- 
-    var fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ '12.50' +"</td><td>"+ '12.50' +'</td><td><button id="btn_borrar"><i class="fas fa-trash-alt"></i></button></td></tr>';
-    alert(ultimo);
-    alert(value);
-    
-    var btn = document.createElement("TR");
-    btn.innerHTML=fila;
-    document.getElementById("tabla_cotizacion").appendChild(btn);*/
- });
-
-
-/*
-$.ajax({
-        url: "{% url 'quo:quote' %}",
-        type:"get",
-        dataType: 'json',
-        data: {
-            // here getdata should be a string so that
-            // in your views.py you can fetch the value using get('getdata')
-            'getdata': JSON.stringify(hot.getData())
-        },
-        success: function (res, status) {
-            alert(res);
-            alert(status);
-        },
-        error: function (res) {
-            alert(res.status);                                                                                                                          
-        }
-    });
-*/
-
-
-function searchClick(){
+ $(".changeInPage").click(function(){
     sessionStorage.setItem('etiquetas', labels.innerHTML )
     sessionStorage.setItem('selectedProducts', selectedItems.innerHTML )
-}
+ });
+
+//Envío de datos
+$(function () {
+    $('#btnToQuoteDetail').on('click', function () {
+        var Status = $(this).val();
+        $.ajax({
+            url: "http://127.0.0.1:8000/Listar1/",
+            type:"post",
+            dataType: 'json',
+            data: {
+                'getdata': JSON.stringify(selectedId)
+            },
+            success: function (res, status) {
+                alert(res);
+                alert(status);
+            },
+            error: function (res) {
+                alert(res.status);                                                                                                                          
+            }
+        });
+    });
+});
+
+
 function preloadFunc(){
     labels.innerHTML = sessionStorage.getItem('etiquetas')
     selectedItems.innerHTML = sessionStorage.getItem('selectedProducts')
@@ -182,14 +161,9 @@ function preloadFunc(){
 
 
 if(typeof(Storage)!= 'undefined'){
-    /*let valor = "jjkajs"
-    sessionStorage.setItem('clave',valor)
-    localStorage.setItem('clva',valor)
-    localStorage.getItem('clva')
-    localStorage.removeItem('clva')
     //otra forma
-    sessionStorage.clave = "loquevayadentrodelaclave"
-    localStorage.clear()*/
+    //sessionStorage.clave = "loquevayadentrodelaclave"
+    //localStorage.clear()*/
     window.onpaint = preloadFunc();
 }else{
     console.log("No storage")

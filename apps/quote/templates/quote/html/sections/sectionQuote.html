@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <button id="searchBtn" type="submit" onclick="searchClick()">
+        <button id="searchBtn" type="submit" class="changeInPage">
             <i class="fas fa-search icon_search"> </i>
         </button>
     </form>
@@ -179,8 +179,8 @@
                             <span class="step-links">
                                
                                 {% if product_page_obj.has_previous %}
-                                    <a href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
-                                    <a href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
+                                    <a id="firstPage" class="changeInPage" href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
+                                    <a id="beforePage" class="changeInPage" href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
                                 {% endif %}
 
                                 <span class="actual">
@@ -188,8 +188,8 @@
                                 </span>
 
                                 {% if product_page_obj.has_next %}
-                                    <a href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
-                                    <a href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
+                                    <a id="nextPage" class="changeInPage" href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
+                                    <a id="lastOnePage" class="changeInPage" href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
                                 {% endif %}
                             </span>
                         </div>                  
@@ -221,10 +221,13 @@
 
     <!--BOTONES FINALES-->
     <ul id="bot_finales">
-        <li><button id="btn_precio"><i class="fas fa-print icon_print"></i>Imprimir</button></li>
-        <li><button id="btn_producto"><i class="fas fa-save icon_save"></i>Guardar</button></li>
-        <li><button id="btn_fabricante"><i class="fas fa-share-square icon_share"></i>Continuar</button></li>
+        <li>ajajaj</li>
     </ul>
+    <form action="{% url 'quo:SupplierList' %}" method="post" value="jajaja">
+        {% csrf_token %}
+        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>
+    </form>
+    
 
  
 

@@ -253,12 +253,20 @@ def cotizar(request):
     class Home(LoginRequiredMixin, generic.TemplateView):
     template_name = 'quote/html/home.html'
     login_url = 'quo:login'
-    """
-#bro ya aprendí :v    
-def SuppliersList(request):
+
+    def SuppliersList(request):
     todo = Suppliers.objects.all()
     contexto = {'todos': todo}
     return render(request, "./quote/html/sections/sectionSuppliers.html", contexto)
+    """
+#bro ya aprendí :v    
+def SuppliersList(request):
+    # no need to do this
+    # request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
+    request_getdata = request.POST
+    print(f"A ver vea -> {request_getdata}")
+    # make sure that you serialise "request_getdata" 
+    return render(request, "./quote/html/sections/sectionSuppliers.html")
 
 def CategoriesList(request):
     todo = Category.objects.all()
