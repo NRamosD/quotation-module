@@ -1,10 +1,9 @@
 {% extends 'quote/html/home.html' %}
 {% load static %}
 {% load quoextras %}
-
 {% block title %}Cotizar{% endblock %}
-
 {% block content %}
+
 <body id="body_cotizacion">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
@@ -29,14 +28,14 @@
         </div>
 
         <!-- FILTROS. -->
-
+        <div id="containerButtons">
         <ul id="bot_filtro">
             <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
             <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
             <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
             <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
         </ul>
-
+        </div>
         <!-- Modal Precio -->
         <div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -153,16 +152,6 @@
                                 </tr>
                             </thead>
                             <tbody id="productsTableELements">
-                                <!-- <tr>
-                                    <td>Tiger Nixon</td>
-                                    <td>Arquitecto</td>
-                                    <td>Edinburgh</td>
-                                </tr>
-                                <tr>
-                                    <td>Garrett Winters</td>
-                                    <td>Contador</td>
-                                    <td>Tokyo</td>
-                                </tr>-->
                                 {% for products in product_page_obj %}
                                 <tr>
                                     <td>{{ products.id_product }}</td>
