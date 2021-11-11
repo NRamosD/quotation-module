@@ -35,6 +35,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/stylesViewUsers.css'%}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/stylesModalAddUser.css'%}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/styleVistas.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/stylesCotizacion.css'%}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styleUploadDocument.css'%}" />
 
     <!--ESTILOS PARA REPORTES-->
     <link rel="stylesheet" type="text/css" href="{% static 'css/stylesReport.css'%}">
@@ -67,6 +69,14 @@
         integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
         crossorigin="anonymous"></script>
 
+        <style>
+        .title_icon{
+            color: white;
+            font-size: 1.5em;
+            padding-right: 0.5em;
+        }
+
+        </style>
 
 </head>
 
@@ -75,7 +85,7 @@
         <nav class="nav">
             <div>
                 <a href="#" class="nav__logo">
-                    <img src="{% static 'imagenes/logo.svg'%}" alt="" class="nav__logo-icon">
+                    <i class="fas fa-tractor title_icon"></i>
                     <span class="nav__logo-text">Tractotren</span>
                 </a>
 

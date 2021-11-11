@@ -88,5 +88,7 @@ urlpatterns = [
     path('eliminar_usuario/<int:pk>', EliminarUsuario.as_view(), name='deleteUser'),
     path('crear_usuario/', CrearUsuario.as_view(), name='createUser'),
     #Product
-    path('cotizacion_general/', ListadoProductos.as_view(), name='cotizaciong')
+    path('cotizacion_general/', ListadoProductos.as_view(), name='cotizaciong'),
+    #Loading
+    path('loading/',views.loading, name="loading")
 ]

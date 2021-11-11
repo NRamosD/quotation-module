@@ -104,6 +104,7 @@ DATABASES = {   #BD LOCAL
         'NAME' : 'quote_local',
         'USER' : 'root',
         'PASSWORD' : '123.123.123.', #No olviden dejar vacio este campo si no configuraron contraseña   123.123.123.
+        #'PASSWORD' : '', #No olviden dejar vacio este campo si no configuraron contraseña
         'HOST' : 'localhost',
         'PORT' : '3306',
         'OPTIONS': {
