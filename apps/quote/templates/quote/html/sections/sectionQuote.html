@@ -225,7 +225,8 @@
     </ul>
     <form action="{% url 'quo:SupplierList' %}" method="post" value="jajaja">
         {% csrf_token %}
-        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>
+        <input type="text" name="vS" id="vS" hidden>
+        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>    
     </form>
     
 

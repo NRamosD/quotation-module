@@ -1,5 +1,7 @@
 #DJANGO
 from decimal import Context
+import json
+from json.decoder import JSONDecoder
 from re import template
 from decouple import RepositoryEmpty
 from django.contrib.auth import models
@@ -263,9 +265,55 @@ def cotizar(request):
 def SuppliersList(request):
     # no need to do this
     # request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
-    request_getdata = request.POST
-    print(f"A ver vea -> {request_getdata}")
-    # make sure that you serialise "request_getdata" 
+    if request.method == 'GET' and request.is_ajax():
+        request_getdata = request.GET.get('data',None)
+        print(request_getdata)
+        dataFromArray = json.loads(request_getdata)
+        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
+        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
+        i=0
+        for x in dataFromArray:
+            dataFromArray[i]=int(x)
+            i+=1
+        
+        print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
+
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        print(selectedProducts)
+        response = Response()
+        response = redirect('quo:home')
+        #response.data = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
+        #response = render(request, "./quote/html/sections/sectionSuppliers.html")
+        return response
+        """return JsonResponse({
+            'content': {
+                'status':'Datos recibidos con éxito',
+                #'selectedProducts': selectedProducts
+            }
+        })"""
+        # make sure that you serialise "request_getdata"
+    if request.method == 'POST':
+        formData = request.POST.dict()
+        valueInput = formData.get("vS")
+        #request_getdata = request.POST.get('data',None)
+        dataFromArray = valueInput.split(',')
+        #dataFromArray = json.loads(request_getdata)
+        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
+        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
+        i=0
+        for x in dataFromArray:
+            dataFromArray[i]=int(x)
+            i+=1
+        
+        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
+
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        print(selectedProducts)
+        ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
+        return render(request, "./quote/html/sections/sectionSuppliers.html", ctx)
+
     return render(request, "./quote/html/sections/sectionSuppliers.html")
 
 def CategoriesList(request):

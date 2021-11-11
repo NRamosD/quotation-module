@@ -133,24 +133,50 @@ function deleteRow(){
 
 //Envío de datos
 $(function () {
-    $('#btnToQuoteDetail').on('click', function () {
+    $("#btnToQuoteDetail").click(function(e){
+        $('#vS').val(selectedId.toString())
+        //e.preventDefault();
+        //var data= ;  {user : $('#user').val(), pass : $('#pass').val()};
+        /*let request = $.ajax({
+            url: 'http://127.0.0.1:8000/Listar1/',
+            method: 'get', 
+            data: {'data': JSON.stringify(selectedId)}
+            //dataType: "html"
+        });
+
+        let a;
+        request.done(function(response) {
+            a = response;
+            //console.log(`llegó bien 👌 ${response.content.status}`);
+            location.re redirect();
+            //console.log(`Los datos 👌 ${response.data.selectedProducts}`);
+            //location.href = 'http://127.0.0.1:8000/Listar1/'
+            //$('.alertArea p').text(response);
+        });
+        request.fail(function(jqXHR, textStatus) {
+            console.log(`llegó mal ${response.status}`);
+        });*/
+
+    });
+
+    /*$('#btnToQuoteDetail').on('click', function () {
         var Status = $(this).val();
         $.ajax({
             url: "http://127.0.0.1:8000/Listar1/",
-            type:"post",
+            type:"get",
             dataType: 'json',
+            cache: false,
             data: {
                 'getdata': JSON.stringify(selectedId)
             },
-            success: function (res, status) {
-                alert(res);
-                alert(status);
+            success: function (response) {
+                alert(`Entro al success ${response.status}`); //Guardado!
             },
-            error: function (res) {
-                alert(res.status);                                                                                                                          
+            error: function (response) {
+                alert(`Entro al fallo ${response.status}`);//error!!!
             }
         });
-    });
+    });*/
 });
 
 

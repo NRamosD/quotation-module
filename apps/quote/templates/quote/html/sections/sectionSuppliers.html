@@ -356,7 +356,14 @@
         {% endfor %}
       </tbody>
     </table>
-
+    <div>{{status}}</div>
+    <div>
+      <ul>
+        {% for sp in selectedProducts %}
+          <li>{{sp.product_name}}</li>
+        {% endfor %} 
+      </ul>
+    </div>
   </div>
 </body>
 {% endblock %}
