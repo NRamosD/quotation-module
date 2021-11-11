@@ -5,37 +5,45 @@
 {% block title %}Cotizar Final{% endblock %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/cotizacionGeneral.css'%}">
+
+
 <body id="body_products">
-<div class="container_usuarios">
-    <div class="row">
-            <div class="col-lg-12">
-                <div class="table-responsive">        
-                    <table id="myTable" class="table display" style="width:95%">
+    <h1 id="titulo_cotizacion">Cotización General</h1>
+ 
+
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+        <table class="table table-bordered table-striped mb-0">
                     <thead>
                         <tr>
-                            <th>ID del producto</th>
+                                <th>Unidades</th>
+                                <th>ID del producto</th>
                                 <th>Nombre producto</th>
                                 <th>Descripción del producto</th>
                                 <th>Precio (USD)</th>
                                 <th>Marca</th>
+                                <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         
                         {% for p in productos %}
                         <tr name="row{{ p.id_product }}">
+                            <td>5</td>
                             <td>{{ p.id_product }}</td>
                             <td>{{ p.product_name }}</td>
                             <td>{{ p.description }}</td>
                             <td>{{ p.price }}</td>
                             <td>{{ p.brand }}</td>
+                            <td><button  data-toggle="modal" data-target="#exampleModalEdit" class="btn_edit"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button>
+                            <button  class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
+
                         </tr>
                         {% endfor %}
                     </tbody>        
-                </table>                  
-                </div>
+                </table>
             </div>
-    </div>  
-    </div> 
 </body>
+
 {% endblock %}
