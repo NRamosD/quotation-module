@@ -440,6 +440,7 @@ class ListadoProductos(TemplateView):
         #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
         #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
         i=0
+        print(dataFromArray)
         for x in dataFromArray:
             dataFromArray[i]=int(x)
             i+=1
