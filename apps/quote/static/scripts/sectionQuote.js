@@ -95,7 +95,7 @@ function SupplierFilter(){
 }
 
 //guarda el array con los datos que se requieren 
-let selectedId = []
+let selectedId;
 
 
 $("#productsTable tr").click(function(){
@@ -127,17 +127,19 @@ function deleteRow(){
  }
 
  $(".changeInPage").click(function(){
+    sessionStorage.setItem('selectedProductsValues', selectedId.toString())
     sessionStorage.setItem('etiquetas', labels.innerHTML )
-    sessionStorage.setItem('selectedProducts', selectedItems.innerHTML )
+    sessionStorage.setItem('selectedProductsHtml', selectedItems.innerHTML )
  });
 
 //Envío de datos
 $(function () {
     $("#btnToQuoteDetail").click(function(e){
         $('#vS').val(selectedId.toString())
-        //e.preventDefault();
-        //var data= ;  {user : $('#user').val(), pass : $('#pass').val()};
-        /*let request = $.ajax({
+        //Ajax versión 3.0+
+        /*e.preventDefault();
+        var data= ;  {user : $('#user').val(), pass : $('#pass').val()};
+        let request = $.ajax({
             url: 'http://127.0.0.1:8000/Listar1/',
             method: 'get', 
             data: {'data': JSON.stringify(selectedId)}
@@ -149,7 +151,7 @@ $(function () {
             a = response;
             //console.log(`llegó bien 👌 ${response.content.status}`);
             location.re redirect();
-            //console.log(`Los datos 👌 ${response.data.selectedProducts}`);
+            //console.log(`Los datos 👌 ${response.data.selectedProductsHtml}`);
             //location.href = 'http://127.0.0.1:8000/Listar1/'
             //$('.alertArea p').text(response);
         });
@@ -158,31 +160,21 @@ $(function () {
         });*/
 
     });
-
-    /*$('#btnToQuoteDetail').on('click', function () {
-        var Status = $(this).val();
-        $.ajax({
-            url: "http://127.0.0.1:8000/Listar1/",
-            type:"get",
-            dataType: 'json',
-            cache: false,
-            data: {
-                'getdata': JSON.stringify(selectedId)
-            },
-            success: function (response) {
-                alert(`Entro al success ${response.status}`); //Guardado!
-            },
-            error: function (response) {
-                alert(`Entro al fallo ${response.status}`);//error!!!
-            }
-        });
-    });*/
 });
 
 
 function preloadFunc(){
-    labels.innerHTML = sessionStorage.getItem('etiquetas')
-    selectedItems.innerHTML = sessionStorage.getItem('selectedProducts')
+    if(sessionStorage.getItem('selectedProductsValues')==null){
+        selectedId = [];
+        labels.innerHTML = sessionStorage.getItem('etiquetas')
+        selectedItems.innerHTML = sessionStorage.getItem('selectedProductsHtml')
+    }else{
+        datos = sessionStorage.getItem('selectedProductsValues')
+        idsArray = datos.split(',')
+        selectedId = idsArray
+        labels.innerHTML = sessionStorage.getItem('etiquetas')
+        selectedItems.innerHTML = sessionStorage.getItem('selectedProductsHtml')
+    }
 }
 
 

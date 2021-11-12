@@ -426,12 +426,37 @@ def CreateProduct(request):
     #return render(request, "./quote/html/GeneralViewUser.html", contexto) 
     # 
 #Listado de Productos--------------------------------
-
-class ListadoProductos(ListView):
-    model= Product
+class ListadoProductos(TemplateView):
+    #model= Product
     template_name='./quote/html/sectionQuoteElements.html'
-    context_object_name= 'productos'
-    queryset= Product.objects.all()
+    #context_object_name= 'productos'
+    #queryset= Product.objects.all()
+    def post(self, request):
+        formData = request.POST.dict()
+        valueInput = formData.get("vS")
+        #request_getdata = request.POST.get('data',None)
+        dataFromArray = valueInput.split(',')
+        #dataFromArray = json.loads(request_getdata)
+        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
+        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
+        i=0
+        for x in dataFromArray:
+            dataFromArray[i]=int(x)
+            i+=1
+        
+        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
+        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        print(selectedProducts)
+        #ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
+        response = Response()
+        response.data = {
+            'status':True
+        }
+        ctx = {'selectedProducts': selectedProducts}
+        response = render(request, "./quote/html/sectionQuoteElements.html", ctx)
+        return response
 
 # Listado de Usuarios-------------------------------- 
 class ListadoUsuario(ListView):

@@ -212,7 +212,7 @@
     <ul id="bot_finales">
         <li>ajajaj</li>
     </ul>
-    <form action="{% url 'quo:SupplierList' %}" method="post" value="jajaja">
+    <form action="{% url 'quo:saveQuote' %}" method="post">
         {% csrf_token %}
         <input type="text" name="vS" id="vS" hidden>
         <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>    
