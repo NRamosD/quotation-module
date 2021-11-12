@@ -3,6 +3,13 @@
 {% load quoextras %}
 {% block title %}Cotizar{% endblock %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css/Loading.css'%}">
+
+<div class="contenedor_loader">
+    <div class="loader"></div>
+</div>
+
+<script src="{% static 'scripts/loader.js'%}"></script>
 
 <body id="body_cotizacion">
 
@@ -18,13 +25,13 @@
 
 
     <!-- ENCABEZADO. -->
-    <header id="head_cotizacion"><i class="fas fa-file-alt nav__icon"></i> / Cotización</header>
+    <header id="head_cotizacion">Cotización</header>
     <br><label class="Titulo"><a>Código o nombre del producto</a></label><br>
     
     <form method="GET">
         <!-- BARRA BUSQUEDA. -->
         <div>
-            <input name="productname" type="text" placeholder="Qué estás buscando?">
+            <input id="barra_busqueda" name="productname" type="text" placeholder="Qué estás buscando?">
         </div>
 
         <!-- FILTROS. -->
@@ -210,7 +217,7 @@
 
     <!--BOTONES FINALES-->
     <ul id="bot_finales">
-        <li>ajajaj</li>
+        
     </ul>
     <form action="{% url 'quo:saveQuote' %}" method="post">
         {% csrf_token %}

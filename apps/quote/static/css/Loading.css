@@ -27,10 +27,14 @@ img{
     animation: loader 1.5s infinite ease-in-out;
 }
 .loader{
-    color: #4685fa;
+    color: #F5A623;
     font-size: 13px;
     position: relative;
     animation-delay: -0.16s;
+    top: -5em;
+    left: -5em;
+    bottom: -5em;
+    right: -5em;
 }
 .loader:before,
 .loader:after{
