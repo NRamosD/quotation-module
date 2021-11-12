@@ -1,16 +1,15 @@
 <div class="modal-dialog modal-dialog-scrollable" role="document">
-  <div class="modal-content">
-      <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabelCreate">Crear nuevo usuario</h5>
-      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-      </button>
-      </div>
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelCreate">Crear usuario</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
       <div class="modal-body">
           <form action="{% url 'quo:createUser'%}" method="POST">
               {% csrf_token %}
               {{ form.as_p }}
-              
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                   <button type="submit" class="btn btn-primary">Guardar Cambios</button>

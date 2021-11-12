@@ -124,41 +124,27 @@ function deleteRow(){
     }
     let row = bt_borrar.parentNode.parentNode;
     row.parentNode.removeChild(row);
- }
+}
 
- $(".changeInPage").click(function(){
+$(".changeInPage").click(function(){
     sessionStorage.setItem('selectedProductsValues', selectedId.toString())
     sessionStorage.setItem('etiquetas', labels.innerHTML )
     sessionStorage.setItem('selectedProductsHtml', selectedItems.innerHTML )
- });
+});
 
 //Envío de datos
 $(function () {
+    $("#saveDataQuote").click(function(e){
+        let data = sessionStorage.getItem('selectedProductsValues')
+        $('#eleDataQuote').val(data)
+        alert(data)
+    });
+});
+
+$(function () {
     $("#btnToQuoteDetail").click(function(e){
+        sessionStorage.setItem('selectedProductsValues', selectedId.toString())
         $('#vS').val(selectedId.toString())
-        //Ajax versión 3.0+
-        /*e.preventDefault();
-        var data= ;  {user : $('#user').val(), pass : $('#pass').val()};
-        let request = $.ajax({
-            url: 'http://127.0.0.1:8000/Listar1/',
-            method: 'get', 
-            data: {'data': JSON.stringify(selectedId)}
-            //dataType: "html"
-        });
-
-        let a;
-        request.done(function(response) {
-            a = response;
-            //console.log(`llegó bien 👌 ${response.content.status}`);
-            location.re redirect();
-            //console.log(`Los datos 👌 ${response.data.selectedProductsHtml}`);
-            //location.href = 'http://127.0.0.1:8000/Listar1/'
-            //$('.alertArea p').text(response);
-        });
-        request.fail(function(jqXHR, textStatus) {
-            console.log(`llegó mal ${response.status}`);
-        });*/
-
     });
 });
 
@@ -176,6 +162,35 @@ function preloadFunc(){
         selectedItems.innerHTML = sessionStorage.getItem('selectedProductsHtml')
     }
 }
+
+function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+$(document).ready(function(){
+
+    // code to read selected table row cell data (values).
+    /*$("#table").on('keypress','.quantity',function(){
+        // get the current row
+        var currentRow=$(this).closest("tr"); 
+        var col1=currentRow.find("td:eq(4)"); // get current row 1st TD value
+        console.log(col1.text())
+        var data=parseFloat(col1.text())*parseInt(this.value);
+        col1.html(data)
+        console.log(col1.text())
+        //alert(data)
+    });*/
+});
+
+/*
+$(".quantity").change(function () {
+    alert(this.value)
+    $('#table tr').eq(1).find('td').val('HELLOO');
+});
+*/
 
 
 if(typeof(Storage)!= 'undefined'){

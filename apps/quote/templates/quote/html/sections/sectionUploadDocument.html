@@ -6,6 +6,19 @@
 
 <body>
     <nav id="titulo">Subir Documento</nav>
+    <div id="UploadDoc">
+        <h4>Cargar documento en formato Excel </h4>        
+        <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+            data-post-url="{% url 'quo:uploadDocument' %}">
+            {% csrf_token %}
+            <label for="name_pfiles">Nombre del archivo</label>
+            <input type="text" name="name_pfiles" id="name_pfiles">
+            <label for="productfile">Archivo a subir</label>
+            <input type="file" name="productfile" id="productfile">
+            <input id="BtnSubir" type="submit" value="Subir documento">
+        </form>
+    </div>
+    
     {% if success %}
     <div class="alert-succes" id="alert-succes">
         <div class="text-alert">
@@ -21,18 +34,6 @@
         <button onclick="removeAlertUploadProblem()" id="btn-problem">OK</button>
     </div>
     {% endif %}
-    <div id="UploadDoc">
-        <h4>Cargar documento en formato Excel </h4>        
-        <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
-            data-post-url="{% url 'quo:uploadDocument' %}">
-            {% csrf_token %}
-            <label for="name_pfiles">Nombre del archivo</label>
-            <input type="text" name="name_pfiles" id="name_pfiles">
-            <label for="productfile">Archivo a subir</label>
-            <input type="file" name="productfile" id="productfile">
-            <input id="BtnSubir" type="submit" value="Subir documento">
-        </form>
-    </div>
 </body>
 
 </html>

@@ -523,8 +523,8 @@ class uploadDocument(TemplateView, APIView):
                 'success': True 
             }
             try:
-                uploadDataDB.uploadDocumentXlsx(file)
                 serializer.save()
+                uploadDataDB.uploadDocumentXlsx(file)
                 response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
                 return response
             except:

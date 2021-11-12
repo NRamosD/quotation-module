@@ -10,40 +10,42 @@
 
 <body id="body_products">
     <h1 id="titulo_cotizacion">Cotización General</h1>
- 
+    
+    <div id="tableFixHead">
+      <table id="table">
+        <thead>
+          <tr>
+            <th>Unidades</th>
+            <th>ID del producto</th>
+            <th>Nombre producto</th>
+            <th>Descripción del producto</th>
+            <th>Precio (USD)</th>
+            <th>Marca</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for p in selectedProducts %}
+                <tr name="row{{ p.id_product }}">
+                    <td id="iNumber"> <input type="number" value="1" min="1" class="quantity" onkeypress="return isNumberKey(event)"> </td>
+                    <td>{{ p.id_product }}</td>
+                    <td>{{ p.product_name }}</td>
+                    <td>{{ p.description }}</td>
+                    <td>{{ p.price }}</td>
+                    <td>{{ p.brand }}</td>
+                    <td><button  class="button_delete" onclick="deleteRow()"><i id="pop" class="fas fa-times" ></i></button></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <form action="{% url 'quo:home' %}" method="post">
+      {% csrf_token %}
+      <input type="text" name="eleDataQuote" id="eleDataQuote" hidden>
+      <button id="saveDataQuote" type="submit"><i class="fas fa-share-square icon_share"></i>Guardar</button>    
+    </form>
 
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-
-        <table class="table table-bordered table-striped mb-0">
-                    <thead>
-                        <tr>
-                                <th>Unidades</th>
-                                <th>ID del producto</th>
-                                <th>Nombre producto</th>
-                                <th>Descripción del producto</th>
-                                <th>Precio (USD)</th>
-                                <th>Marca</th>
-                                <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        
-                        {% for p in selectedProducts %}
-                        <tr name="row{{ p.id_product }}">
-                            <td>5</td>
-                            <td>{{ p.id_product }}</td>
-                            <td>{{ p.product_name }}</td>
-                            <td>{{ p.description }}</td>
-                            <td>{{ p.price }}</td>
-                            <td>{{ p.brand }}</td>
-                            <td><button  data-toggle="modal" data-target="#exampleModalEdit" class="btn_edit"><i id="pop" class="fas fa-pencil-alt button_edit"></i></button>
-                            <button  class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
-
-                        </tr>
-                        {% endfor %}
-                    </tbody>        
-                </table>
-            </div>
+    <script type="text/javascript" src="{% static 'scripts/sectionQuote.js'%}"></script>
 </body>
 
 {% endblock %}

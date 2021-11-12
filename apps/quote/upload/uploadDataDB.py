@@ -18,15 +18,18 @@ def uploadDocumentXlsx(documentName):
     #dialect+driver://username:password@host:port/database
     #url = f"mysql+mysqlconnector://{config('SECRET_USER', default='')}:{config('SECRET_PASS',default='')}@{config('SECRECT_HOST', default='localhost')}:3306/"
     #local
-    url = f"mysql+mysqldb://root:@localhost:3306/"
+    #url = f"mysql+mysqldb://root:@localhost:3306/"
+    url = f"mysql+mysqldb://root:123.123.123.@localhost:3306/"
     engine = create_engine(url + db, echo=False)
 
     df = pd.read_excel(path)
 
-    print("okas")
+    print(f"okas {path}")
 
     df.to_sql(name = table, con = engine, if_exists='append', index=False)
     #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
+
+
 
 """ 
 CÓDIGO DE EJEMPLO DEL SSL
