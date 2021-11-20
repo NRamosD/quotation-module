@@ -112,7 +112,7 @@
     height: 10.5em;
     width: 19em;
     margin-left: 1em;
-    margin-top: 4.5em;
+    margin-top: 3em;
     float: left;
 }
 #s_segunda_op{
@@ -222,9 +222,8 @@
 }
 #p_footer_pri{
     background-color: #00ABD7;
-    width: 18.4em;
+    width: 19em;
     margin-top: 4.3em;
-    margin-left: -0.45em;
 }
 #p_footer_seg{
     background-color: #DA8C10;

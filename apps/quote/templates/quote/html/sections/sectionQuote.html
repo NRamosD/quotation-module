@@ -26,12 +26,15 @@
 
     <!-- ENCABEZADO. -->
     <header id="head_cotizacion">Cotización</header>
-    <br><label class="Titulo"><a>Código o nombre del producto</a></label><br>
+    <br><div class="Titulo">Ingrese el nombre del producto a buscar</div>
     
     <form method="GET">
         <!-- BARRA BUSQUEDA. -->
         <div>
             <input id="barra_busqueda" name="productname" type="text" placeholder="Qué estás buscando?">
+            <button id="searchBtn" type="submit" class="changeInPage">
+                <i class="fas fa-search icon_search"> </i>
+            </button>
         </div>
 
         <!-- FILTROS. -->
@@ -77,7 +80,7 @@
                         
                     </div>
                     <div class="modal-body">
-                        <select name="categoryProduct" class="form-select" aria-label="Default select example" id="ProductTypeOption">
+                        <select name="categoryProduct" class="form-select" aria-label="Default select example" id="ProductTypeOption" onfocus='this.size=8;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                             <option selected></option>
                             {% for category in Categories %}
                                 <option value="{{ category.id_category_product }}" >{{ category.category_name }} ({{category.category_vehicle}})</option>
@@ -97,14 +100,16 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Fabricante</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Marca</h5>
                         
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="ProducerName" class="form-label">Ingrese el nombre del Fabricante</label>
-                            <input name="producerName" type="text" class="form-control" id="ProducerName" placeholder="Ej : Chevrolet">
-                        </div>
+                        <select name="brandProduct" class="form-select" aria-label="Default select example" id="ProductBrandOption"  onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                            <option selected></option>
+                            {% for pro in Product %}
+                                <option value="{{ pro.brand}}" >{{ pro.brand }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -123,10 +128,12 @@
                         
                     </div>
                     <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="ProviderName" class="form-label">Ingrese el nombre del Proveedor</label>
-                            <input name="providerName" type="text" class="form-control" id="ProviderName" placeholder="Ej : DITECA">
-                        </div>
+                        <select name="providerProduct" class="form-select" aria-label="Default select example" id="ProductProviderOption" onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                            <option selected></option>
+                            {% for sup in Suppliers %}
+                                <option value="{{ sup.id_supplier }}" >{{ sup.supplier_name }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -135,16 +142,14 @@
                 </div>
             </div>
         </div>
-        <button id="searchBtn" type="submit" class="changeInPage">
-            <i class="fas fa-search icon_search"> </i>
-        </button>
+        
     </form>
 <div id="labels"></div>
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
     <!--Ejemplo tabla PRODUCTOS con DataTables-->
 
-    <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Artículos</h2>
+    <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Productos Registrados</h2>
     <div class="container_productos">
         <div class="row">
                 <div class="col-lg-12">
@@ -153,18 +158,19 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Nombre</th>
+                                    <th>Nombre Producto</th>
+                                    <th>Proveedor</th>
                                     <th>Precio (USD)</th>
-                                    <th>Acción</th>
                                 </tr>
                             </thead>
                             <tbody id="productsTableELements">
                                 {% for products in product_page_obj %}
-                                <tr>
+                                <tr class="productsTableOne">
                                     <td>{{ products.id_product }}</td>
                                     <td>{{ products.product_name }}</td>
-                                    <td>${{ products.price }}</td>
-                                    <td><button id="button_move"><i class="fas fa-arrow-circle-right icon_move_r"></i></button></td>
+                                    <td>{{ products.id_supplier }}</td>
+                                    <td>${{ products.price }}</i></td>
+                                    <!-- <td></td> <button id="button_move"><i class="fas fa-arrow-circle-right icon_move_r"></i></button> -->
                                 </tr>
                                 {% endfor %} 
 
@@ -196,22 +202,24 @@
     <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
     
     <!--Ejemplo tabla COTIZACION con DataTables-->
-    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Lista de Cotización</h2>
+    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Lista de Seleccionados</h2>
     <div class="container_cotizaciones">
-        <table class="table table-striped" id="tabla_cotizacion">
-        <thead>
-            <tr>
-              <th scope="col">N°</th>
-              <th scope="col">Artículos</th>
-              <th scope="col">Precio Unit.</th>
-              <th scope="col">Precio Tot.</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="selectedItems">
-            <!-- aqui van las filas que se pasarán a la cotización -->
-          </tbody>
-        </table>
+        <div id="selectedProductsDiv">
+            <table class="table table-striped" id="tabla_cotizacion">
+                <thead>
+                    <tr>
+                      <th scope="col">N°</th>
+                      <th scope="col">Nombre Producto</th>
+                      <th scope="col">Precio Unit.</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="selectedItems">
+                    <!-- aqui van las filas que se pasarán a la cotización -->
+                  </tbody>
+            </table>
+        </div>
+        
     </div>
     <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
 
@@ -219,7 +227,7 @@
     <ul id="bot_finales">
         
     </ul>
-    <form action="{% url 'quo:saveQuote' %}" method="post">
+    <form action="{% url 'quo:saveQuote' %}" method="post" id="continueData">
         {% csrf_token %}
         <input type="text" name="vS" id="vS" hidden>
         <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>    

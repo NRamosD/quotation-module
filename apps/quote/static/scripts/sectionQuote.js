@@ -1,4 +1,5 @@
 
+//ETIQUETA DE PRECIO
 function PriceFilter(){
     if(parseFloat(SincePrice.value)>parseFloat(ToPrice.value)){
         return alert("El primer valor debe ser mayor al segundo.")
@@ -42,6 +43,7 @@ function PriceFilter(){
         labels.innerHTML += content
     }
 }
+//ETIQUETA DE TIPO DE PRODUCTO
 function ProductTypeFilter(){
     try{
         valueType.remove()
@@ -63,33 +65,46 @@ function ProductTypeFilter(){
     `
     labels.innerHTML += content
 }
+//ETIQUETA DE LA MARCA
 function ProducerFilter(){
-    producer = ProducerName.value
-    if(producer==""){
+    try{
+        valueType.remove()
+    }catch{
+
+    }
+    let items = document.getElementById("ProductBrandOption");
+    let selected = items.options[items.selectedIndex].text;
+    if(selected==""){
         try{
-            valueProducer.remove()
+            valueType.remove()
         }catch{
     
         }
         return
     }
     let content = `
-        <span id="valueProducer" class="badge badge-warning" style="font-size: 1em;">${producer}</span>
+        <span class="badge badge-warning" style="font-size: 1em;">${selected}</span>
     `
     labels.innerHTML += content
 }
 function SupplierFilter(){
-    supplier = ProviderName.value
-    if(supplier==""){
+    try{
+        valueType.remove()
+    }catch{
+
+    }
+    let items = document.getElementById("ProductProviderOption");
+    let selected = items.options[items.selectedIndex].text;
+    if(selected==""){
         try{
-            valueSupplier.remove()
+            valueType.remove()
         }catch{
     
         }
         return
     }
-    let content = ` 
-        <span id="valueSupplier" class="badge badge-warning" style="font-size: 1em;">${supplier}</span>
+    let content = `
+        <span class="badge badge-warning" style="font-size: 1em;">${selected}</span>
     `
     labels.innerHTML += content
 }
@@ -100,18 +115,19 @@ let selectedId;
 
 $("#productsTable tr").click(function(){
     $(this).addClass('selected').siblings().removeClass('selected');    
-    var nombre_articulo=$(this).find('td:nth-child(2)').html();
-    var id=$(this).find('td:nth-child(1)').html();
+    let nombre_articulo=$(this).find('td:nth-child(2)').html();
+    let price=$(this).find('td:nth-child(4)').html();
+    let id=$(this).find('td:nth-child(1)').html();
     if(selectedId.indexOf(id)===-1){
         selectedId.push(id)
         console.log(`contenido actual del array ${selectedId}`)
-        var ultimo= parseInt(0,10);
-        var ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
+        ultimo= parseInt(0,10);
+        ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
         ultimo++;
-        var fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ '12.50' +"</td><td>"+ '12.50' +'</td><td><button id="bt_borrar" onclick="deleteRow()" value="' + id + '"><i class="fas fa-trash-alt"></i></button></td></tr>';
+        let fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ price +'</td><td><button id="bt_borrar" onclick="deleteRow()" value="' + id + '"><i class="fas fa-trash-alt"></i></button></td></tr>';
         /* alert(ultimo);
         alert(value);*/   
-        var btn = document.createElement("TR");
+        let btn = document.createElement("TR");
         btn.innerHTML=fila;
         document.getElementById("selectedItems").appendChild(btn);
     }
@@ -164,7 +180,7 @@ function preloadFunc(){
 }
 
 function isNumberKey(evt){
-    var charCode = (evt.which) ? evt.which : evt.keyCode
+    let charCode = (evt.which) ? evt.which : evt.keyCode
     if (charCode > 31 && (charCode < 48 || charCode > 57))
         return false;
     return true;
@@ -175,10 +191,10 @@ $(document).ready(function(){
     // code to read selected table row cell data (values).
     /*$("#table").on('keypress','.quantity',function(){
         // get the current row
-        var currentRow=$(this).closest("tr"); 
-        var col1=currentRow.find("td:eq(4)"); // get current row 1st TD value
+        let currentRow=$(this).closest("tr"); 
+        let col1=currentRow.find("td:eq(4)"); // get current row 1st TD value
         console.log(col1.text())
-        var data=parseFloat(col1.text())*parseInt(this.value);
+        let data=parseFloat(col1.text())*parseInt(this.value);
         col1.html(data)
         console.log(col1.text())
         //alert(data)

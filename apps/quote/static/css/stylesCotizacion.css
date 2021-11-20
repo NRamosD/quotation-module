@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat|Open+Sans|Roboto');
 
+body{
+    height: 100vh;
+}
+
 
 /*===== TABLAS =====*/
+#selectedProductsDiv{
+    height: 20em;
+    overflow: auto;
+}
+#selectedProductsDiv thead th{
+    position: sticky; top: 0; z-index: 1;
+    background-color: #FFF;
+}
 
-body .container_productos{
+.container_productos{
     float: left;
     margin-top: none;   
     padding-top:1em;
@@ -12,12 +24,12 @@ body .container_productos{
     padding-left: 2em;
     padding-right: 2em;
     width: 45em;
-    height: 45em;
+    height: 25em;
     background-color:#FFFFFF;
 }
 
 
-body .container_cotizaciones{
+.container_cotizaciones{
     position: absolute;
     margin-top: 3em;
     padding-top:1em;
@@ -26,9 +38,8 @@ body .container_cotizaciones{
     padding-left: 2em;
     padding-right: 2em;
     width: 40.7em;
-    height: 45em;
+    height: 25em;
     background-color:#FFFFFF;
-    margin-bottom: 20em ;
 }
 
 
@@ -66,10 +77,10 @@ body .container_cotizaciones{
     background-color: #12192C;
     color: white;
     height: 1.9em;
-    margin-left: -1em;
     padding-left: 2em;
     padding-top: 0.3em;
-    width: 103%;
+    margin-left: -1em;
+    width: auto;
 }
 
 /*===== Speacion filtros barra =====*/
@@ -89,10 +100,6 @@ body .container_cotizaciones{
     border: none;
     background-color: transparent !important;
 }
-#btnToQuoteDetail{
-    margin-left: 79em;
-    margin-bottom: 1.5em;
-}
 
 /*===== Titulos =====*/
 .Titulo{
@@ -102,18 +109,22 @@ body .container_cotizaciones{
 }
 label{
     font-size: 1.2em;
-  
+    
 }
 /*===== Botones FILTROS y body =====*/
 #body_cotizacion{
+    margin-left: -1em;
     background-color: #E9ECF3;
 }
 #bot_filtro{
     margin-top: 6em;
 }
-#bot_finales{
-    margin-top: 50em;
-    margin-left: 2em;
+#continueData{
+    margin-top: 30em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 li{
     display:inline;
@@ -142,16 +153,13 @@ button:hover{
 }
 
 #searchBtn{
-    position: absolute;
-    top: 9.5em;
-    right: 55em;
     background: #F5A623;
-    height: 3.4em;
-    line-height: 3.4em;
+    height: auto;
+    line-height: auto;
     color: white;
     cursor: pointer;
     align-items: center;
-    border-radius: 50%;
+    border-radius: .5em;
 }
 
 /*==========BUSQUEDA===========*/
@@ -213,4 +221,3 @@ button:hover{
 .badge{
     margin: 1em .5em;   
 }
-

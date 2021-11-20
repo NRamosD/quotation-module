@@ -1,0 +1,31 @@
+#body_products{
+    background-color: #FAFBF6;
+}
+#tableFixHead{
+    height: 20em;
+    overflow: auto;
+    margin: 15em 2em 2em 2em;
+}
+#tableFixHead thead th{
+    position: sticky; top: 0; z-index: 1; 
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0;
+}
+.quantity{
+    width: 50%;
+}
+
+input[type=number] { -moz-appearance:textfield; }
+
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 185vh; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+.productRow{
+    border-style: solid;
+}

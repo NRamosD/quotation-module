@@ -195,8 +195,8 @@ def cotizar(request):
         product_searcher = request.GET.get('productname')
         product_price_since = request.GET.get('sincePrice')
         product_price_to = request.GET.get('toPrice')
-        product_producer = request.GET.get('producerName')
-        product_provider = request.GET.get('providerName')
+        product_brand = request.GET.get('brandProduct')
+        product_provider = request.GET.get('providerProduct')
         product_category = request.GET.get('categoryProduct')
         #falta el de categorias, tengo que poner en el desplegable las categorías que hay con un for
 
@@ -217,12 +217,15 @@ def cotizar(request):
             except:
                 pass
 
-        if product_producer != '' and product_producer is not None:
-            qs = qs.filter(brand__icontains=product_producer)
-            #qsProducer = qsProducer.filter(id_supplier__id_supplier=product_producer)
+        if product_brand != '' and product_brand is not None:
+            qsCategory = Product.objects.filter(brand = product_brand) #__icontains
+            try:
+                qs = qs.filter(brand = qsCategory[0].brand)
+            except:
+                pass
         
         if product_provider != '' and product_provider is not None:
-            qsProducer = Suppliers.objects.filter(supplier_name__icontains=product_producer)
+            qsProducer = Product.objects.filter(id_supplier=product_provider) #__icontains
             try:
                 qs = qs.filter(id_supplier=qsProducer[0].id_supplier)
             except:
@@ -235,7 +238,9 @@ def cotizar(request):
         ) """
         #mando los datos al frontend
         context['Categories'] = Category.objects.all()
-        
+        context['Product'] = Product.objects.all()
+        context['Suppliers'] = Suppliers.objects.all()
+
         paginated_products = Paginator(qs, 5)
         page_number = request.GET.get('page')
         product_page_obj = paginated_products.get_page(page_number)
@@ -346,7 +351,6 @@ class LoginView(TemplateView):
     template_name='quote/html/login.html'
     def get(self, request):
         return render(request, "./quote/html/login.html")
-        
 
     def post(self, request):
         login_data = request.POST.dict()

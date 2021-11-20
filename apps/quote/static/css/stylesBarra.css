@@ -65,7 +65,7 @@ a {
   position: fixed;
   top: 0;
   left: 0;
-  width: 56px;
+  width: 3.5em;
   height: 100vh;
   background-color: var(--first-color);
   padding: 1.25rem .5rem 2rem;
