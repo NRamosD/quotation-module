@@ -15,7 +15,8 @@ from decouple import config
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#Para REACT-->BASE_DIR = Path(__file__).resolve().parent.parent
+#PARA DJANGO -->> BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#PARA REACT -->> os.path.join(BASE_DIR, 'frontend/design/build'),
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -59,11 +60,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'quotem.urls'
-#os.path.join(BASE_DIR, 'templates/design/build'),
+
+#PARA DJANGO -->> 'DIRS': [os.path.join(BASE_DIR,'templates.quote')],
+#PARA REACT -->> 'DIRS': [os.path.join(BASE_DIR, 'frontend/design/build')],
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        #'DIRS': [],
+        #'DIRS': [os.path.join(BASE_DIR, 'frontend/design/build')],
         'DIRS': [os.path.join(BASE_DIR,'templates.quote')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -157,13 +160,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
+#Para django -->>
 STATIC_URL = '/static/'
 STATICFILES_DIR = [
     os.path.join(BASE_DIR, 'static'),
 ]
-#STATICFILES_DIRS = [
-#    os.path.join(BASE_DIR, 'templates/design/build/static')
-#]
+
+#Para React -->>
+"""STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend/design/build/static')
+]"""
 
 
 # Default primary key field type
