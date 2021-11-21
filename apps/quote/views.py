@@ -191,7 +191,7 @@ def cotizar(request):
         context = {}
         
         qs = Product.objects.all()
-        print(qs[0].price)
+        print(f"aqui va 😂 {qs[1]}")
         product_searcher = request.GET.get('productname')
         product_price_since = request.GET.get('sincePrice')
         product_price_to = request.GET.get('toPrice')
@@ -241,11 +241,12 @@ def cotizar(request):
         context['Product'] = Product.objects.all()
         context['Suppliers'] = Suppliers.objects.all()
 
+        qs = qs.values('product_name','brand_vehicle', 'model_vehicle', 'year_vehicle').distinct()
         paginated_products = Paginator(qs, 5)
         page_number = request.GET.get('page')
         product_page_obj = paginated_products.get_page(page_number)
         
-        context['product_page_obj']=product_page_obj       
+        context['product_page_obj']=product_page_obj
 
         
         # get the list of todos

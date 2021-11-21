@@ -138,6 +138,11 @@ class Product(models.Model):
     availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Field name made lowercase.
     registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # Field name made lowercase.
     last_modified = models.DateTimeField(db_column='LAST_MODIFIED',auto_now=True) 
+    #Añado estas tres para poder hacer distinct
+    brand_vehicle = models.CharField(db_column='BRAND_VEHICLE', max_length=100, blank=True, null=True)
+    model_vehicle = models.CharField(db_column='MODEL_VEHICLE', max_length=100, blank=True, null=True)
+    year_vehicle = models.CharField(db_column='YEAR_VEHICLE', max_length=100, blank=True, null=True)
+    part_number = models.CharField(db_column='PART_NUMBER', max_length=100, blank=True, null=True)
     class Meta:
         managed = True
         db_table = 'product'

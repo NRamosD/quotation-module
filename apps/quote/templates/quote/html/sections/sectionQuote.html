@@ -154,23 +154,16 @@
         <div class="row">
                 <div class="col-lg-12">
                     <div class="table-responsive">        
-                        <table id="productsTable" class="table table-striped table-bordered" style="width:100%">
+                        <table id="productsTable" class="table table-striped table-bordered">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
                                     <th>Nombre Producto</th>
-                                    <th>Proveedor</th>
-                                    <th>Precio (USD)</th>
                                 </tr>
                             </thead>
                             <tbody id="productsTableELements">
                                 {% for products in product_page_obj %}
                                 <tr class="productsTableOne">
-                                    <td>{{ products.id_product }}</td>
                                     <td>{{ products.product_name }}</td>
-                                    <td>{{ products.id_supplier }}</td>
-                                    <td>${{ products.price }}</i></td>
-                                    <!-- <td></td> <button id="button_move"><i class="fas fa-arrow-circle-right icon_move_r"></i></button> -->
                                 </tr>
                                 {% endfor %} 
 
@@ -202,16 +195,46 @@
     <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
     
     <!--Ejemplo tabla COTIZACION con DataTables-->
-    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Lista de Seleccionados</h2>
+    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Top 3 Mayor precio </h2>
     <div class="container_cotizaciones">
-        <div id="selectedProductsDiv">
+        <div class="selectedProductsDiv">
+            <table class="table table-striped" id="tabla_cotizacion">
+                <thead>
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Precio Unit.</th>
+                        <th scope="col">Proveedor</th>
+                        <th scope="col">Acción</th>
+                        <th scope="col">Marca</th>
+                    </tr>
+                  </thead>
+                  <tbody id="selectedItems">
+                    <!-- aqui van las filas que se pasarán a la cotización -->
+                     {% for lit in context %}
+                     <td>{{ lit.price }}</td>
+                     <td>{{ lit.description }}</td>
+                     <td>{{ lit.id_supplier }}</td>
+                     <td>{{ lit.brand }}</td>
+                     <td><input type="checkbox" id="cbox1" value="first_checkbox"></td>
+                     {% endfor %}
+                  </tbody>
+            </table>
+        </div>
+        
+    </div>
+    <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
+
+    <h2 id="tit_cotizacion_n3"><i class="fas fa-list-alt icon_lista"></i>Top 3 menor precio</h2>
+    <div class="container_cotizaciones_n3">
+        <div class="selectedProductsDiv">
             <table class="table table-striped" id="tabla_cotizacion">
                 <thead>
                     <tr>
                       <th scope="col">N°</th>
-                      <th scope="col">Nombre Producto</th>
                       <th scope="col">Precio Unit.</th>
-                      <th></th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Acción</th>
+                      <th scope="col">Marca</th>
                     </tr>
                   </thead>
                   <tbody id="selectedItems">
@@ -219,9 +242,7 @@
                   </tbody>
             </table>
         </div>
-        
-    </div>
-    <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
+
 
     <!--BOTONES FINALES-->
     <ul id="bot_finales">
@@ -230,7 +251,7 @@
     <form action="{% url 'quo:saveQuote' %}" method="post" id="continueData">
         {% csrf_token %}
         <input type="text" name="vS" id="vS" hidden>
-        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>    
+        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>  
     </form>
     
 

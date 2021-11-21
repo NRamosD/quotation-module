@@ -20,7 +20,7 @@ from .views import (
 
 router = routers.DefaultRouter()
 #router.register('users', UsersViewSet)
-#router.register('product', ProductViewSet)
+router.register('product', ProductViewSet)
 router.register('quotes', QuotesViewSet)
 router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
@@ -59,6 +59,7 @@ router.register('ProductFiles', productFilesViewSet)
      """
 urlpatterns = [
     #VISTAS BÁSICAS
+    #path('',views.index, name="index"),
     path('',views.home, name="home"),
     path('cotizar/',views.cotizar, name="quote"),
     #path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
