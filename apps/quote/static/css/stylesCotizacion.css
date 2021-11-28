@@ -6,15 +6,29 @@ body{
 
 
 /*===== TABLAS =====*/
+#tabla_cotizacion1{
+    margin-top: 1em;
+}
+
 #productsTable{
     width: 95%;
 }
-
+#tables_tops{
+    display: block;
+}
 .selectedProductsDiv{
-    height: 20em;
+    height: 28em;
     overflow: auto;
 }
 .selectedProductsDiv thead th{
+    position: sticky; top: 0; z-index: 3;
+    background-color: #FFF;
+}
+.selectedProductsPreview{
+    height: 30em;
+    overflow: auto;
+}
+.selectedProductsPreview thead th{
     position: sticky; top: 0; z-index: 3;
     background-color: #FFF;
 }
@@ -35,12 +49,10 @@ body{
 
 .container_cotizaciones{
     position: absolute;
-    margin-top: 3em;
-    padding-top:1em;
     margin-left: 33em;
     margin-right: 2em;
-    padding-left: 2em;
-    padding-right: 2em;
+    padding-left: 1em;
+    padding-right: 1em;
     width: 55.7em;
     height: 25em;
     background-color:#FFFFFF;
@@ -60,17 +72,33 @@ body{
 
 
 /*===== TITULOS Tabla =====*/
-#tit_producto{
+.tit_produc_registrado{
     float: left;
     font-size: 1.2em;
     margin-left: 1.58em;
     padding-left: 2em;
     background-color: #FFFFFF;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 95%;
+    width: 25em;
     height: 2em;
     margin-bottom: none;
 }
+.chBox{
+    width: 1.2em;
+    height: 1.2em;
+}
+.tit_produc_seleccionado{
+    float: left;
+    font-size: 1.2em;
+    margin-left: 1em;
+    padding-left: 2em;
+    background-color: #FFFFFF;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 46em;
+    height: 2em;
+    margin-bottom: none;
+}
+
 
 #tit_cotizacion{
     position: absolute;
@@ -109,7 +137,13 @@ body{
 
 /*===== Speacion filtros barra =====*/
 #containerButtons{
-    margin-top: -4em;
+    width: 100%;
+    display: flex;
+}
+
+#btn_vistaprevia{
+    margin-left: auto;
+    margin-right: 2em;
 }
 
 /*===== Boton borrar Tabla =====*/
@@ -126,10 +160,15 @@ body{
 }
 
 /*===== Titulos =====*/
+#titulos_secciones{
+    display: flex;
+    align-items: center;
+}
 .Titulo{
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 100%;
     margin-left: 2em;
-   
+    display: flex;
 }
 label{
     font-size: 1.2em;
@@ -140,15 +179,13 @@ label{
     margin-left: -1em;
     background-color: #E9ECF3;
 }
-#bot_filtro{
-    margin-top: 6em;
+#btn_filtros{
+    margin-top: 1em;
+    padding-left: 2em;
 }
 #continueData{
-    margin-top: 30em;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin-left: auto;
+    margin-right: 3em;
 }
 li{
     display:inline;
@@ -156,9 +193,6 @@ li{
     padding-right:3px;
 }
 
-#bot_filtro{
-    padding-left: 2em;
-}
 button{
     background-color: #305A89;
     border-radius: 4px;
@@ -169,7 +203,7 @@ button{
     text-decoration: none;
     display: inline-block;
     font-size: 1em;
-    margin: 0.7em 2em;
+    /*margin: 0.7em 2em;*/
     cursor: pointer;
 }
 button:hover{

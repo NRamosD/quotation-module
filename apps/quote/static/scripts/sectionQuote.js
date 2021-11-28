@@ -112,10 +112,10 @@ function SupplierFilter(){
 //guarda el array con los datos que se requieren 
 let selectedId;
 
-
+/*
 $("#productsTable tr").click(function(){
     $(this).addClass('selected').siblings().removeClass('selected');    
-    let nombre_articulo=$(this).find('td:nth-child(2)').html();
+    let nombre_articulo=$(this).find('td:nth-child(1)').html();
     let price=$(this).find('td:nth-child(4)').html();
     let id=$(this).find('td:nth-child(1)').html();
     if(selectedId.indexOf(id)===-1){
@@ -125,14 +125,133 @@ $("#productsTable tr").click(function(){
         ultimo= parseInt(ultimo + ($("#tabla_cotizacion").find("th").last().html()),10);
         ultimo++;
         let fila= "<tr><th>"+ ultimo +"</th><td>"+ nombre_articulo +"</td><td>"+ price +'</td><td><button id="bt_borrar" onclick="deleteRow()" value="' + id + '"><i class="fas fa-trash-alt"></i></button></td></tr>';
-        /* alert(ultimo);
-        alert(value);*/   
+        //alert(ultimo);
+        //alert(value);
         let btn = document.createElement("TR");
         btn.innerHTML=fila;
         document.getElementById("selectedItems").appendChild(btn);
     }
     
 });
+*/
+
+//PARA CARGA CON AJAX EN LAS TABLAS SIGUIENTES
+$("#productsTable tr").click(function(){
+    $(this).addClass('selected').siblings().removeClass('selected');    
+    let nombre_articulo=$(this).find('td:nth-child(1)').html();
+    $.ajax({
+        //url : 'http://127.0.0.1:8000/api/product/',
+        url : 'http://127.0.0.1:8000/api/productSupplierJoin/',
+    
+        type : 'GET',
+    
+        dataType : 'json',
+    
+        success : function(json) {
+            $("#selectedItemsLower").empty();
+            $("#selectedItemsHigher").empty();
+
+            //Obtengo solo los que llevan el nombre del seleccionado
+            let dataFiltered = json.filter(function(element){
+                return element.product_name == nombre_articulo ;
+            });
+
+            let limite;
+            if( dataFiltered.length > 5 ){
+                limite = 5
+            }else{ limite = dataFiltered.length }
+            //copia del dataFiltered
+            let arraySegundo = dataFiltered.slice();
+
+            let lowToHigh = arraySegundo.sort(function(a, b){
+                if (a.price < b.price) {
+                    return -1;
+                }
+            });
+            let HighToLow = dataFiltered.sort(function(a, b){
+                if (a.price > b.price) {
+                    return -1;
+                }
+            });
+
+            console.log("menor a mayor ",lowToHigh)
+            console.log("mayor a menor",HighToLow)
+
+            for (let index = 0; index < limite; index++) {
+                let num = index + 1
+                let fila= `
+                    <tr>
+                        <td>${num}</td>
+                        <td>${lowToHigh[index].supplier_name}</td>
+                        <td>${lowToHigh[index].price}</td>
+                        ${(parseInt(lowToHigh[index].availability)==0)?'<td>Mismo día</td>':`<td>${lowToHigh[index].availability}</td>`}
+                        <td>${lowToHigh[index].brand}</td>
+                        <td><input type="checkbox" class="chBox" value="first_checkbox"></td>
+                    </tr>
+                `
+                let elementTR = document.createElement("tr");
+                elementTR.innerHTML=fila;
+                document.getElementById("selectedItemsLower").appendChild(elementTR);
+            }
+            /*
+            for (let index = 0; index < limite; index++) {
+                let num = index + 1
+                
+                let fila= `
+                    <tr>
+                        <td>${num}</td>
+                        <td>${HighToLow[index].price}</td>
+                        <td>${HighToLow[index].id_supplier}</td>
+                        <td>${HighToLow[index].brand}</td>
+                        <td><input type="checkbox" value="first_checkbox"></td>
+                    </tr>
+                `
+                let elementTR = document.createElement("tr");
+                elementTR.innerHTML=fila;
+                document.getElementById("selectedItemsHigher").appendChild(elementTR);
+            }*/
+            
+
+
+            /*
+            let pricesArray = dataFiltered.map(function(x){
+                return x.price
+            })
+            let pricesFloat = []
+            for (let index = 0; index < pricesArray.length; index++) {
+                pricesFloat.push(pricesArray[index])
+            }
+
+            console.log(pricesFloat)
+            let lessPrice = []
+            for (let index = 0; index < 3; index++) {
+                let x = Math.min(pricesFloat)
+                lessPrice.push(x)
+                let indexToEliminate = pricesFloat.indexOf(x)
+                console.log(index+" aqui array "+ lessPrice +" aqui indice a eliminar"+ indexToEliminate)
+                pricesArray.splice(indexToEliminate, 1);
+            }
+            console.log("Aqui van los precios menores "+lessPrice)
+            console.log(dataFiltered)*/
+        },
+
+        error : function(xhr, status) {
+            alert('Disculpe, existió un problema');
+        },
+    
+        // código a ejecutar sin importar si la petición falló o no
+        complete : function(xhr, status) {
+            //alert('Petición realizada');
+        }
+    });
+    
+});
+
+
+
+
+
+
 function deleteRow(){
     let i = selectedId.indexOf( bt_borrar.value );
     if ( i !== -1 ) {
@@ -217,5 +336,7 @@ if(typeof(Storage)!= 'undefined'){
 }else{
     console.log("No storage")
 }
+
+
 
 

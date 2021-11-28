@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import get_user_model
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails, ProductFiles
+from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails, ProductFiles, ProductSupplierJoin
 from rest_framework.authtoken.models import Token
 
 from apps.quote import models
@@ -40,7 +40,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class QuotesSerializer(serializers.ModelSerializer):
     description = serializers.CharField(max_length=100)
     date = serializers.DateTimeField()
-    total = serializers.DecimalField(max_digits=12, decimal_places=3)
+    total = serializers.DecimalField(max_digits=12, decimal_places=2)
     class Meta:
         model = Quotes
         fields = ('__all__')
@@ -72,7 +72,7 @@ class SupplierSerializer(serializers.ModelSerializer):
 class ProductSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(required=True,max_length=100)
     description = serializers.CharField(max_length=200)
-    price = serializers.DecimalField(required=True, max_digits=12, decimal_places=3)
+    price = serializers.DecimalField(required=True, max_digits=12, decimal_places=2)
     brand = serializers.CharField(max_length=100)
     availability = serializers.IntegerField()
     registration_date = serializers.DateTimeField()
@@ -83,7 +83,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
 class qDetailsSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField()
-    subtotal = serializers.DecimalField(required = True, max_digits=12, decimal_places=3)
+    subtotal = serializers.DecimalField(required = True, max_digits=12, decimal_places=2)
     class Meta:
         model = qDetails
         fields = ('__all__')
@@ -96,3 +96,12 @@ class ProductFileSerializer(serializers.ModelSerializer):
         model = ProductFiles
         fields = ('__all__')
 
+
+####################################################################################
+#############                Serializers para APIS                #################
+####################################################################################
+
+class ProductProviderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductSupplierJoin
+        fields = ('__all__')

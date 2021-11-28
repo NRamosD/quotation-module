@@ -10,7 +10,7 @@ from . import views
 from rest_framework import routers
 from .views import (    
     CategoryViewSet, ListadoProductos,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
-    SupplierViewSet, qDetailsViewSet,
+    SupplierViewSet, qDetailsViewSet, prosupViewSet,
     UserApiView, userLogout, LoginView,
     SuppliersList,CategoriesList,ProductsList,
     uploadDocument,Reports,
@@ -27,7 +27,7 @@ router.register('role', RoleViewSet)
 router.register('category', CategoryViewSet)
 router.register('suppliers', SupplierViewSet)
 router.register('ProductFiles', productFilesViewSet)
-
+router.register('productSupplierJoin', prosupViewSet)
 
 """ 
     #urls de respaldo

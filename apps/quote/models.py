@@ -7,6 +7,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token """
 
+####################################################################################
+#############                     Modelos Iniciales                #################
+####################################################################################
 
 class Category(models.Model):
     id_category_product = models.AutoField(db_column='ID_CATEGORY_PRODUCT', primary_key=True)  # Field name made lowercase.
@@ -68,37 +71,6 @@ class Suppliers(models.Model):
     def __str__(self):
         return f'{self.supplier_name}'
 
-#USUARIOS
-
-""" class otrousuario(User):
-    name_lastname = models.CharField(db_column='NAME_LASTNAME', max_length=150)
-    country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
-
-    def __str__(self):
-        return f'{self.name_lastname}'
-
-class usuarioManager(BaseUserManager):
-    def create_user(self, id_role, idcard, name_lastname, gender, born_date, landline, movile_phone, email, user, last_acces, city, province, country, password=None):
-        if not email:
-            raise ValueError('El usuario debe tener correo')
-        
-        usuario = self.model(
-            id_role = id_role, 
-            idcard = idcard,
-            user = user,
-            email = self.normalize_email(email),
-            name_lastname = name_lastname,
-            gender = gender,
-            born_date = born_date,
-            landline = landline,
-            last_acces = last_acces,
-            movile_phone = movile_phone
-        )
-
-        usuario.set_password(password)
-        usuario.save()
-        return usuario """
-
 
 gender_options = [
     ('M', 'Masculino'),
@@ -130,13 +102,12 @@ class Product(models.Model):
     id_product = models.AutoField(db_column='ID_PRODUCT', primary_key=True)  # Field name made lowercase.
     id_supplier = models.ForeignKey('Suppliers', models.DO_NOTHING, db_column='ID_SUPPLIER')  # Field name made lowercase.
     id_category_product = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_PRODUCT', related_name='FK_ID_CATEGORY_PRODUCT')  # Field name made lowercase.
-    #id_category_vehicle = models.ForeignKey(Category, models.DO_NOTHING, db_column='ID_CATEGORY_VEHICLE', related_name='FK_ID_CATEGORY_VEHICLE')  # Field name made lowercase.
-    product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100)  # Field name made lowercase.
-    description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Field name made lowercase.
-    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=2)  # Field name made lowercase.
-    brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # Field name made lowercase.
-    availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Field name made lowercase.
-    registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # Field name made lowercase.
+    product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100)  # nombre del producto
+    description = models.CharField(db_column='DESCRIPTION', max_length=200, blank=True, null=True)  # Descripción del producto
+    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=2)  # Precio del producto
+    brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # marca
+    availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Tiempo que demora en tenerse el producto a disposición
+    registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # última fecha de modificación del producto
     last_modified = models.DateTimeField(db_column='LAST_MODIFIED',auto_now=True) 
     #Añado estas tres para poder hacer distinct
     brand_vehicle = models.CharField(db_column='BRAND_VEHICLE', max_length=100, blank=True, null=True)
@@ -148,7 +119,6 @@ class Product(models.Model):
         db_table = 'product'
         unique_together = (('id_product', 'id_supplier'),)
 
-    
     def __str__(self):
         return f'{self.product_name}'
 
@@ -180,6 +150,37 @@ class ProductFiles(models.Model):
     
     def __str__(self):
         return f'{self.id_pfiles}'
+
+
+####################################################################################
+#############                     Modelos para APIS                #################
+############# Importante: En el caso de tener que hacer           ##################
+############# modificaciones a la base de datos, comentar todo el ##################
+############# código posterior                                    ##################
+####################################################################################
+
+
+class ProductSupplierJoin(models.Model):
+    #Datos importantes del producto
+    id_product = models.IntegerField(db_column='ID_PRODUCT')
+    product_name = models.CharField(db_column='PRODUCT_NAME', max_length=100)  # nombre del producto
+    price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=2)  # Precio del producto
+    brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # marca
+    availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Tiempo que demora en tenerse el producto a disposición en días
+    brand_vehicle = models.CharField(db_column='BRAND_VEHICLE', max_length=100, blank=True, null=True)
+    model_vehicle = models.CharField(db_column='MODEL_VEHICLE', max_length=100, blank=True, null=True)
+    year_vehicle = models.CharField(db_column='YEAR_VEHICLE', max_length=100, blank=True, null=True)
+    part_number = models.CharField(db_column='PART_NUMBER', max_length=100, blank=True, null=True)
+    #Datos importantes del Proveedor
+    id_supplier = models.IntegerField(db_column='ID_SUPPLIER')
+    supplier_name = models.CharField(db_column='SUPPLIER_NAME', max_length=100)
+    conctact_name = models.CharField(db_column='CONCTACT_NAME', max_length=150)
+    mobile_phone = models.CharField(db_column='MOBILE_PHONE', max_length=15, blank=True, null=True)  # Field name made lowercase.
+    address = models.CharField(db_column='ADDRESS', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    city = models.CharField(db_column='CITY', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    province = models.CharField(db_column='PROVINCE', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    country = models.CharField(db_column='COUNTRY', max_length=100, blank=True, null=True)  # Field name made lowercase.
+
 
 
 

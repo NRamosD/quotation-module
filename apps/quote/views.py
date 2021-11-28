@@ -37,11 +37,11 @@ from rest_framework.generics import CreateAPIView
 from django.contrib.auth.decorators import login_required
 
 #LOCAL FILES
-from .models import ProductFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes
+from .models import ProductFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes, ProductSupplierJoin
 from .forms import ProductFilesForm
 from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
-    RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer)
+    RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer, ProductProviderSerializer)
 from .filters import ProductFilter
 from apps.quote.upload import uploadDataDB
 from apps.quote.reports import predefined
@@ -89,6 +89,10 @@ class qDetailsViewSet(viewsets.ModelViewSet):
 class productFilesViewSet(viewsets.ModelViewSet):
     queryset = ProductFiles.objects.all()
     serializer_class = ProductFileSerializer
+
+class prosupViewSet(viewsets.ModelViewSet):
+    queryset = ProductSupplierJoin.objects.raw('Select 1 as id, A.ID_PRODUCT as id, A.ID_PRODUCT, A.PRODUCT_NAME, A.PRICE, A.BRAND, A.AVAILABILITY, A.BRAND_VEHICLE, A.MODEL_VEHICLE, A.YEAR_VEHICLE, A.PART_NUMBER, B.ID_SUPPLIER, B.SUPPLIER_NAME, B.CONCTACT_NAME, B.MOBILE_PHONE, B.ADDRESS, B.CITY, B.PROVINCE, B.COUNTRY from product as A inner join suppliers as B on A.ID_SUPPLIER=B.ID_SUPPLIER;')
+    serializer_class = ProductProviderSerializer
 
 
 class UserApiView(APIView):
@@ -191,7 +195,6 @@ def cotizar(request):
         context = {}
         
         qs = Product.objects.all()
-        print(f"aqui va 😂 {qs[1]}")
         product_searcher = request.GET.get('productname')
         product_price_since = request.GET.get('sincePrice')
         product_price_to = request.GET.get('toPrice')

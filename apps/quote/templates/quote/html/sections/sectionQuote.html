@@ -26,7 +26,15 @@
 
     <!-- ENCABEZADO. -->
     <header id="head_cotizacion">Cotización</header>
-    <br><div class="Titulo">Ingrese el nombre del producto a buscar</div>
+    <br>
+    <div class="Titulo">
+        <h4>Ingrese el nombre del producto a buscar</h4>
+        <form action="{% url 'quo:saveQuote' %}" method="post" id="continueData">
+            {% csrf_token %}
+            <input type="text" name="vS" id="vS" hidden>
+            <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>  
+        </form>
+    </div>
     
     <form method="GET">
         <!-- BARRA BUSQUEDA. -->
@@ -39,12 +47,13 @@
 
         <!-- FILTROS. -->
         <div id="containerButtons">
-        <ul id="bot_filtro">
-            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
-            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
-            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
-            <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
-        </ul>
+            <ul id="btn_filtros">
+                <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalPrecio" id="btn_precio"><i class="fas fa-dollar-sign icon_dollar"></i>Precio</button></li>
+                <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalTP" id="btn_producto"><i class="fas fa-tools icon_tools"></i>Tipo de producto</button></li>
+                <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalFabricante" id="btn_fabricante"><i class="fas fa-industry icon_factory"></i>Fabricante</button></li>
+                <li><button type="button" data-bs-toggle="modal" data-bs-target="#exampleModalProveedor" id="btn_proveedor"><i class="fas fa-users icon_people"></i>Proveedor</button></li>
+            </ul>
+            <button type="button" data-bs-toggle="modal" data-bs-target="#ModalVistaPrevia" id="btn_vistaprevia">Vista Previa</button>
         </div>
         <!-- Modal Precio -->
         <div class="modal fade" id="exampleModalPrecio" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,115 +153,196 @@
         </div>
         
     </form>
+
+    <!-------------------------- Vista Previa ------------------------->
+    <div class="modal fade" id="ModalVistaPrevia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" style="width:1250px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Productos Seleccionados</h5>
+                    
+                </div>
+                <div class="modal-body">
+                    <div class="selectedProductsPreview">
+                        <table class="table table-striped" id="tabla_cotizacion1">
+                            <thead>
+                                <tr>
+                                    <th>Nombre Producto</th>
+                                    <th>Precio</th>
+                                    <th>Proveedor</th>
+                                    <th>Marca Producto</th>
+                                    <th>Marca Vehículo</th>
+                                    <th>Modelo Vehículo</th>
+                                    <th>Año del Vehículo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for products in Product %}
+                                <tr>
+                                    <td>{{ products.product_name }}</td>
+                                    <td>{{ products.price }}</td>
+                                    <td>{{ products.id_supplier }}</td>
+                                    <td>{{ products.brand }}</td>
+                                    <td>{{ products.brand_vehicle }}</td>
+                                    <td>{{ products.model_vehicle }}</td>
+                                    <td>{{ products.year_vehicle }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Listo</button>
+                    <!-- <button type="button" class="btn btn-primary" onclick="" data-bs-dismiss="modal">Listo</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-------------------------- Etiquetas ------------------------->
 <div id="labels"></div>
 
      <!----------------------------------------------- TABLAS. DE DATATABLE ----------------------------------------------------->
     <!--Ejemplo tabla PRODUCTOS con DataTables-->
-
-    <h2 id="tit_producto"><i class="fas fa-cogs icon_herramienta"></i>Productos Registrados</h2>
-    <div class="container_productos">
-        <div class="row">
-                <div class="col-lg-12">
-                    <div class="table-responsive">        
-                        <table id="productsTable" class="table table-striped table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nombre Producto</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productsTableELements">
-                                {% for products in product_page_obj %}
-                                <tr class="productsTableOne">
-                                    <td>{{ products.product_name }}</td>
-                                </tr>
-                                {% endfor %} 
-
-
-                            </tbody>        
-                        </table>
-                        <div class="Pagination">
-                            <span class="step-links">
-                               
-                                {% if product_page_obj.has_previous %}
-                                    <a id="firstPage" class="changeInPage" href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
-                                    <a id="beforePage" class="changeInPage" href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
-                                {% endif %}
-
-                                <span class="actual">
-                                    Página {{product_page_obj.number}} de {{product_page_obj.paginator.num_pages}}.
-                                </span>
-
-                                {% if product_page_obj.has_next %}
-                                    <a id="nextPage" class="changeInPage" href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
-                                    <a id="lastOnePage" class="changeInPage" href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
-                                {% endif %}
-                            </span>
-                        </div>                  
-                    </div>
-                </div>
-        </div>  
-    </div>    
-    <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
-    
-    <!--Ejemplo tabla COTIZACION con DataTables-->
-    <h2 id="tit_cotizacion"><i class="fas fa-list-alt icon_lista"></i>Top 3 Mayor precio </h2>
-    <div class="container_cotizaciones">
-        <div class="selectedProductsDiv">
-            <table class="table table-striped" id="tabla_cotizacion">
-                <thead>
-                    <tr>
-                        <th scope="col">N°</th>
-                        <th scope="col">Precio Unit.</th>
-                        <th scope="col">Proveedor</th>
-                        <th scope="col">Acción</th>
-                        <th scope="col">Marca</th>
-                    </tr>
-                  </thead>
-                  <tbody id="selectedItems">
-                    <!-- aqui van las filas que se pasarán a la cotización -->
-                     {% for lit in context %}
-                     <td>{{ lit.price }}</td>
-                     <td>{{ lit.description }}</td>
-                     <td>{{ lit.id_supplier }}</td>
-                     <td>{{ lit.brand }}</td>
-                     <td><input type="checkbox" id="cbox1" value="first_checkbox"></td>
-                     {% endfor %}
-                  </tbody>
-            </table>
-        </div>
-        
+    <div id="titulos_secciones">
+        <h2 class="tit_produc_registrado"><i class="fas fa-cogs icon_herramienta"></i>Productos Registrados</h2>
+        <h2 class="tit_produc_seleccionado"><i class="fas fa-cogs icon_herramienta"></i>Datos del Producto Seleccionado</h2>
     </div>
-    <!--FIN Ejemplo tabla COTIZACION con DataTables-->    
+    <div id="container_all_tables">
+        <!--Tabla de productos registrados-->
+        <div class="container_productos">
+            <div class="row">
+                    <div class="col-lg-12">
+                        <div class="table-responsive">        
+                            <table id="productsTable" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre Producto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productsTableELements">
+                                    {% for products in product_page_obj %}
+                                    <tr class="productsTableOne">
+                                        <td>{{ products.product_name }}</td>
+                                    </tr>
+                                    {% endfor %} 
+    
+    
+                                </tbody>        
+                            </table>
+                            <div class="Pagination">
+                                <span class="step-links">
+                                   
+                                    {% if product_page_obj.has_previous %}
+                                        <a id="firstPage" class="changeInPage" href="{% quote_url 1 'page' request.GET.urlencode %}">&laquo; 1</a>
+                                        <a id="beforePage" class="changeInPage" href="{% quote_url product_page_obj.previous_page_number 'page' request.GET.urlencode %}">Anterior</a>
+                                    {% endif %}
+    
+                                    <span class="actual">
+                                        Página {{product_page_obj.number}} de {{product_page_obj.paginator.num_pages}}.
+                                    </span>
+    
+                                    {% if product_page_obj.has_next %}
+                                        <a id="nextPage" class="changeInPage" href="{% quote_url product_page_obj.next_page_number 'page' request.GET.urlencode %}">Siguiente</a>
+                                        <a id="lastOnePage" class="changeInPage" href="{% quote_url product_page_obj.paginator.num_pages 'page' request.GET.urlencode %}">Última &raquo;</a>
+                                    {% endif %}
+                                </span>
+                            </div>                  
+                        </div>
+                    </div>
+            </div>  
+        </div>    
+        <!--FIN Ejemplo tabla PRODCUTOS con DataTables-->
 
-    <h2 id="tit_cotizacion_n3"><i class="fas fa-list-alt icon_lista"></i>Top 3 menor precio</h2>
-    <div class="container_cotizaciones_n3">
-        <div class="selectedProductsDiv">
-            <table class="table table-striped" id="tabla_cotizacion">
-                <thead>
-                    <tr>
-                      <th scope="col">N°</th>
-                      <th scope="col">Precio Unit.</th>
-                      <th scope="col">Proveedor</th>
-                      <th scope="col">Acción</th>
-                      <th scope="col">Marca</th>
-                    </tr>
-                  </thead>
-                  <tbody id="selectedItems">
-                    <!-- aqui van las filas que se pasarán a la cotización -->
-                  </tbody>
-            </table>
+        <!--Contenedor de tablas de tops-->
+        <div id="tables_tops">
+            <!--Primera tabla top   -->
+            <div class="container_cotizaciones">
+                <div class="selectedProductsDiv">
+                    <table class="table table-striped" id="tabla_cotizacion1">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Precio Unit.</th>
+                                <th scope="col">Tiempo de Entrega (Días)</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="selectedItemsLower">
+                            <!-- aqui van las filas que se pasarán a la cotización -->
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!--FIN DE PRIMER TABLA TOP-->
+
+
+
+            <!-- <div class="container_cotizaciones">
+                <!--Primera tabla top   --
+                <h3>Top 3 Productos menor Precio</h3>
+                <div class="selectedProductsDiv">
+                    <table class="table table-striped" id="tabla_cotizacion1">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Precio Unit.</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody id="selectedItemsLower">
+                            <!-- aqui van las filas que se pasarán a la cotización --
+                            
+                        </tbody>
+                    </table>
+                </div>
+                <!--FIN DE PRIMER TABLA TOP--
+                <!--Segunda tabla top--
+                <h3>Top 3 Productos mayor Precio</h3>
+                <div class="selectedProductsDiv">
+                    <table class="table table-striped" id="tabla_cotizacion2">
+                        <thead>
+                            <tr>
+                                <th scope="col">N°</th>
+                                <th scope="col">Precio Unit.</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Marca</th>
+                                <th scope="col">Acción</th>
+                            </tr>
+                        </thead>
+                        <form>
+                        <tbody id="selectedItemsHigher">
+                            <!-- aqui van las filas que se pasarán a la cotización --
+                            
+                        </tbody>
+                        </form>
+                    </table>
+                </div>
+
+
+            </div> -->
+            
         </div>
 
+    </div>
+    
+    
+    
+    
 
     <!--BOTONES FINALES-->
     <ul id="bot_finales">
         
     </ul>
-    <form action="{% url 'quo:saveQuote' %}" method="post" id="continueData">
-        {% csrf_token %}
-        <input type="text" name="vS" id="vS" hidden>
-        <button id="btnToQuoteDetail" type="submit"><i class="fas fa-share-square icon_share"></i>Continuar</button>  
-    </form>
+    
     
 
  
