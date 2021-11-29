@@ -26,7 +26,10 @@ class Category(models.Model):
 
 class Quotes(models.Model):
     id_quote = models.AutoField(db_column='ID_QUOTE', primary_key=True)  # Field name made lowercase.
-    description = models.CharField(db_column='DESCRIPTION', max_length=100, blank=True, null=True)  # Field name made lowercase.
+    
+    #Utilizado para almacenar los valores de los productos en forma de array
+    description = models.CharField(db_column='DESCRIPTION', max_length=100, blank=True, null=True)
+
     date = models.DateTimeField(db_column='DATE', auto_now_add=True)  # Field name made lowercase.
     total = models.DecimalField(db_column='TOTAL', max_digits=12, decimal_places=2)  # Field name made lowercase.
     class Meta:

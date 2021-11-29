@@ -192,6 +192,7 @@ def cotizar(request):
     #user = Users.objects.filter(id_user=payload['id']).first()
     #serializer = UserSerializer(user)
     if checkToken(request):
+        
         context = {}
         
         qs = Product.objects.all()
@@ -276,7 +277,7 @@ def cotizar(request):
 def SuppliersList(request):
     # no need to do this
     # request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
-    if request.method == 'GET' and request.is_ajax():
+    if request.method == 'GET':# and request.is_ajax():
         request_getdata = request.GET.get('data',None)
         print(request_getdata)
         dataFromArray = json.loads(request_getdata)
@@ -442,6 +443,7 @@ class ListadoProductos(TemplateView):
     def post(self, request):
         formData = request.POST.dict()
         valueInput = formData.get("vS")
+        print(f"😘 {valueInput}")
         #request_getdata = request.POST.get('data',None)
         dataFromArray = valueInput.split(',')
         #dataFromArray = json.loads(request_getdata)
@@ -449,6 +451,7 @@ class ListadoProductos(TemplateView):
         #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
         i=0
         print(dataFromArray)
+        #dataFromArray.pop(0)
         for x in dataFromArray:
             dataFromArray[i]=int(x)
             i+=1
@@ -463,7 +466,7 @@ class ListadoProductos(TemplateView):
         response.data = {
             'status':True
         }
-        ctx = {'selectedProducts': selectedProducts}
+        ctx = {'selectedProducts': selectedProducts, 'productsToSave':valueInput}
         response = render(request, "./quote/html/sectionQuoteElements.html", ctx)
         return response
 

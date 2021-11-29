@@ -137,7 +137,7 @@ $("#productsTable tr").click(function(){
 
 //PARA CARGA CON AJAX EN LAS TABLAS SIGUIENTES
 $("#productsTable tr").click(function(){
-    $(this).addClass('selected').siblings().removeClass('selected');    
+    $(this).addClass('selected').siblings().removeClass('selected');
     let nombre_articulo=$(this).find('td:nth-child(1)').html();
     $.ajax({
         //url : 'http://127.0.0.1:8000/api/product/',
@@ -186,7 +186,7 @@ $("#productsTable tr").click(function(){
                         <td>${lowToHigh[index].price}</td>
                         ${(parseInt(lowToHigh[index].availability)==0)?'<td>Mismo día</td>':`<td>${lowToHigh[index].availability}</td>`}
                         <td>${lowToHigh[index].brand}</td>
-                        <td><input type="checkbox" class="chBox" value="first_checkbox"></td>
+                        <td><input type="checkbox" class="chBox" value="${lowToHigh[index].id_product}"></td>
                     </tr>
                 `
                 let elementTR = document.createElement("tr");
@@ -248,7 +248,91 @@ $("#productsTable tr").click(function(){
 });
 
 
+//Elementos en vista previa
+$("#btn_vistaprevia").click(function(){
+    $("#selectedPreviewItems").empty();
+    $.ajax({
+        url : 'http://127.0.0.1:8000/api/product/',
+        dataType : 'json',
+    
+        success : function(json) {
+            
+            //$("#selectedItemsHigher").empty();
 
+            //Obtengo solo los que llevan el nombre del seleccionado
+            //selectedId
+            let dataPreview;
+            selectedId.forEach(id => {
+                dataPreview = json.filter(function(obj){
+                    return obj.id_product == id ;
+                });
+            });
+            limite = selectedId.length
+            for (let index = 0; index < limite; index++) {
+                let fila= `
+                    <tr>
+                        <td>${dataPreview[index].product_name}</td>
+                        <td>${dataPreview[index].price}</td>
+                        <td>${dataPreview[index].id_supplier}</td>
+                        <td>${dataPreview[index].brand}</td>
+                        <td>${dataPreview[index].brand_vehicle}</td>
+                        <td>${dataPreview[index].model_vehicle}</td>
+                        <td>${dataPreview[index].year_vehicle}</td>
+                    </tr>
+                `
+                let elementTR = document.createElement("tr");
+                elementTR.innerHTML=fila;
+                document.getElementById("tabla_preview").appendChild(elementTR);
+            }
+        },
+
+        error : function(xhr, status) {
+            alert('Disculpe, existió un problema');
+        },
+    
+        // código a ejecutar sin importar si la petición falló o no
+        complete : function(xhr, status) {
+            //alert('Petición realizada');
+        }
+    });
+    
+});
+
+
+
+/*
+if( $('.chBox').prop('checked') ) {
+    alert('Seleccionado');
+}
+$( '.chBox' ).on( 'click', function() {
+    if( $(this).is(':checked') ){
+        // Hacer algo si el checkbox ha sido seleccionado
+        alert("El checkbox con valor " + $(this).val() + " ha sido seleccionado");
+    } else {
+        // Hacer algo si el checkbox ha sido deseleccionado
+        alert("El checkbox con valor " + $(this).val() + " ha sido deseleccionado");
+    }
+});*/
+//$(".chBox").click(function(){
+//$('input:checkbox.chBox').on('click',function() {
+$(document).on('change','input[type="checkbox"]' ,function(e) {
+    //if(this.id=="fiscal") {
+        let id = this.value
+        if(this.checked){
+            if(selectedId.indexOf(id)===-1){
+                selectedId.push(id)
+                console.log(`contenido actual del array ${selectedId}`)
+            }
+            //alert("HOLA "+ this.value)
+        }else {
+            //alert("El checkbox con valor " + this.value + " ha sido deseleccionado");
+            let i = selectedId.indexOf(id);
+            if ( i !== -1 ) {
+                selectedId.splice( i, 1 );
+                console.log(`contenido actual del array ${selectedId}`)
+            }
+        }
+});
 
 
 
@@ -270,11 +354,65 @@ $(".changeInPage").click(function(){
 //Envío de datos
 $(function () {
     $("#saveDataQuote").click(function(e){
-        let data = sessionStorage.getItem('selectedProductsValues')
-        $('#eleDataQuote').val(data)
-        alert(data)
+        let dataQuote={
+            "id_quote": 1,
+            "description": eleDataQuote.value,
+            "date": "2021-11-29T02:06:51.161934Z",
+            "total": "245.35"
+        }
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        $.ajax({
+            //url : 'http://127.0.0.1:8000/api/product/',
+            url : 'http://127.0.0.1:8000/api/quotes/',
+            
+            data : dataQuote,
+            headers : {
+                "X-CSRFToken" : getCookie('csrftoken') 
+            },
+            type : 'POST',
+        
+            dataType : 'json',
+        
+            success : function(json) {
+                alert("Cotización guardada con éxito!")
+                setTimeout( function() { window.location.href = "http://127.0.0.1:8000/"; }, 1000 );
+            },
+            error : function(xhr, status) {
+                alert('Disculpe, existió un problema');
+            },
+        
+            // código a ejecutar sin importar si la petición falló o no
+            complete : function(xhr, status) {
+                //alert('Petición realizada');
+            }
+        });
     });
 });
+
+
+$(function () {
+    $("#saveDataQuote").click(function(e){
+        sessionStorage.setItem('selectedProductsValues', selectedId.toString())
+        $('#vS').val(selectedId.toString())
+    });
+});
+
+
+
 
 $(function () {
     $("#btnToQuoteDetail").click(function(e){

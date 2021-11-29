@@ -160,11 +160,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Productos Seleccionados</h5>
-                    
                 </div>
                 <div class="modal-body">
                     <div class="selectedProductsPreview">
-                        <table class="table table-striped" id="tabla_cotizacion1">
+                        <table class="table table-striped" id="tabla_preview">
                             <thead>
                                 <tr>
                                     <th>Nombre Producto</th>
@@ -176,18 +175,8 @@
                                     <th>Año del Vehículo</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {% for products in Product %}
-                                <tr>
-                                    <td>{{ products.product_name }}</td>
-                                    <td>{{ products.price }}</td>
-                                    <td>{{ products.id_supplier }}</td>
-                                    <td>{{ products.brand }}</td>
-                                    <td>{{ products.brand_vehicle }}</td>
-                                    <td>{{ products.model_vehicle }}</td>
-                                    <td>{{ products.year_vehicle }}</td>
-                                </tr>
-                                {% endfor %}
+                            <tbody id="selectedPreviewItems">
+                                <!-- Elementos Seleccionados -->
                             </tbody>
                         </table>
                     </div>
@@ -221,15 +210,20 @@
                                 <thead>
                                     <tr>
                                         <th>Nombre Producto</th>
+                                        <th>Vehículo</th>
+                                        <th>Modelo</th>
+                                        <th>Año</th>
                                     </tr>
                                 </thead>
                                 <tbody id="productsTableELements">
                                     {% for products in product_page_obj %}
                                     <tr class="productsTableOne">
                                         <td>{{ products.product_name }}</td>
+                                        <td>{{ products.brand_vehicle }}</td>
+                                        <td>{{ products.model_vehicle }}</td>
+                                        <td>{{ products.year_vehicle }}</td>
                                     </tr>
                                     {% endfor %} 
-    
     
                                 </tbody>        
                             </table>

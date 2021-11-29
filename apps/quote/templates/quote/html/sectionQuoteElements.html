@@ -33,17 +33,15 @@
                     <td>{{ p.description }}</td>
                     <td>{{ p.price }}</td>
                     <td>{{ p.brand }}</td>
-                    <td><button  class="button_delete" onclick="deleteRow()"><i id="pop" class="fas fa-times" ></i></button></td>
+                    <td><button  class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
                 </tr>
             {% endfor %}
         </tbody>
       </table>
     </div>
-    <form action="{% url 'quo:home' %}" method="post">
-      {% csrf_token %}
-      <input type="text" name="eleDataQuote" id="eleDataQuote" hidden>
-      <button id="saveDataQuote" type="submit"><i class="fas fa-share-square icon_share"></i>Guardar</button>    
-    </form>
+    <input type="text" name="eleDataQuote" id="eleDataQuote" value="{{productsToSave}}" hidden>
+    <button id="saveDataQuote"><i class="fas fa-share-square icon_share"></i>Guardar</button>    
+    
 
     <script type="text/javascript" src="{% static 'scripts/sectionQuote.js'%}"></script>
 </body>

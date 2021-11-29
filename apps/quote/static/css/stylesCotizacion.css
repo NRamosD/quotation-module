@@ -6,12 +6,12 @@ body{
 
 
 /*===== TABLAS =====*/
-#tabla_cotizacion1{
+#tabla_preview{
     margin-top: 1em;
 }
 
 #productsTable{
-    width: 95%;
+    font-size: small;
 }
 #tables_tops{
     display: block;
@@ -36,14 +36,18 @@ body{
 .container_productos{
     float: left;
     margin-top: none;   
-    padding-top:1em;
+    padding-top:.5em;
     margin-left: 2em;
-    margin-right: 2em;
-    padding-left: 2em;
-    padding-right: 2em;
+    margin-right: 1em;
+    padding-left: 1em;
+    padding-right: 1em;
     width: 30em;
     height: 25em;
     background-color:#FFFFFF;
+}
+
+.Pagination{
+    display:table-footer-group;
 }
 
 
