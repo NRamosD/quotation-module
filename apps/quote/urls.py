@@ -12,11 +12,11 @@ from .views import (
     CategoryViewSet, ListadoProductos,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
     SupplierViewSet, qDetailsViewSet, prosupViewSet,
     UserApiView, userLogout, LoginView,
+    CategoriesView, SuppliersView, ProductView,
     SuppliersList,CategoriesList,ProductsList,
     uploadDocument,Reports,
     ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario, ListadoProductos
     )
-
 
 router = routers.DefaultRouter()
 #router.register('users', UsersViewSet)
@@ -76,9 +76,9 @@ urlpatterns = [
     #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
-    path('Listar1/',views.SuppliersList, name="SupplierList"),
-    path('Listar2/',views.CategoriesList, name="CategoriesList"),
-    path('Listar3/',views.ProductsList, name="ProductsList"),
+    path('productos/',ProductView.as_view(), name="products"),
+    path('categorias/',CategoriesView.as_view(), name="categories"),
+    path('proveedores/',SuppliersView.as_view(), name="suppliers"),
     #upload data
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
     #reports

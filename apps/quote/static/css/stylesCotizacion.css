@@ -4,6 +4,10 @@ body{
     height: 100vh;
 }
 
+/*=======ITEM SELECCIONADO=========*/
+.selected{
+    background-color: #F5A623;
+}
 
 /*===== TABLAS =====*/
 #tabla_preview{

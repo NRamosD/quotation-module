@@ -25,7 +25,7 @@
             </nav>
             
             <div class="s_opciones" >
-                <a href="#" id="tit_footer">
+                <a href="{% url 'quo:products' %}" id="tit_footer">
                     <nav id="s_primera_op"  class="btn hvr-ripple-out">
                     <h1 id="s_titulo">{{nProducts}}<i class="fas fa-cogs icon_articulos"></i></h1>
                     <h1 id="s_descrip">Productos</h1>
@@ -37,13 +37,13 @@
                     <h1 id="s_descrip">Usuarios</h1>
                     <footer id="s_footer_seg">Acceder<i class="fas fa-arrow-circle-right icon_acceder"></i></footer>
                 </nav></a>
-                <a href="#" id="tit_footer">
+                <a href="{% url 'quo:suppliers' %}" id="tit_footer">
                 <nav id="s_tercera_op"  class="btn hvr-ripple-out">
                     <h1 id="s_titulo">{{nSuppliers}}<i class="fas fa-industry icon_proveedores"></i></h1>
                     <h1 id="s_descrip">Proveedores</h1>
                     <footer id="s_footer_ter">Acceder<i class="fas fa-arrow-circle-right icon_acceder"></i></footer>
                 </nav></a>
-                <a href="#" id="tit_footer">
+                <a href="{% url 'quo:categories' %}" id="tit_footer">
                 <nav id="s_cuarta_op"  class="btn hvr-ripple-out">
                     <h1 id="s_titulo">{{nCatego}}<i class="fas fa-list-ul icon_categorias"></i></h1>
                     <h1 id="s_descrip">Categorías</h1>

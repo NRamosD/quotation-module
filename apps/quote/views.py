@@ -328,6 +328,20 @@ def SuppliersList(request):
 
     return render(request, "./quote/html/sections/sectionSuppliers.html")
 
+class CategoriesView(TemplateView):
+    def get(self, request):
+        return render(request, "./quote/html/sections/sectionCategories.html")
+
+class SuppliersView(TemplateView):
+    def get(self, request):
+        return render(request, "./quote/html/sections/sectionSuppliers.html")
+
+class ProductView(TemplateView):
+    def get(self, request):
+        return render(request, "./quote/html/sections/sectionProducts.html")
+
+
+
 def CategoriesList(request):
     todo = Category.objects.all()
     contexto = {'todos': todo}
@@ -337,17 +351,7 @@ def CategoriesList(request):
 def ProductsList(request):
     todo = Product.objects.all()
     contexto = {'todos': todo}
-    return render(request, "./quote/html/sectionProducts.html", contexto)
-
-
-def userLogout(request):
-    response = Response()
-    response.delete_cookie('jwt')
-    logout(request)
-    response.data = {
-        'message':'Cierre de sesión exitoso'
-    }
-    return redirect("quo:login")
+    return render(request, "./quote/html/sections/sectionSuppliers.html", contexto)
 
 
 #------------------------------LOGIN----------------------------------
@@ -389,6 +393,17 @@ class LoginView(TemplateView):
         
         return response
         #return redirect('quo:home')
+
+#----------------------------LOGOUT------------------------------
+def userLogout(request):
+    response = Response()
+    response.delete_cookie('jwt')
+    logout(request)
+    response.data = {
+        'message':'Cierre de sesión exitoso'
+    }
+    return redirect("quo:login")
+
 
 #Devuelve falso si el usuario no esta autenticado o tiene token caducado
 def checkToken(request):

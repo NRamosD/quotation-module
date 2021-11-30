@@ -136,7 +136,7 @@ $("#productsTable tr").click(function(){
 */
 
 //PARA CARGA CON AJAX EN LAS TABLAS SIGUIENTES
-$("#productsTable tr").click(function(){
+$("#productsTable .productsTableOne").click(function(){
     $(this).addClass('selected').siblings().removeClass('selected');
     let nombre_articulo=$(this).find('td:nth-child(1)').html();
     $.ajax({
@@ -250,23 +250,31 @@ $("#productsTable tr").click(function(){
 
 //Elementos en vista previa
 $("#btn_vistaprevia").click(function(){
-    $("#selectedPreviewItems").empty();
+    
     $.ajax({
         url : 'http://127.0.0.1:8000/api/product/',
         dataType : 'json',
     
         success : function(json) {
-            
+            $("#selectedPreviewItems").empty();
             //$("#selectedItemsHigher").empty();
 
             //Obtengo solo los que llevan el nombre del seleccionado
             //selectedId
-            let dataPreview;
+            let dataPreview = [];
+            /*
+            let dataFiltered = json.filter(function(element){
+                return element.product_name == nombre_articulo ;
+            });*/
+
             selectedId.forEach(id => {
-                dataPreview = json.filter(function(obj){
-                    return obj.id_product == id ;
+                json.forEach(obj =>{
+                    if(obj.id_product==id){
+                        dataPreview.push(obj)
+                    }
                 });
             });
+            console.log(dataPreview)
             limite = selectedId.length
             for (let index = 0; index < limite; index++) {
                 let fila= `
@@ -282,7 +290,7 @@ $("#btn_vistaprevia").click(function(){
                 `
                 let elementTR = document.createElement("tr");
                 elementTR.innerHTML=fila;
-                document.getElementById("tabla_preview").appendChild(elementTR);
+                document.getElementById("selectedPreviewItems").appendChild(elementTR);
             }
         },
 
