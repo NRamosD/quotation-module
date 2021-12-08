@@ -154,6 +154,18 @@ class ProductFiles(models.Model):
     def __str__(self):
         return f'{self.id_pfiles}'
 
+class uploadedFiles(models.Model):
+    id_ufiles = models.AutoField(db_column='ID_UFILE', primary_key=True)  # Field name made lowercase.
+    name_file = models.CharField(db_column='NAME_FILE', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    description_file = models.CharField(db_column='DESCRIPTION_FILE', max_length=200, blank=True, null=True)  # Field name made lowercase.
+    uploadedfile = models.FileField(upload_to='uploadedDocuments/')
+
+    class Meta:
+        managed = True
+        db_table = 'uploadedDocuments'
+    
+    def __str__(self):
+        return f'{self.id_ufiles}'
 
 ####################################################################################
 #############                     Modelos para APIS                #################
@@ -161,7 +173,6 @@ class ProductFiles(models.Model):
 ############# modificaciones a la base de datos, comentar todo el ##################
 ############# código posterior                                    ##################
 ####################################################################################
-
 
 class ProductSupplierJoin(models.Model):
     #Datos importantes del producto
@@ -183,7 +194,4 @@ class ProductSupplierJoin(models.Model):
     city = models.CharField(db_column='CITY', max_length=100, blank=True, null=True)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100, blank=True, null=True)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100, blank=True, null=True)  # Field name made lowercase.
-
-
-
 

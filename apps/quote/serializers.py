@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import get_user_model
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails, ProductFiles, ProductSupplierJoin
+from .models import Users, Category, Quotes, Role, Suppliers, Product, qDetails, ProductFiles, ProductSupplierJoin, uploadedFiles
 from rest_framework.authtoken.models import Token
 
 from apps.quote import models
@@ -53,30 +53,19 @@ class RoleSerializer(serializers.ModelSerializer):
         fields = ('__all__')
 
 class SupplierSerializer(serializers.ModelSerializer):
-    supplier_name = serializers.CharField(required=True, max_length=100)
-    description = serializers.CharField(max_length=200)
-    conctact_name = serializers.CharField(required=True, max_length=150)
-    landline = serializers.CharField(max_length=15)
-    mobile_phone = serializers.CharField(max_length=15)
-    email =serializers.CharField(required=True, max_length=150)
-    address = serializers.CharField(max_length=200)
-    city = serializers.CharField(max_length=100)
-    province = serializers.CharField(max_length=100)
-    country = serializers.CharField(max_length=100)
-    
     class Meta:
         model = Suppliers
         fields = ('__all__')
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    product_name = serializers.CharField(required=True,max_length=100)
+    """product_name = serializers.CharField(required=True,max_length=100)
     description = serializers.CharField(max_length=200)
     price = serializers.DecimalField(required=True, max_digits=12, decimal_places=2)
     brand = serializers.CharField(max_length=100)
     availability = serializers.IntegerField()
     registration_date = serializers.DateTimeField()
-    last_modified = serializers.DateTimeField()
+    last_modified = serializers.DateTimeField()"""
     class Meta:
         model = Product
         fields = ('__all__')
@@ -104,4 +93,9 @@ class ProductFileSerializer(serializers.ModelSerializer):
 class ProductProviderSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductSupplierJoin
+        fields = ('__all__')
+
+class uploadedFilesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = uploadedFiles
         fields = ('__all__')

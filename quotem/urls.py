@@ -26,6 +26,13 @@ from django.conf import settings
 # Api router
 router = routers.DefaultRouter()
 
+#Errors Handler
+handler404 = 'apps.quote.errors.error_404'
+handler500 = 'apps.quote.errors.error_500'
+handler403 = 'apps.quote.errors.error_403'
+handler400 = 'apps.quote.errors.error_400'
+
+
 urlpatterns = [
     #path('', TemplateView.as_view(template_name='index.html')),
     path('admin/', admin.site.urls),

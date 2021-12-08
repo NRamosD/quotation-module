@@ -9,15 +9,22 @@ from rest_framework import routers
 from . import views
 from rest_framework import routers
 from .views import (    
-    CategoryViewSet, ListadoProductos,ProductViewSet, QuotesViewSet, RoleViewSet, productFilesViewSet,
+    CategoryViewSet,ProductViewSet, QuotesViewSet, RoleViewSet, FilesViewSet,
     SupplierViewSet, qDetailsViewSet, prosupViewSet,
-    UserApiView, userLogout, LoginView,
-    CategoriesView, SuppliersView, ProductView,
-    SuppliersList,CategoriesList,ProductsList,
-    uploadDocument,Reports,
-    ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario, ListadoProductos
-    )
 
+    finalizarCotizacion,
+
+    UserApiView, 
+    
+    userLogout, LoginView,
+    
+    uploadDocument,Reports,
+    ListadoUsuario, ActualizarUsuaio, EliminarUsuario, CrearUsuario, 
+    ProductosView, ProductosViewUpdate, ProductosViewDelete,
+    ProveedoresView, ProveedoresViewDelete,ProveedoresViewUpdate,
+    CategoriasView, CategoriasViewUpdate, CategoriasViewDelete
+    
+    )
 router = routers.DefaultRouter()
 #router.register('users', UsersViewSet)
 router.register('product', ProductViewSet)
@@ -26,70 +33,50 @@ router.register('qDetails', qDetailsViewSet)
 router.register('role', RoleViewSet)
 router.register('category', CategoryViewSet)
 router.register('suppliers', SupplierViewSet)
-router.register('ProductFiles', productFilesViewSet)
+router.register('ProductFiles', FilesViewSet)
 router.register('productSupplierJoin', prosupViewSet)
 
-""" 
-    #urls de respaldo
-    path('',views.index, name="index"),
-    path('home',views.home, name="home"),
-    path('',Home.as_view(), name="home"),
-    path('api/', include(router.urls)),
-    #path('accounts/', include('django.contrib.urls')),
-    #path('login',views.login, name="login"),
-    #path('',views.index, name="index"),
 
-    path('api/suppliers/', SuppliersListView.as_view(), name='api_allsuppliers'),
-    path('api/suppliers/<int:pk>', SuppliersDetailView.as_view(), name='api_onesupplier'),
-    path('api/categories/', CategoryListView.as_view(), name='api_allcategories'),
-    path('api/category/<int:pk>', CategoryDetailView.as_view(), name='api_onecategory'),
-    path('api/qDetails/', qDetailsListView.as_view(), name='api_allqDetails'),
-    path('api/qDetails/<int:pk>', qDetailDetailView.as_view(), name='api_oneqDetails'),
-    path('api/quotes/', QuoteListView.as_view(), name='api_allquote'),
-    path('api/quotes/<int:pk>', QuoteDetailView.as_view(), name='api_onequote'),
-    path('api/products/', ProductListView.as_view(), name='api_allquote'),
-    path('api/products/<int:pk>', ProductDetailView.as_view(), name='api_onequote'),
 
-    #imports de respaldo
-    UserView, SuppliersListView, SuppliersDetailView, 
-    CategoryListView, CategoryDetailView, qDetailsListView, 
-    qDetailDetailView, QuoteListView, QuoteDetailView, ProductDetailView, 
-    ProductListView
 
-     """
 urlpatterns = [
     #VISTAS BÁSICAS
     #path('',views.index, name="index"),
     path('',views.home, name="home"),
     path('cotizar/',views.cotizar, name="quote"),
-    #path('login/', auth_views.LoginView.as_view(template_name='quote/html/login.html'), name="login"),
-    #path('logout/', auth_views.LogoutView.as_view(), name="logout"),
-    #path('logout/', auth_views.logout_then_login, name="logout"),
+    path('guardar_cotizacion/', finalizarCotizacion.as_view(), name='saveQuote'),
+    path('prueba/',views.pruebaHtml, name="prueba"),
     
     #API
     path('api/', include(router.urls)),
-    #API INICIO DE SESIÓN
-    #path('login/', SignInView.as_view(), name='login'),
-    path('login/', LoginView.as_view(), name='login'),
-    #path('logout/', userLogout.as_view(), name='logout'),
-    path('logout/', userLogout, name='logout'),
-    #path('api/user/', UserView.as_view(), name='api_user_view'),
     path('api/user/', UserApiView.as_view(), name='user_api_view'),
     path('api/user/<int:pk>', UserApiView.as_view(), name='user_api_view'),
-    path('productos/',ProductView.as_view(), name="products"),
-    path('categorias/',CategoriesView.as_view(), name="categories"),
-    path('proveedores/',SuppliersView.as_view(), name="suppliers"),
+    #LOGIN / LOGOUT  
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', userLogout, name='logout'),
+    #Productos
+    path('productos/',ProductosView.as_view(), name="products"),
+    path('productos/editar/<int:pk>',ProductosViewUpdate.as_view(), name="editProducts"),
+    path('productos/eliminar/<int:pk>',ProductosViewDelete.as_view(), name="deleteProducts"),
+    #Categorías
+    path('categorias/',CategoriasView.as_view(), name="categories"),
+    path('categorias/editar/<int:pk>',CategoriasViewUpdate.as_view(), name="editCategories"),
+    path('categorias/eliminar/<int:pk>',CategoriasViewDelete.as_view(), name="deleteCategories"),
+    #Proveedores
+    path('proveedores/',ProveedoresView.as_view(), name="suppliers"),
+    path('proveedores/editar/<int:pk>',ProveedoresViewUpdate.as_view(), name="editSuppliers"),
+    path('proveedores/eliminar/<int:pk>',ProveedoresViewDelete.as_view(), name="deleteSuppliers"),
+    #Users
+    path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
+    path('editarusuario/<int:pk>',ActualizarUsuaio.as_view(), name="editUser"),
+    path('eliminarusuario/<int:pk>', EliminarUsuario.as_view(), name='deleteUser'),
+    path('crearusuario/', CrearUsuario.as_view(), name='createUser'),
+
     #upload data
     path('cargar_documento/',uploadDocument.as_view(), name="uploadDocument"),
     #reports
     path('informes/',login_required(Reports.as_view()), name="report"),
-    #Users
-    path('usuarios/',ListadoUsuario.as_view(), name="usersv"),
-    path('editar_usuario/<int:pk>',ActualizarUsuaio.as_view(), name="editUser"),
-    path('eliminar_usuario/<int:pk>', EliminarUsuario.as_view(), name='deleteUser'),
-    path('crear_usuario/', CrearUsuario.as_view(), name='createUser'),
-    #Product
-    path('guardar_cotizacion/', ListadoProductos.as_view(), name='saveQuote'),
+    
     #Loading
     path('loading/',views.loading, name="loading")
 ]
