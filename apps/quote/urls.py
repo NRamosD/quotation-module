@@ -91,5 +91,6 @@ urlpatterns = [
     #Product
     path('guardar_cotizacion/', ListadoProductos.as_view(), name='saveQuote'),
     #Loading
-    path('loading/',views.loading, name="loading")
+    path('loading/',views.loading, name="loading"),
+    path('uploadT/',views.uploadT, name="uploadT")
 ]

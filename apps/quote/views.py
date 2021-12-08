@@ -137,6 +137,9 @@ def index(request):
 def loading(request):
     return render(request, "./quote/html/LoadingSis.html")
 
+def uploadT(request):
+    return render(request, "./quote/html/sections/sectionUploadType.html")  
+
 #@login_required
 def home(request):
     if checkToken(request):
@@ -157,7 +160,7 @@ def home(request):
     logout(request)
     return render(request, "./quote/html/login.html", {'showalert':True})
     
-    
+
 
     """ token = request.COOKIES.get('jwt')
     if not token:
