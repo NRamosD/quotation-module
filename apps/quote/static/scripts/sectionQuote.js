@@ -444,26 +444,45 @@ function preloadFunc(){
     }
 }
 
-function isNumberKey(evt){
-    let charCode = (evt.which) ? evt.which : evt.keyCode
-    if (charCode > 31 && (charCode < 48 || charCode > 57))
-        return false;
-    return true;
+//para el input del sectionQuoteELements
+
+function roundToTwo(num) {
+    return +(Math.round(num + "e+2")  + "e-2");
 }
 
 $(document).ready(function(){
+    const min = 1;    
+    const max = 99; 
 
-    // code to read selected table row cell data (values).
-    /*$("#table").on('keypress','.quantity',function(){
-        // get the current row
-        let currentRow=$(this).closest("tr"); 
-        let col1=currentRow.find("td:eq(4)"); // get current row 1st TD value
-        console.log(col1.text())
-        let data=parseFloat(col1.text())*parseInt(this.value);
-        col1.html(data)
-        console.log(col1.text())
-        //alert(data)
-    });*/
+    $(document).on('keyup', '.quantity', function(){  
+        var self = $(this);
+        
+        var value = self.val();
+        
+        if(value < min ){
+            self.val(1);  
+        }
+        if(value > max){
+            self.val(99);
+        }
+
+        $(".quantity").on('keyup', function (e) {
+            if (e.key === 'Enter' || e.keyCode === 13) {
+                let currentRow=$(this).closest("tr");
+                let price=currentRow.find("td:eq(4)")
+
+                let floatPrice = parseFloat(price.text())
+                let result = value * floatPrice
+                price.text(roundToTwo(result) )
+                //price.html(toString(result))
+                console.log(result)
+                console.log(price)
+            }
+        });
+        
+    })
+
+
 });
 
 /*
@@ -472,6 +491,11 @@ $(".quantity").change(function () {
     $('#table tr').eq(1).find('td').val('HELLOO');
 });
 */
+
+
+function validateQuantityElements(){
+    
+}
 
 
 if(typeof(Storage)!= 'undefined'){

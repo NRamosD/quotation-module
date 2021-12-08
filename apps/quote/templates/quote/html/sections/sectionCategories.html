@@ -2,76 +2,112 @@
 
 {% load static %}
 
-{% block title %}Vista General Usuarios{% endblock %}
+{% block title %}Categorías{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/styleVistas.css '%}">
+<link rel="stylesheet" href="{% static 'css/styleProdSupplCate.css '%}">
+<script src="{% static 'scripts/scbarra.js'%}"></script>
+<script src="{% static 'scripts/url.js'%}"></script>
+
 <body>
-    <nav id="navbar_Views">
-        <label id="label">VISTA GENERAL DE CATEGORÍAS</label>
-    </nav>
-    <!-- Button modal Categories -->
-    <br>
-    <button id="btnCrud" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Agregar
-    </button>
+  {% if success is False %}
+  <div class="alert-problem" id="alert-problem" style="margin: -.8em 0 0 20%; width: auto; height: auto; position: absolute;">
+      <div class="text-alert">
+          <b>Ha ocurrido un error. Por favor revise los datos a ingresar e intente de nuevo.</b>
+      </div>
+      <button id="btnCreate" type="button" class="btn" style="margin: 0 .5em; background-color: black;">OK</button>
+  </div>
+  {% endif %}
+  <nav id="navbar_Views">
+    <label id="label">VISTA GENERAL DE CATEGORÍAS</label>
+    <!-- Button modal Products -->
+    <button id="btnCreate" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategory">Agregar</button>
+  </nav>
 
-    <!-- Modal Categories-->
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Información de la Categoría</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
-                </div>
-                <div class="modal-body">
-                    <div>
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm">
-                    </div>
-                    <div>
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Descripción</span>
-                        <input type="text" class="form-control" aria-label="Sizing example input"
-                            aria-describedby="inputGroup-sizing-sm">
-                    </div>                    
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar</button>
-                </div>
+  <!-- Modal Products-->
+  <div class="modal fade" id="createCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Añadir Nueva Categoría</h5>
             </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <label for="name">Nombre de la Categoría</label>
+                  <input class="form-control" type="text" name="name" id="name" placeholder="Ejm: Llantas, Frenos, etc.">
+                  <label for="type_vehicle">Tipo de Vehículo</label>
+                  <input class="form-control" type="text" name="type_vehicle" id="type_vehicle" placeholder="Ejm: Liviano, Pesado, Dos Ruedas, etc.">
+                  <label for="description">Descripción</label>
+                  <textarea class="form-control" type="text-area" name="description" id="description" placeholder="Datos importantes de la categoría..."></textarea> 
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="AddProduct" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Añadir</button>
+                  </div>
+                </form>
+            </div>
+            
         </div>
     </div>
+  </div>
+
+  <!-- MAIN JS -->
+  <div class="listTableDiv">
+    <table class="table listTable">
+      <thead class="thead-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre de Categoría</th>
+          <th>Tipo de Vehículo</th>
+          <th>Descripción</th>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="categoriesTableELements">
+        {% for x in categories %}
+        <tr>
+          <td>{{ x.id_category_product }}</td>
+          <td>{{ x.category_name }}</td>
+          <td>{{ x.category_vehicle }}</td>
+          <td>{{ x.description }}</td>
+          <td><button onclick="openCategoryEdit('{% url 'quo:editCategories' x.id_category_product %}')" data-toggle="modal" data-target="#exampleModalEdit" class="btn_edit"><i id="edit" class="fas fa-pencil-alt button_edit"></i></button></td>
+          <td><button onclick="openCategoryDelete('{% url 'quo:deleteCategories' x.id_category_product %}')" class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 
 
 
-    <!-- MAIN JS -->
-    <script src="{% static 'scripts/scbarra.js'%}"></script>
-    <script src="{% static 'scripts/url.js'%}"></script>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">ID producto</th>
-                    <th scope="col">ID categoría</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripcion</th>
-                </tr>
-            </thead>
-                <tbody id="productsTableELements">
-                    {% for todo in todos %}
-                    <tr>
-                      <td>{{ todo.id_category_product }}</td>
-                      <td>{{ todo.category_vehicle }}</td>
-                      <td>{{ todo.category_name }}</td>
-                      <td>{{ todo.description }}</td>
-                                       
-                    </tr>
-                    {% endfor %}
-                  </tbody>            
-        </table>
-    </div>
+  {% block modal%}
+  {% endblock %}
+
+  <div class="modal fade" role="dialog" id="editCategoryModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  </div>
+  <div class="modal fade" role="dialog" id="deleteCategoryModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  </div>
+
 </body>
 {% endblock %}
+
+
+{% block extrajs%}
+<script type="text/javascript">
+  function openCategoryEdit(url){
+    var $ =jQuery.noConflict();
+    $('#editCategoryModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+  function openCategoryDelete(url){
+    var $ =jQuery.noConflict();
+    $('#deleteCategoryModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+</script>
+{% endblock extrajs%}
+
+

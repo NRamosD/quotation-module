@@ -2,101 +2,104 @@
 
 {% load static %}
 
-{% block title %}Vista General Usuarios{% endblock %}
+{% block title %}Productos{% endblock %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static 'css/styleVistas.css '%}">
+<link rel="stylesheet" href="{% static 'css/styleProdSupplCate.css '%}">
+<script src="{% static 'scripts/scbarra.js'%}"></script>
+<script src="{% static 'scripts/url.js'%}"></script>
 
 <body>
+  {% if success is False %}
+  <div class="alert-problem" id="alert-problem" style="margin: -.8em 0 0 20%; width: auto; height: auto; position: absolute;">
+      <div class="text-alert">
+          <b>Ha ocurrido un error. Por favor revise los datos a ingresar e intente de nuevo.</b>
+      </div>
+      <button id="btnCreate" type="button" class="btn" style="margin: 0 .5em; background-color: black;">OK</button>
+  </div>
+  {% endif %}
   <nav id="navbar_Views">
     <label id="label">VISTA GENERAL DE PRODUCTOS</label>
+    <!-- Button modal Products -->
+    <button id="btnCreate" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProduct">Agregar</button>
   </nav>
 
-  <!-- Button modal Products -->
-  <br>
-  <button id="btnCrud" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    Agregar
-  </button>
   <!-- Modal Products-->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="createProduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Información del Producto</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Crear nuevo Producto</h5>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                  {% csrf_token %}
+                  <label for="supplierProduct">Proveedor</label>
+                  <select class="form-control" name="supplierProduct" class="form-select" aria-label="Default select example" id="supplierProduct">
+                    <option selected></option>
+                    {% for supplier in suppliers %}
+                        <option value="{{ supplier.id_supplier }}" >{{ supplier.supplier_name }}</option>
+                    {% endfor %}
+                  </select>
+                  <label for="categoryProduct">Categoría</label>
+                  <select class="form-control" name="categoryProduct" class="form-select" aria-label="Default select example" id="categoryProduct">
+                    <option selected></option>
+                    {% for category in categories %}
+                        <option value="{{ category.id_category_product }}" >{{ category.category_name }} ({{category.category_vehicle}})</option>
+                    {% endfor %}
+                  </select>
+                  <label for="categoryProduct">Nombre</label>
+                  <input class="form-control" type="text" name="name" id="name" placeholder="Nombre">
+                  <label for="description">Descripción</label>
+                  <input class="form-control" type="text" name="description" id="description" placeholder="Descripción">
+                  <label for="price">Precio</label>
+                  <input class="form-control" type="text" name="price" id="price" placeholder="Precio">
+                  <label for="brand">Fabricante</label>
+                  <input class="form-control" type="text" name="brand" id="brand" placeholder="Fabricante">
+                  <label for="availability">Disponible en</label>
+                  <input class="form-control" type="number" name="availability" id="availability" placeholder="Tiempo de disponibilidad en Días">
+                  <label for="brand_vehicle">Marca del Vehículo</label>
+                  <input class="form-control" type="text" name="brand_vehicle" id="brand_vehicle" placeholder="Marca del vehículo">
+                  <label for="model_vehicle">Modelo del Vehículo</label>
+                  <input class="form-control" type="text" name="model_vehicle" id="model_vehicle" placeholder="Modelo del vehículo">
+                  <label for="year_vehicle">Año del Vehículo</label>
+                  <input class="form-control" type="number" name="year_vehicle" id="year_vehicle" placeholder="Año del vehículo">
+                  <label for="part_number">Código de parte</label>
+                  <input class="form-control" type="text" name="part_number" id="part_number" placeholder="Código de parte">
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="AddProduct" type="submit" class="btn btn-primary" data-bs-dismiss="modal">Añadir</button>
+                  </div>
+                </form>
+            </div>
+            
         </div>
-        <div class="modal-body">
-          <div>
-            <span class="input-group-text" id="inputGroup-sizing-sm">Nombre</span>
-            <input type="text" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div>
-            <span class="input-group-text" id="inputGroup-sizing-sm">Descripción</span>
-            <input type="text" class="form-control" aria-label="Sizing example input"
-              aria-describedby="inputGroup-sizing-sm">
-          </div>
-          <div>
-            <span class="input-group-text"> Precio [$]</span>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-          </div>
-          <div>
-            <span class="input-group-text"> Marca </span>
-            <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
-          </div>
-          <div>
-            <span class="input-group-text">Fecha de Registro</span>
-          </div>
-          <div class="input-group">
-            <span class="input-group-text">dd/mm/aa</span>
-            <input type="text" aria-label="First name" class="form-control">
-            <input type="text" aria-label="Last name" class="form-control">
-            <input type="text" aria-label="Last name" class="form-control">
-          </div>
-          <br>
-          <div class="input-group mb-3">
-            <label class="input-group-text" for="inputGroupSelect01">Disponibilidad</label>
-            <select class="form-select" id="inputGroupSelect01">
-              <option selected>...</option>
-              <option value="1">Inmediata</option>
-              <option value="2">Tiempo de espera</option>
-              <option value="3">Nula</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Guardar</button>
-        </div>
-      </div>
     </div>
   </div>
 
-
   <!-- MAIN JS -->
-  <script src="{% static 'scripts/scbarra.js'%}"></script>
-  <script src="{% static 'scripts/url.js'%}"></script>
-  <div>
-    <table class="table">
-      <thead>
+  <div class="listTableDiv">
+    <table class="table listTable">
+      <thead class="thead-dark">
         <tr>
-          <th>ID producto</th>
-          <th>ID Proveedor</th>
-          <th>ID Categoría</th>
+          <th>ID</th>
+          <th>Proveedor</th>
+          <th>Categoría</th>
           <th>Nombre</th>
           <th>Descripción</th>
           <th>Precio</th>
-          <th>Marca</th>
-          <th>Disponibilidad</th>
-          <th>Fecha Registro</th>
+          <th>Fabricante</th>
+          <th>Disponibilidad (Días)</th>
           <th>Fecha modificación</th>
-
-
+          <th>Vehículo</th>
+          <th>Modelo</th>
+          <th>Año</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody id="productsTableELements">
-        {% for todo in todos %}
+        {% for todo in products %}
         <tr>
           <td>{{ todo.id_product }}</td>
           <td>{{ todo.id_supplier }}</td>
@@ -106,12 +109,47 @@
           <td>{{ todo.price }}</td>
           <td>{{ todo.brand }}</td>
           <td>{{ todo.availability }}</td>
-          <td>{{ todo.registration_date }}</td>
           <td>{{ todo.last_modified }}</td>
+          <td>{{ todo.brand_vehicle }}</td>
+          <td>{{ todo.model_vehicle }}</td>
+          <td>{{ todo.year_vehicle }}</td>
+          <td><button onclick="openProductEdit('{% url 'quo:editProducts' todo.id_product %}')" data-toggle="modal" data-target="#exampleModalEdit" class="btn_edit"><i id="edit" class="fas fa-pencil-alt button_edit"></i></button></td>
+          <td><button onclick="openProductDelete('{% url 'quo:deleteProducts' todo.id_product %}')" class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
   </div>
+
+
+
+  {% block modal%}
+  {% endblock %}
+
+  <div class="modal fade" role="dialog" id="editProductModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  </div>
+  <div class="modal fade" role="dialog" id="deleteProductModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+  </div>
+
 </body>
 {% endblock %}
+
+
+{% block extrajs%}
+<script type="text/javascript">
+  function openProductEdit(url){
+    var $ =jQuery.noConflict();
+    $('#editProductModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+  function openProductDelete(url){
+    var $ =jQuery.noConflict();
+    $('#deleteProductModal').load(url,function(){
+      $(this).modal('show');
+    });
+  }
+</script>
+{% endblock extrajs%}
+
+

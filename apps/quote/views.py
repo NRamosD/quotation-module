@@ -3,6 +3,7 @@ from decimal import Context
 import json
 from json.decoder import JSONDecoder
 from re import template
+import re
 from decouple import RepositoryEmpty
 from django.contrib.auth import models
 from django.contrib.auth.models import User
@@ -22,7 +23,7 @@ from django.forms import model_to_dict
 from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView
-from .forms import CreateUserForm, UserForm
+from .forms import CreateUserForm, UserForm, ProductForm, SupplierForm, CategoryForm
 
 
 #RESTFRAMEWORK
@@ -37,11 +38,10 @@ from rest_framework.generics import CreateAPIView
 from django.contrib.auth.decorators import login_required
 
 #LOCAL FILES
-from .models import ProductFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes, ProductSupplierJoin
-from .forms import ProductFilesForm
+from .models import uploadedFiles, Role, Users, Product, Suppliers, Category, qDetails, Quotes, ProductSupplierJoin
 from .serializers import (
     UserSerializer, CategorySerializer, QuotesSerializer, qDetailsSerializer, 
-    RoleSerializer, SupplierSerializer, ProductSerializer, ProductFileSerializer, ProductProviderSerializer)
+    RoleSerializer, SupplierSerializer, ProductSerializer, uploadedFilesSerializer, ProductProviderSerializer)
 from .filters import ProductFilter
 from apps.quote.upload import uploadDataDB
 from apps.quote.reports import predefined
@@ -86,9 +86,9 @@ class qDetailsViewSet(viewsets.ModelViewSet):
     queryset = qDetails.objects.all()
     serializer_class = qDetailsSerializer
 
-class productFilesViewSet(viewsets.ModelViewSet):
-    queryset = ProductFiles.objects.all()
-    serializer_class = ProductFileSerializer
+class FilesViewSet(viewsets.ModelViewSet):
+    queryset = uploadedFiles.objects.all()
+    serializer_class = uploadedFilesSerializer
 
 class prosupViewSet(viewsets.ModelViewSet):
     queryset = ProductSupplierJoin.objects.raw('Select 1 as id, A.ID_PRODUCT as id, A.ID_PRODUCT, A.PRODUCT_NAME, A.PRICE, A.BRAND, A.AVAILABILITY, A.BRAND_VEHICLE, A.MODEL_VEHICLE, A.YEAR_VEHICLE, A.PART_NUMBER, B.ID_SUPPLIER, B.SUPPLIER_NAME, B.CONCTACT_NAME, B.MOBILE_PHONE, B.ADDRESS, B.CITY, B.PROVINCE, B.COUNTRY from product as A inner join suppliers as B on A.ID_SUPPLIER=B.ID_SUPPLIER;')
@@ -97,6 +97,7 @@ class prosupViewSet(viewsets.ModelViewSet):
 
 class UserApiView(APIView):
     def post(self, request):
+        print(f"aqui oe 😁 {type(request.data)}-> {request.data}")
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -139,6 +140,9 @@ def loading(request):
 
 def uploadT(request):
     return render(request, "./quote/html/sections/sectionUploadType.html")  
+
+def pruebaHtml(request):
+    return render(request, "./quote/html/error/sectionSuppliers.html")
 
 #@login_required
 def home(request):
@@ -276,85 +280,67 @@ def cotizar(request):
     contexto = {'todos': todo}
     return render(request, "./quote/html/sections/sectionSuppliers.html", contexto)
     """
-#bro ya aprendí :v    
-def SuppliersList(request):
-    # no need to do this
-    # request_csrf_token = request.POST.get('csrfmiddlewaretoken', '')
-    if request.method == 'GET':# and request.is_ajax():
-        request_getdata = request.GET.get('data',None)
-        print(request_getdata)
-        dataFromArray = json.loads(request_getdata)
-        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
-        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
-        i=0
-        for x in dataFromArray:
-            dataFromArray[i]=int(x)
-            i+=1
-        
-        print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
 
-        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        print(selectedProducts)
-        response = Response()
-        response = redirect('quo:home')
-        #response.data = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
-        #response = render(request, "./quote/html/sections/sectionSuppliers.html")
-        return response
-        """return JsonResponse({
-            'content': {
-                'status':'Datos recibidos con éxito',
-                #'selectedProducts': selectedProducts
-            }
-        })"""
-        # make sure that you serialise "request_getdata"
-    if request.method == 'POST':
+class finalizarCotizacion(TemplateView):
+    #model= Product
+    template_name='./quote/html/sectionQuoteElements.html'
+
+    def get(self, request):
         formData = request.POST.dict()
         valueInput = formData.get("vS")
+        print(f"😘 {valueInput}")
         #request_getdata = request.POST.get('data',None)
         dataFromArray = valueInput.split(',')
         #dataFromArray = json.loads(request_getdata)
         #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
         #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
         i=0
+        print(dataFromArray)
+        #dataFromArray.pop(0)
         for x in dataFromArray:
             dataFromArray[i]=int(x)
             i+=1
         
         #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
-
-        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
         selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        print(f"😍 ->{selectedProducts['price']}")
+    #context_object_name= 'productos'
+    #queryset= Product.objects.all()
+    def post(self, request):
+        formData = request.POST.dict()
+        valueInput = formData.get("vS")
+        print(f"😘 {valueInput}")
+        #request_getdata = request.POST.get('data',None)
+        dataFromArray = valueInput.split(',')
+        #dataFromArray = json.loads(request_getdata)
+        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
+        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
+        i=0
+        print(dataFromArray)
+        #dataFromArray.pop(0)
+        for x in dataFromArray:
+            dataFromArray[i]=int(x)
+            i+=1
+        
+        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
+        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
         print(selectedProducts)
-        ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
-        return render(request, "./quote/html/sections/sectionSuppliers.html", ctx)
-
-    return render(request, "./quote/html/sections/sectionSuppliers.html")
-
-class CategoriesView(TemplateView):
-    def get(self, request):
-        return render(request, "./quote/html/sections/sectionCategories.html")
-
-class SuppliersView(TemplateView):
-    def get(self, request):
-        return render(request, "./quote/html/sections/sectionSuppliers.html")
-
-class ProductView(TemplateView):
-    def get(self, request):
-        return render(request, "./quote/html/sections/sectionProducts.html")
+        #ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
+        response = Response()
+        response.data = {
+            'status':True
+        }
+        ctx = {'selectedProducts': selectedProducts, 'productsToSave':valueInput}
+        response = render(request, "./quote/html/sectionQuoteElements.html", ctx)
+        return response
 
 
 
-def CategoriesList(request):
-    todo = Category.objects.all()
-    contexto = {'todos': todo}
-    return render(request, "./quote/html/sections/sectionCategories.html", contexto)
+def CotizacionFinal(request):
+    return render(request, './quote/html/sectionQuoteElements.html')
 
-
-def ProductsList(request):
-    todo = Product.objects.all()
-    contexto = {'todos': todo}
-    return render(request, "./quote/html/sections/sectionSuppliers.html", contexto)
 
 
 #------------------------------LOGIN----------------------------------
@@ -452,41 +438,195 @@ def CreateProduct(request):
     #contexto = {'todos': todo}
     #return render(request, "./quote/html/GeneralViewUser.html", contexto) 
     # 
-#Listado de Productos--------------------------------
-class ListadoProductos(TemplateView):
-    #model= Product
-    template_name='./quote/html/sectionQuoteElements.html'
-    #context_object_name= 'productos'
-    #queryset= Product.objects.all()
-    def post(self, request):
-        formData = request.POST.dict()
-        valueInput = formData.get("vS")
-        print(f"😘 {valueInput}")
-        #request_getdata = request.POST.get('data',None)
-        dataFromArray = valueInput.split(',')
-        #dataFromArray = json.loads(request_getdata)
-        #print(f"A ver vea -> {dataFromArray} y el tipo {type(dataFromArray)}")
-        #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
-        i=0
-        print(dataFromArray)
-        #dataFromArray.pop(0)
-        for x in dataFromArray:
-            dataFromArray[i]=int(x)
-            i+=1
-        
-        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
-        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        print(selectedProducts)
-        #ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
+
+#-------------------------------------------------------------------------#
+#-------------------------------------------------------------------------#
+#-------------                CRUDS PRINCIPALES           ----------------#
+#-------------------------------------------------------------------------#
+#-------------------------------------------------------------------------#
+
+#Productos--------------------------------
+class ProductosView(TemplateView):
+    def get(self, request):
         response = Response()
-        response.data = {
-            'status':True
+        products = Product.objects.all()
+        supplier = Suppliers.objects.all()
+        category = Category.objects.all()
+        productsData = {
+            "products" : products,
+            "suppliers" : supplier,
+            "categories" : category
         }
-        ctx = {'selectedProducts': selectedProducts, 'productsToSave':valueInput}
-        response = render(request, "./quote/html/sectionQuoteElements.html", ctx)
+        response = render(request, './quote/html/sections/sectionProducts.html', productsData)
         return response
+    
+    def post(self, request):
+        print(f"aqui va 😍-> {request.POST.dict()}")
+        rawData = request.POST.dict()
+        dataNewProduct = {
+            "product_name": rawData['name'],
+            "description": rawData['description'],
+            "price": rawData['price'],
+            "brand": rawData['brand'],
+            "availability": rawData['availability'],
+            "registration_date": '2021-10-30T11:05:09Z',
+            "last_modified": '2021-10-30T11:05:09Z',
+            "brand_vehicle": rawData['brand_vehicle'],
+            "model_vehicle": rawData['model_vehicle'],
+            "year_vehicle": rawData['year_vehicle'],
+            "part_number": rawData['part_number'],
+            "id_supplier": rawData['supplierProduct'],
+            "id_category_product": rawData['categoryProduct']
+        }
+        serializer = ProductSerializer(data=dataNewProduct)
+        
+        response = Response()
+        products = Product.objects.all()
+        supplier = Suppliers.objects.all()
+        category = Category.objects.all()
+        productsData = {
+            "products" : products,
+            "suppliers" : supplier,
+            "categories" : category,
+            "success": True
+        }
+        if serializer.is_valid():
+            print("👏")
+            serializer.save()
+            response = render(request, './quote/html/sections/sectionProducts.html', productsData)
+            return response
+        else:
+            response = Response()
+            productsData['success']=False
+            response = render(request, './quote/html/sections/sectionProducts.html', productsData)
+            return response
+
+class ProductosViewUpdate(UpdateView):
+    model= Product
+    form_class = ProductForm
+    template_name= './quote/html/editProduct.html'
+    context_object_name = 'productos'
+    success_url=reverse_lazy('quo:products')
+
+class ProductosViewDelete(DeleteView):
+    model= Product
+    context_object_name = 'productos'
+    template_name= './quote/html/deleteProduct.html'
+    success_url=reverse_lazy('quo:products')
+
+
+#Proveedores--------------------------------
+class ProveedoresView(TemplateView):
+    def get(self, request):
+        response = Response()
+        supplier = Suppliers.objects.all()
+        suppliersData = {
+            "suppliers" : supplier
+        }
+        response = render(request, './quote/html/sections/sectionSuppliers.html', suppliersData)
+        return response
+    
+    def post(self, request):
+        print(f"aqui va 😍-> {request.POST.dict()}")
+        rawData = request.POST.dict()
+        dataNewSupplier = {
+            "supplier_name": rawData['name'],
+            "description": rawData['description'],
+            "conctact_name": rawData['contacName'],
+            "landline": rawData['landline'],
+            "mobile_phone": rawData['mobil'],
+            "email": rawData['email'],
+            "address": rawData['address'],
+            "city": rawData['city'],
+            "province": rawData['province'],
+            "country": rawData['country']
+        }
+        serializer = SupplierSerializer(data=dataNewSupplier)
+        
+        response = Response()
+        supplier = Suppliers.objects.all()
+        supplierData = {
+            "suppliers" : supplier,
+            "success": True
+        }
+        if serializer.is_valid():
+            print("👏")
+            serializer.save()
+            response = render(request, './quote/html/sections/sectionSuppliers.html', supplierData)
+            return response
+        else:
+            response = Response()
+            supplierData['success']=False
+            response = render(request, './quote/html/sections/sectionSuppliers.html', supplierData)
+            return response
+
+class ProveedoresViewUpdate(UpdateView):
+    model= Suppliers
+    form_class = SupplierForm
+    template_name= './quote/html/editSupplier.html'
+    context_object_name = 'suppliers'
+    success_url=reverse_lazy('quo:suppliers')
+
+class ProveedoresViewDelete(DeleteView):
+    model= Suppliers
+    context_object_name = 'suppliers'
+    template_name= './quote/html/deleteSupplier.html'
+    success_url=reverse_lazy('quo:suppliers')
+
+
+#Categorias--------------------------------
+class CategoriasView(TemplateView):
+    def get(self, request):
+        response = Response()
+        category = Category.objects.all()
+        categoriesData = {
+            "categories" : category
+        }
+        response = render(request, './quote/html/sections/sectionCategories.html', categoriesData)
+        return response
+    
+    def post(self, request):
+        print(f"aqui va 😍-> {request.POST.dict()}")
+        rawData = request.POST.dict()
+        dataNewCategory = {
+             "category_vehicle": rawData['type_vehicle'],
+            "category_name": rawData['name'],
+            "description": rawData['description']
+        }
+        serializer = CategorySerializer(data=dataNewCategory)
+        
+        response = Response()
+        category = Category.objects.all()
+        categoryData = {
+            "categories" : category,
+            "success": True
+        }
+        if serializer.is_valid():
+            print("👏")
+            serializer.save()
+            response = render(request, './quote/html/sections/sectionCategories.html', categoryData)
+            return response
+        else:
+            response = Response()
+            categoryData['success']=False
+            response = render(request, './quote/html/sections/sectionCategories.html', categoryData)
+            return response
+
+class CategoriasViewUpdate(UpdateView):
+    model= Category
+    form_class = CategoryForm
+    template_name= './quote/html/editCategory.html'
+    context_object_name = 'categoria'
+    success_url=reverse_lazy('quo:categories')
+
+class CategoriasViewDelete(DeleteView):
+    model= Category
+    context_object_name = 'categoria'
+    template_name= './quote/html/deleteCategory.html'
+    success_url=reverse_lazy('quo:categories')
+
+
+
 
 # Listado de Usuarios-------------------------------- 
 class ListadoUsuario(ListView):
@@ -506,7 +646,7 @@ class EliminarUsuario(DeleteView):
     model= Users
     template_name= './quote/html/deleteUser.html'
     success_url=reverse_lazy('quo:usersv')
-#CreateView
+
 class CrearUsuario(CreateView):
     model: Users
     form_class= CreateUserForm
@@ -522,9 +662,6 @@ def ModalAddUser(request):
 def EliminarUser(request):
     return render(request, './quote/html/users_confirm_delete.html')
 
-def CotizacionFinal(request):
-    return render(request, './quote/html/sectionQuoteElements.html')
-
 
 class uploadDocument(TemplateView, APIView):
     template_name='./quote/html/sections/sectionUploadDocument.html'
@@ -536,16 +673,17 @@ class uploadDocument(TemplateView, APIView):
         return render(request, "./quote/html/login.html", {'showalert':True})
         
     def post(self, request):
-        name = request.POST.get('name_pfiles')
-        file = request.FILES['productfile']
-        #print(f"transformacion ---> {str(file)}")
+        typeDoc = request.POST.get('typeD')
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        file = request.FILES['file']
         body ={
-            'name_pfiles': name,
-            'productfile': file
+            'name_file': name,
+            'description_file': description,
+            'uploadedfile': file
         }
-        #print(body)
         response = Response()
-        serializer = ProductFileSerializer(data=body)
+        serializer = uploadedFilesSerializer(data=body)
         print(f"aqui mismo --> {serializer}")
         if serializer.is_valid():
             #response = redirect('quo:uploadDocument')
@@ -553,10 +691,21 @@ class uploadDocument(TemplateView, APIView):
                 'success': True 
             }
             try:
-                serializer.save()
-                uploadDataDB.uploadDocumentXlsx(file)
-                response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
-                return response
+                if typeDoc=='1':
+                    serializer.save()
+                    uploadDataDB.uploadXlsxCategories(file)
+                    response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
+                    return response
+                elif typeDoc=='2':
+                    serializer.save()
+                    uploadDataDB.uploadXlsxSuppliers(file)
+                    response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
+                    return response
+                elif typeDoc=='3':
+                    serializer.save()
+                    uploadDataDB.uploadXlsxProducts(file)
+                    response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
+                    return response
             except:
                 response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': False})
                 return response

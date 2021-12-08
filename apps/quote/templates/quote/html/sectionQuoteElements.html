@@ -27,7 +27,7 @@
         <tbody>
             {% for p in selectedProducts %}
                 <tr class="productRow" name="row{{ p.id_product }}">
-                    <td id="iNumber"> <input type="number" value="1" min="1" class="quantity" onkeypress="return isNumberKey(event)"> </td>
+                    <td class="iNumber"> <input type="number" value="1" class="quantity" ></td>
                     <td>{{ p.id_product }}</td>
                     <td>{{ p.product_name }}</td>
                     <td>{{ p.description }}</td>

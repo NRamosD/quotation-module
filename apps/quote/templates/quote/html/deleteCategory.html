@@ -1,0 +1,21 @@
+<div class="modal-dialog " role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelDelete">Eliminar Categoría</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+            <form action="{% url 'quo:deleteCategories' categoria.id_category_product %}" method="POST">
+                {% csrf_token %}
+                <p><strong>¿Desea eliminar la categoría {{categoria.category_name}}({{ categoria.category_vehicle }})?</strong></p>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+  

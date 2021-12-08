@@ -5,7 +5,7 @@ import os
 #import MySQLdb
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-def uploadDocumentXlsx(documentName):
+def uploadXlsxCategories(documentName):
     documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
     #documentLocation = f'http://127.0.0.1:8000/Documents/{documentName}'
     #print(f"localización ❤ {documentLocation}")
@@ -28,6 +28,67 @@ def uploadDocumentXlsx(documentName):
 
     df.to_sql(name = table, con = engine, if_exists='append', index=False)
     #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
+
+def uploadXlsxSuppliers(documentName):
+    documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
+    db = "quote_local"
+    table = "suppliers"
+    path = documentLocation
+    #local
+    #url = f"mysql+mysqldb://root:@localhost:3306/"
+    url = f"mysql+mysqldb://root:123.123.123.@localhost:3306/"
+    engine = create_engine(url + db, echo=False)
+
+    df = pd.read_excel(path)
+
+    print(f"okas {path}")
+
+    df.to_sql(name = table, con = engine, if_exists='append', index=False)
+    #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
+
+
+
+def uploadXlsxProducts(documentName):
+    documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
+    db = "quote_local"
+    table = "product"
+    path = documentLocation
+    #local
+    #url = f"mysql+mysqldb://root:@localhost:3306/"
+    url = f"mysql+mysqldb://root:123.123.123.@localhost:3306/"
+    engine = create_engine(url + db, echo=False)
+
+    df = pd.read_excel(path)
+
+    print(f"okas {path}")
+
+    df.to_sql(name = table, con = engine, if_exists='append', index=False)
+    #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
