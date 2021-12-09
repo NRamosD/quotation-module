@@ -78,5 +78,6 @@ urlpatterns = [
     path('informes/',login_required(Reports.as_view()), name="report"),
     
     #Loading
-    path('loading/',views.loading, name="loading")
+    path('loading/',views.loading, name="loading"),
+    path('uploadT/',views.uploadT, name="uploadT")
 ]
