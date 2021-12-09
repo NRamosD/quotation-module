@@ -29,3 +29,18 @@ th     { background:#eee; }
 .productRow{
     border-style: solid;
 }
+#totalValue{
+    margin: 2em;
+    display: block;
+    background-color: chartreuse;
+    float: right;
+    position: relative;
+}
+.tV{
+    font-size: 4em;
+    width: auto;
+    height: auto;
+}
+.tVtext{
+    font-size: 1.5em;
+}
