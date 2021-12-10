@@ -100,13 +100,13 @@ WSGI_APPLICATION = 'quotem.wsgi.application'
         }
     }
 } """
-#contra bd nr 123.123-123.
+#contra bd nr 123.123.123.
 DATABASES = {   #BD LOCAL
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME' : 'quote_local',
         'USER' : 'root',
-        'PASSWORD' : '', #No olviden dejar vacio este campo si no configuraron contraseña   123.123.123.
+        'PASSWORD' : '123.123.123.', #No olviden dejar vacio este campo si no configuraron contraseña   123.123.123.
         #'PASSWORD' : '', #No olviden dejar vacio este campo si no configuraron contraseña
         'HOST' : 'localhost',
         'PORT' : '3306',

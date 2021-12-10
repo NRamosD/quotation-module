@@ -7,6 +7,12 @@
 
 /*===== ICONOS =====*/
 
+label{
+    margin-top: 1em;
+}
+.opciones_Upload{
+    margin: 12em 0;
+}
 .icon_articulos_u{
     color: #018D4E;
     margin-right: 0.3em;

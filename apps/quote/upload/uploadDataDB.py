@@ -6,7 +6,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 def uploadXlsxCategories(documentName):
-    documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
+    documentLocation = f'http://127.0.0.1:8000/Documents/uploadedDocuments/{documentName}'
     #documentLocation = f'http://127.0.0.1:8000/Documents/{documentName}'
     #print(f"localización ❤ {documentLocation}")
     #documentLocation = 'C:/Users/nixon/Desktop/PruebaCate.xlsx'
@@ -30,7 +30,7 @@ def uploadXlsxCategories(documentName):
     #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
 
 def uploadXlsxSuppliers(documentName):
-    documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
+    documentLocation = f'http://127.0.0.1:8000/Documents/uploadedDocuments/{documentName}'
     db = "quote_local"
     table = "suppliers"
     path = documentLocation
@@ -49,7 +49,7 @@ def uploadXlsxSuppliers(documentName):
 
 
 def uploadXlsxProducts(documentName):
-    documentLocation = f'http://127.0.0.1:8000/Documents/productsFiles/{documentName}'
+    documentLocation = f'http://127.0.0.1:8000/Documents/uploadedDocuments/{documentName}'
     db = "quote_local"
     table = "product"
     path = documentLocation
@@ -61,11 +61,32 @@ def uploadXlsxProducts(documentName):
     df = pd.read_excel(path)
 
     print(f"okas {path}")
-
-    df.to_sql(name = table, con = engine, if_exists='append', index=False)
+    
+    try:
+        df.to_sql(name = table, con = engine, if_exists='append', index=False)
+    except Exception as e:
+        print(e)
     #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
 
 
+def uploadXlsxUsers(documentName):
+    documentLocation = f'http://127.0.0.1:8000/Documents/uploadedDocuments/{documentName}'
+    db = "quote_local"
+    table = "users"
+    path = documentLocation
+    #local
+    #url = f"mysql+mysqldb://root:@localhost:3306/"
+    url = f"mysql+mysqldb://root:123.123.123.@localhost:3306/"
+    engine = create_engine(url + db, echo=False)
+
+    df = pd.read_excel(path)
+
+    print(f"okas {path}")
+    try:
+        df.to_sql(name = table, con = engine, if_exists='append', index=False)
+    except Exception as e:
+        print(e)
+    #pagina para configuración ssl https://docs.microsoft.com/en-us/azure/mysql/howto-configure-ssl
 
 
 

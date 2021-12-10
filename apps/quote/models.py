@@ -1,4 +1,5 @@
 
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.forms.widgets import Media
@@ -6,6 +7,12 @@ from django.forms.widgets import Media
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token """
+
+#Para fecha autoincrementable
+class AutoDateTimeField(models.DateTimeField):
+    def pre_save(self, model_instance, add):
+        return timezone.now()
+
 
 ####################################################################################
 #############                     Modelos Iniciales                #################
@@ -87,7 +94,7 @@ class Users(AbstractUser):
     gender = models.CharField(db_column='GENDER', max_length=1, null=False, blank=False, choices=gender_options)  # Field name made lowercase.
     born_date = models.DateTimeField(db_column='BORN_DATE')  # Field name made lowercase.
     landline = models.CharField(db_column='LANDLINE', max_length=15, blank=True, null=True)  # Field name made lowercase.
-    mobile_phone = models.CharField(db_column='MOVILE_PHONE', max_length=15)  # Field name made lowercase.
+    mobile_phone = models.CharField(db_column='MOBILE_PHONE', max_length=15)  # Field name made lowercase.
     city = models.CharField(db_column='CITY', max_length=100)  # Field name made lowercase.
     province = models.CharField(db_column='PROVINCE', max_length=100)  # Field name made lowercase.
     country = models.CharField(db_column='COUNTRY', max_length=100)  # Field name made lowercase.
@@ -110,8 +117,8 @@ class Product(models.Model):
     price = models.DecimalField(db_column='PRICE', max_digits=12, decimal_places=2)  # Precio del producto
     brand = models.CharField(db_column='BRAND', max_length=100, blank=True, null=True)  # marca
     availability = models.IntegerField(db_column='AVAILABILITY', blank=True, null=True)  # Tiempo que demora en tenerse el producto a disposición
-    registration_date = models.DateTimeField(db_column='REGISTRATION_DATE',auto_now_add=True)  # última fecha de modificación del producto
-    last_modified = models.DateTimeField(db_column='LAST_MODIFIED',auto_now=True) 
+    registration_date = models.DateTimeField(db_column='REGISTRATION_DATE', auto_now_add=True)  # última fecha de modificación del producto
+    last_modified = AutoDateTimeField(db_column='LAST_MODIFIED', auto_now=True) 
     #Añado estas tres para poder hacer distinct
     brand_vehicle = models.CharField(db_column='BRAND_VEHICLE', max_length=100, blank=True, null=True)
     model_vehicle = models.CharField(db_column='MODEL_VEHICLE', max_length=100, blank=True, null=True)

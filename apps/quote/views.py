@@ -296,14 +296,14 @@ class finalizarCotizacion(TemplateView):
         #print(f"A ver vea 😍-> {selectedProducts} y el tipo {type(selectedProducts)}")
         i=0
         print(dataFromArray)
+        
         #dataFromArray.pop(0)
         for x in dataFromArray:
             dataFromArray[i]=int(x)
             i+=1
         
         #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
-        selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        print(f"😍 ->{selectedProducts['price']}")
+        
     #context_object_name= 'productos'
     #queryset= Product.objects.all()
     def post(self, request):
@@ -322,17 +322,25 @@ class finalizarCotizacion(TemplateView):
             dataFromArray[i]=int(x)
             i+=1
         
-        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
         selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        totalQuote = 0
+        for x in selectedProducts:
+            totalQuote += x.price
+
+        print(f"los precios 😍 ->{selectedProducts[0].price}")
+        #print(f"A ver vea -> {dataFromArray[0]} y el tipo {type(dataFromArray[0])}")
         #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
         #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
-        print(selectedProducts)
+        #selectedProducts = Product.objects.filter(id_product__in=dataFromArray)
+        #print(selectedProducts)
         #ctx = {'status':'Datos recibidos con éxito','selectedProducts': selectedProducts}
         response = Response()
-        response.data = {
-            'status':True
+        
+        ctx = {
+            'selectedProducts': selectedProducts, 
+            'productsToSave':valueInput,
+            'totalQuote':totalQuote
         }
-        ctx = {'selectedProducts': selectedProducts, 'productsToSave':valueInput}
         response = render(request, "./quote/html/sectionQuoteElements.html", ctx)
         return response
 
@@ -673,10 +681,10 @@ class uploadDocument(TemplateView, APIView):
         return render(request, "./quote/html/login.html", {'showalert':True})
         
     def post(self, request):
-        typeDoc = request.POST.get('typeD')
+        typeDoc = request.POST.get('tp')
         name = request.POST.get('name')
         description = request.POST.get('description')
-        file = request.FILES['file']
+        file = request.FILES['uploadedFile']
         body ={
             'name_file': name,
             'description_file': description,
@@ -685,6 +693,7 @@ class uploadDocument(TemplateView, APIView):
         response = Response()
         serializer = uploadedFilesSerializer(data=body)
         print(f"aqui mismo --> {serializer}")
+        print(f"😍 mismo {type(typeDoc)}--> {typeDoc}")
         if serializer.is_valid():
             #response = redirect('quo:uploadDocument')
             response.data = {
@@ -692,18 +701,26 @@ class uploadDocument(TemplateView, APIView):
             }
             try:
                 if typeDoc=='1':
+                    print("entro al tipo")
                     serializer.save()
-                    uploadDataDB.uploadXlsxCategories(file)
+                    print("guardó")
+                    uploadDataDB.uploadXlsxProducts(file)
+                    print("cargó")
                     response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
                     return response
-                elif typeDoc=='2':
+                if typeDoc=='2':
+                    serializer.save()
+                    uploadDataDB.uploadXlsxUsers(file)
+                    response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
+                    return response
+                if typeDoc=='3':
                     serializer.save()
                     uploadDataDB.uploadXlsxSuppliers(file)
                     response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
                     return response
-                elif typeDoc=='3':
+                if typeDoc=='4':
                     serializer.save()
-                    uploadDataDB.uploadXlsxProducts(file)
+                    uploadDataDB.uploadXlsxCategories(file)
                     response = render(request, "./quote/html/sections/sectionUploadDocument.html", {'success': True})
                     return response
             except:

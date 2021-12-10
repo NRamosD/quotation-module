@@ -3,39 +3,196 @@
 {% block title %}Cargar documento{% endblock %}
 {% block content %}
 
+<nav id="titulo">Subir Documento</nav>
 
-<body>
-    <nav id="titulo">Subir Documento</nav>
-    <div id="UploadDoc">
-        <h4>Cargar documento en formato Excel </h4>        
-        <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
-            data-post-url="{% url 'quo:uploadDocument' %}">
-            {% csrf_token %}
-            <label for="name_pfiles">Nombre del archivo</label>
-            <input type="text" name="name_pfiles" id="name_pfiles">
-            <label for="productfile">Archivo a subir</label>
-            <input type="file" name="productfile" id="productfile">
-            <input id="BtnSubir" type="submit" value="Subir documento">
-        </form>
-    </div>
-    
-    {% if success %}
-    <div class="alert-succes" id="alert-succes">
-        <div class="text-alert">
-            <b>Documento cargado exitosamente</b>
-        </div>
-        <button onclick="removeAlertUpload()" id="btn-succes">OK</button>
-    </div>
-    {% elif success == False %}
-    <div class="alert-problem" id="alert-problem">
-        <div class="text-alert">
-            <b>Ocurrió un problema al cargar el documento</b>
-        </div>
-        <button onclick="removeAlertUploadProblem()" id="btn-problem">OK</button>
-    </div>
-    {% endif %}
-</body>
+<link rel="stylesheet" href="{% static 'css/Loading.css'%}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/UploadT.css'%}">
 
-</html>
+
+<div class="contenedor_loader">
+    <div class="loader"></div>
+</div>
+
+<script src="{% static 'scripts/loader.js'%}"></script>
+
+{% if success %}
+<div class="alert-succes" id="alert-succes">
+    <div class="text-alert">
+        <b>Documento cargado exitosamente</b>
+    </div>
+    <button onclick="removeAlertUpload()" id="btn-succes">OK</button>
+</div>
+{% elif success == False %}
+<div class="alert-problem" id="alert-problem">
+    <div class="text-alert">
+        <b>Ocurrió un problema al cargar el documento</b>
+    </div>
+    <button onclick="removeAlertUploadProblem()" id="btn-problem">OK</button>
+</div>
+{% endif %}
+
+
+
+<div class="opciones_Upload" >
+    <a href="#" id="primera-op-ref" data-bs-toggle="modal" data-bs-target="#productModal">
+        <nav id="primera-op" >
+            <h1 id="p_titulo_u">Productos<i class="fas fa-cogs icon_articulos_u"></i></h1>
+            <footer id="p_footer_u"> Acceder  <i class="fas fa-arrow-circle-right icon_acceder_u"></i></footer>
+            <a href="/Documents/modeloproducto.xlsx" class="linkplantilla">Plantilla de carga Productos</a>
+        </nav>
+    </a>
+
+    <!-- <a href="#" id="segunda-op-ref">
+        <nav id="segunda-op" data-bs-toggle="modal" data-bs-target="#userModal">
+            <h1 id="s_titulo_u">Usuarios<i class="fas fa-users-cog icon_usuarios_u"></i></h1>
+            <footer id="s_footer_u"> Acceder  <i class="fas fa-arrow-circle-right icon_acceder_u"></i></footer>
+            <a href="/Documents/modeluser.xlsx" class="linkplantilla">Plantilla de carga Usuarios</a>
+        </nav>
+    </a> -->
+
+    <a href="#" id="tercera-op-ref">
+        <nav id="tercera-op" data-bs-toggle="modal" data-bs-target="#supplierModal">
+            <h1 id="t_titulo_u">Proveedores<i class="fas fa-industry icon_proveedores_u"></i></h1>
+            <footer id="t_footer_u"> Acceder  <i class="fas fa-arrow-circle-right icon_acceder_u"></i></footer>
+            <a href="/Documents/modeloproveedor.xlsx" class="linkplantilla">Plantilla de carga Proveedores</a>
+        </nav>
+    </a>
+
+    <a href="#" id="cuarta-op-ref">
+        <nav id="cuarta-op" data-bs-toggle="modal" data-bs-target="#categoryModal">
+            <h1 id="c_titulo_u">Categorias<i class="fas fa-list-ul icon_categorias_u"></i></h1>
+            <footer id="c_footer_u"> Acceder  <i class="fas fa-arrow-circle-right icon_acceder_u"></i></footer>
+            <a href="/Documents/modelocategoria.xlsx" class="linkplantilla">Plantilla de carga Categorias</a>
+        </nav>
+    </a>
+</div>
+
+<!-- ------------------------------------------------------------------- 
+    Productos 
+------------------------------------------------------------------------- -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Documento Excel para Productos</h5>
+        </div>
+        <div class="modal-body">
+            <div id="UploadDoc">
+                <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+                    data-post-url="{% url 'quo:uploadDocument' %}">
+                    {% csrf_token %}
+                    <input type="text" name="tp" id="tp" value="1" hidden>
+                    <label for="name">Nombre del archivo</label>
+                    <input class="form-control" type="text" name="name" id="name" required>
+                    <label for="description">Descripción</label>
+                    <input class="form-control" type="text" name="description" id="description">
+                    <label for="uploadedFile">Archivo</label>
+                    <input type="file" name="uploadedFile" id="uploadedFile" accept=".xlsx" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Subir documento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- ------------------------------------------------------------------- 
+    Usuarios 
+------------------------------------------------------------------------- -->
+<!-- <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Documento Excel para Usuarios</h5>
+        </div>
+        <div class="modal-body">
+            <div id="UploadDoc">
+                <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+                    data-post-url="">
+                    <input type="text" name="tp" id="tp" value="2" hidden >
+                    <label for="name">Nombre del archivo</label>
+                    <input class="form-control" type="text" name="name" id="name" required>
+                    <label for="description">Descripción</label>
+                    <input class="form-control" type="text" name="description" id="description">
+                    <label for="uploadedFile">Archivo</label>
+                    <input type="file" name="uploadedFile" id="uploadedFile" accept=".xlsx" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Subir documento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- ------------------------------------------------------------------- 
+    Proveedores 
+------------------------------------------------------------------------- -->
+<div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Documento Excel para Proveedores</h5>
+        </div>
+        <div class="modal-body">
+            <div id="UploadDoc">
+                <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+                    data-post-url="{% url 'quo:uploadDocument' %}">
+                    {% csrf_token %}
+                    <input type="text" name="tp" id="tp" value="3" hidden >
+                    <label for="name">Nombre del archivo</label>
+                    <input class="form-control" type="text" name="name" id="name" required>
+                    <label for="description">Descripción</label>
+                    <input class="form-control" type="text" name="description" id="description">
+                    <label for="uploadedFile">Archivo</label>
+                    <input type="file" name="uploadedFile" id="uploadedFile" accept=".xlsx" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Subir documento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
+<!-- ------------------------------------------------------------------- 
+    Categorías 
+------------------------------------------------------------------------- -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Documento Excel para Categorias</h5>
+        </div>
+        <div class="modal-body">
+            <div id="UploadDoc">
+                <form action="" method="POST" enctype="multipart/form-data" id="uploadExcel"
+                    data-post-url="{% url 'quo:uploadDocument' %}">
+                    {% csrf_token %}
+                    <input type="text" name="tp" id="tp" value="4" hidden >
+                    <label for="name">Nombre del archivo</label>
+                    <input class="form-control" type="text" name="name" id="name" required>
+                    <label for="description">Descripción</label>
+                    <input class="form-control" type="text" name="description" id="description">
+                    <label for="uploadedFile">Archivo</label>
+                    <input type="file" name="uploadedFile" id="uploadedFile" accept=".xlsx" required>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Subir documento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+
 
 {% endblock %}

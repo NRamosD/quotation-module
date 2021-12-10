@@ -14,7 +14,7 @@
   <div>
     <div>Elementos de Cotización</div>
     <div id="totalValue">
-      <div class="tV">$<span>0.0</span></div>
+      <div class="tV">$<span>{{totalQuote}}</span></div>
       <div class="tV tVtext">Valor Total</div>
     </div>
   </div>
@@ -41,7 +41,7 @@
                     <td>{{ p.description }}</td>
                     <td>{{ p.price }}</td>
                     <td>{{ p.brand }}</td>
-                    <td><button  class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td>
+                    <!-- <td><button disabled class="button_delete"><i id="pop" class="fas fa-times" ></i></button></td> -->
                 </tr>
             {% endfor %}
         </tbody>
