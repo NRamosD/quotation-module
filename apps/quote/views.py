@@ -751,6 +751,15 @@ class Reports(TemplateView):
         logout(request)
         return render(request, "./quote/html/login.html", {'showalert':True})
     def post (self, request):
+        if request.POST['download']=='dQR':
+            selectedQuote = qDetails.objects.all()
+            #print(f"tupla -> {a[0].first_name}")
+            predefined.reportQuote(selectedQuote)
+            response = Response()
+            response = redirect('http://127.0.0.1:8000/Documents/ReporteUsuarios.pdf')
+            return response
+
+
         if request.POST['download']=='dUR':
             allUsers = Users.objects.all()
             #print(f"tupla -> {a[0].first_name}")

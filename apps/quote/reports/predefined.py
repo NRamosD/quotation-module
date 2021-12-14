@@ -42,6 +42,70 @@ pdf.image('logo.png',
 pdf.output('hoja.pdf', 'F')"""
 
 #PARA ESTILOS https://github.com/ALEX7320/guia-pdf-python/tree/master/9%20Establecer%20estilos
+
+def reportQuote(allUsers):
+        # datos para usar
+        usersList = []
+        for x in allUsers:
+                #                 cédula,    nombre,        apellido,   correo,    celular,      ciudad
+                usersList.append((x.id_card, x.first_name, x.last_name, x.email, x.mobile_phone, x.city))
+
+        dataInTuple = tuple(usersList)
+
+        pdf = FPDF(orientation = 'P', unit = 'mm', format='A4') 
+        pdf.add_page()
+
+        # TEXTO
+        pdf.set_font('Arial', '', 15)
+
+        # titulo
+        pdf.cell(w = 0, h = 15, txt = 'Reporte de Usuarios', border = 1, ln=1,
+                align = 'C', fill = 0)
+
+
+        # TEXTO
+        pdf.set_font('Arial', '', 12)
+        # encabezado cédula,    nombre,        apellido,   correo,    celular,      ciudad
+        pdf.cell(w = 30, h = 10, txt = 'Cédula', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 35, h = 10, txt = 'Nombres', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 35, h = 10, txt = 'Apellidos', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 35, h = 10, txt = 'Correo', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.cell(w = 30, h = 10, txt = 'Celular', border = 1,
+                align = 'C', fill = 0)
+
+        pdf.multi_cell(w = 0, h = 10, txt = 'Ciudad', border = 1,
+                align = 'C', fill = 0)
+
+        
+        # TEXTO
+        pdf.set_font('Arial', '', 8)
+        # valores
+        for valor in dataInTuple:
+                pdf.cell(w = 30, h = 7, txt = str(valor[0]), border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 35, h = 7, txt = valor[1], border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 35, h = 7, txt = valor[2], border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 35, h = 7, txt = valor[3], border = 1, align = 'C', fill = 0)
+                pdf.cell(w = 30, h = 7, txt = valor[4], border = 1, align = 'C', fill = 0)
+                pdf.multi_cell(w = 0, h = 7, txt = valor[5], border = 1, align = 'C', fill = 0)
+
+        #elDato = pdf.output('hoja.pdf','D')
+        #print(f"plano  -> {elDato}")
+        #print(f'el tipo {type(elDato)}')
+        pdf.output(f'./files/ReporteCotizacion.pdf','F')
+
+
+
+
+
+
 def reportUser(allUsers):
         # datos para usar
         usersList = []

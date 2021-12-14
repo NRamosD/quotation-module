@@ -362,11 +362,13 @@ $(".changeInPage").click(function(){
 //Envío de datos
 $(function () {
     $("#saveDataQuote").click(function(e){
+        //2021-11-29T02:06:51.161934Z   "id_quote": 1,
+        let total = document.getElementById('tValue').innerHTML
         let dataQuote={
             "id_quote": 1,
             "description": eleDataQuote.value,
             "date": "2021-11-29T02:06:51.161934Z",
-            "total": "245.35"
+            "total": total
         }
         function getCookie(name) {
             let cookieValue = null;
@@ -410,7 +412,6 @@ $(function () {
         });
     });
 });
-
 
 $(function () {
     $("#saveDataQuote").click(function(e){

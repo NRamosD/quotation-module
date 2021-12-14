@@ -1,6 +1,12 @@
 #body_reportes{
     background-color: #EDF1F5;
 }
+
+ol{
+    height: 13.5em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 #titulo{
     background-color: #12192C;
     color: white;
@@ -37,7 +43,7 @@
 }
 #listado_tp{
     background-color: white;
-    width: 38.5em;
+    width: 38em;
     border-radius: 5px 5px 5px 5px;
     height: 4em;
     margin-bottom: 0.5em;
